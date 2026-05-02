@@ -1,0 +1,12 @@
+node_modules/
+.env
+.DS_Store
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Test and scratchpad scripts (do not push to repo)
+test_db.js
+test_email.js
+fix_passwords.js
