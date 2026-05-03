@@ -7,7 +7,8 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 
 router.use(verifyToken);
 
-router.route('/')
+router
+    .route('/')
     .get(asyncHandler(evaluationsController.getEvaluations))
     .post(restrictTo('Faculty'), asyncHandler(evaluationsController.createEvaluation));
 
@@ -15,9 +16,14 @@ router.get('/statuses', asyncHandler(evaluationsController.getEvaluationStatuses
 
 router.get('/submission/:submission_id', asyncHandler(evaluationsController.getEvaluationBySubmission));
 
-router.get('/faculty/:faculty_id', restrictTo('Admin', 'Faculty'), asyncHandler(evaluationsController.getEvaluationsByFaculty));
+router.get(
+    '/faculty/:faculty_id',
+    restrictTo('Admin', 'Faculty'),
+    asyncHandler(evaluationsController.getEvaluationsByFaculty),
+);
 
-router.route('/:evaluation_id')
+router
+    .route('/:evaluation_id')
     .get(asyncHandler(evaluationsController.getEvaluationDetails))
     .put(restrictTo('Faculty', 'Admin'), asyncHandler(evaluationsController.updateEvaluation));
 

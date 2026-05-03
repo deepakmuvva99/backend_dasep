@@ -19,7 +19,7 @@ class AssignmentsService {
         const filters = {
             faculty_id: query.faculty_id || null,
             subject_id: query.subject_id || null,
-            class_id: query.class_id || null
+            class_id: query.class_id || null,
         };
         return await assignmentsModel.getAssignments(filters, pagination, sorting);
     }
@@ -45,7 +45,7 @@ class AssignmentsService {
         }
 
         const exact = await assignmentsModel.findExactDuplicate(data.faculty_id, data.subject_id, data.class_id);
-        if (exact && exact.assignment_id !== parseInt(assignmentId)) {
+        if (exact && exact.assignment_id !== Number.parseInt(assignmentId)) {
             const error = new Error('Faculty is already assigned to this class and subject in another record');
             error.statusCode = 409;
             error.code = 'CONFLICT';

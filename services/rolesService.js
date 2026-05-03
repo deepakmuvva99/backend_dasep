@@ -9,7 +9,7 @@ class RolesService {
             error.code = 'CONFLICT';
             throw error;
         }
-        
+
         const roleId = await rolesModel.createRole(name);
         return { role_id: roleId, name: name };
     }

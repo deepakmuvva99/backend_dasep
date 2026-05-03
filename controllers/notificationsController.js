@@ -41,7 +41,9 @@ exports.deleteNotification = async (req, res) => {
 exports.createNotification = async (req, res) => {
     const { user_id, entity_type, entity_id, message } = req.body;
     if (!user_id || !message) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required fields' }});
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required fields' } });
     }
     const result = await notificationsService.createNotification({ user_id, entity_type, entity_id, message });
     return successResponse(res, { notification_id: result }, 201);

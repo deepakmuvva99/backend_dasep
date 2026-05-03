@@ -45,7 +45,7 @@ class AnnotationsService {
     async updateAnnotation(annotationId, annotationData, userContext) {
         const annotation = await this.getAnnotationDetails(annotationId);
         const currentFacultyId = await profileHelper.getProfileId(userContext.user_id, userContext.role);
-        
+
         // Ownership Check (Security)
         if (userContext.role !== 'Admin' && annotation.created_by_faculty_id !== currentFacultyId) {
             const error = new Error('Cannot edit another users annotation');

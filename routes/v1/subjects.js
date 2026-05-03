@@ -8,13 +8,15 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 // Route safeguards
 router.use(verifyToken);
 
-router.route('/')
+router
+    .route('/')
     .get(restrictTo('Admin', 'Faculty'), asyncHandler(subjectsController.getSubjects))
     .post(restrictTo('Admin'), asyncHandler(subjectsController.createSubject));
 
 router.get('/lookup', asyncHandler(subjectsController.getSubjectsLookup));
 
-router.route('/:subject_id')
+router
+    .route('/:subject_id')
     .get(restrictTo('Admin', 'Faculty'), asyncHandler(subjectsController.getSubjectDetails))
     .put(restrictTo('Admin'), asyncHandler(subjectsController.updateSubject))
     .delete(restrictTo('Admin'), asyncHandler(subjectsController.deleteSubject));

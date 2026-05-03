@@ -5,16 +5,18 @@ const { parseSorting } = require('../utils/sorting');
 
 exports.createEvaluation = async (req, res) => {
     const { submission_id, marks_awarded, max_marks, remarks, status_id } = req.body;
-    
+
     if (!submission_id || marks_awarded === undefined || !max_marks || !status_id) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required evaluation fields' }});
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required evaluation fields' } });
     }
 
-    const userContext = req.user; 
+    const userContext = req.user;
 
     const newEvaluation = await evaluationsService.createEvaluation(
-        { submission_id, marks_awarded, max_marks, remarks, status_id }, 
-        userContext
+        { submission_id, marks_awarded, max_marks, remarks, status_id },
+        userContext,
     );
 
     return successResponse(res, newEvaluation, 201);
@@ -39,9 +41,17 @@ exports.getEvaluationDetails = async (req, res) => {
 
 exports.updateEvaluation = async (req, res) => {
     const { marks_awarded, max_marks, remarks, status_id } = req.body;
-    const updated = await evaluationsService.updateEvaluation(req.params.evaluation_id, {
-        marks_awarded, max_marks, remarks, status_id
-    });
+    const actorId = req.user.user_id;
+    const updated = await evaluationsService.updateEvaluation(
+        req.params.evaluation_id,
+        {
+            marks_awarded,
+            max_marks,
+            remarks,
+            status_id,
+        },
+        actorId,
+    );
     return successResponse(res, updated);
 };
 
@@ -57,7 +67,11 @@ exports.getEvaluationBySubmission = async (req, res) => {
 
 exports.getEvaluationsByFaculty = async (req, res) => {
     const pagination = parsePagination(req.query);
-    const { rows, total } = await evaluationsService.getEvaluationsByFaculty(req.params.faculty_id, pagination, req.query);
+    const { rows, total } = await evaluationsService.getEvaluationsByFaculty(
+        req.params.faculty_id,
+        pagination,
+        req.query,
+    );
     const meta = buildPaginationMeta(total, pagination.page, pagination.limit);
     return successListResponse(res, rows, meta);
 };

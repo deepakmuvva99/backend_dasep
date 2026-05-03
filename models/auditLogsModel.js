@@ -6,13 +6,13 @@ class AuditLogsModel {
             `INSERT INTO audit_logs (entity_type, entity_id, field_name, old_value, new_value, changed_by_user_id, changed_at)
              VALUES (?, ?, ?, ?, ?, ?, NOW())`,
             [
-                data.entity_type, 
-                data.entity_id, 
-                data.field_name || null, 
-                data.old_value || null, 
-                data.new_value || null, 
-                data.changed_by_user_id
-            ]
+                data.entity_type,
+                data.entity_id,
+                data.field_name || null,
+                data.old_value || null,
+                data.new_value || null,
+                data.changed_by_user_id,
+            ],
         );
         return result.insertId;
     }
@@ -65,7 +65,7 @@ class AuditLogsModel {
     async findById(auditLogId) {
         const [rows] = await db.execute(
             `SELECT a.*, a.audit_log_id as id, u.name as user_name FROM audit_logs a JOIN users u ON a.changed_by_user_id = u.user_id WHERE a.audit_log_id = ?`,
-            [auditLogId]
+            [auditLogId],
         );
         return rows[0];
     }
@@ -73,7 +73,7 @@ class AuditLogsModel {
     async getByEntity(entityType, entityId) {
         const [rows] = await db.execute(
             `SELECT a.*, u.name as user_name FROM audit_logs a JOIN users u ON a.changed_by_user_id = u.user_id WHERE a.entity_type = ? AND a.entity_id = ? ORDER BY a.changed_at DESC`,
-            [entityType, entityId]
+            [entityType, entityId],
         );
         return rows;
     }

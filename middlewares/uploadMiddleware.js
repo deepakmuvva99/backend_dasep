@@ -10,8 +10,8 @@ const storage = multer.memoryStorage();
 const upload = multer({
     storage: storage,
     limits: {
-        fileSize: 10 * 1024 * 1024 // 10 MB limit, adjust as needed
-    }
+        fileSize: 10 * 1024 * 1024, // 10 MB limit, adjust as needed
+    },
 });
 
 // Export a middleware function for single file uploads
@@ -27,5 +27,5 @@ const uploadMultiple = (fieldName, maxCount) => {
 module.exports = {
     upload,
     uploadSingle,
-    uploadMultiple
+    uploadMultiple,
 };

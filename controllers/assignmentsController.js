@@ -6,7 +6,7 @@ const { parseSorting } = require('../utils/sorting');
 exports.createAssignment = async (req, res) => {
     const { faculty_id, subject_id, class_id } = req.body;
     if (!faculty_id || !subject_id || !class_id) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing fields' }});
+        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing fields' } });
     }
 
     const assignment = await assignmentsService.createAssignment({ faculty_id, subject_id, class_id });
@@ -34,7 +34,7 @@ exports.updateAssignment = async (req, res) => {
     const data = {
         faculty_id: req.body.faculty_id,
         subject_id: req.body.subject_id,
-        class_id: req.body.class_id
+        class_id: req.body.class_id,
     };
 
     const updated = await assignmentsService.updateAssignment(assignmentId, data);

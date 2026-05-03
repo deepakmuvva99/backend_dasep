@@ -5,9 +5,11 @@ const { parseSorting } = require('../utils/sorting');
 
 exports.createDocument = async (req, res) => {
     const { submission_id, title } = req.body;
-    
+
     if (!submission_id || !title) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing submission_id or title' }});
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing submission_id or title' } });
     }
 
     const document = await documentsService.createDocument({ submission_id, title });

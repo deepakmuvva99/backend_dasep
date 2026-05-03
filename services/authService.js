@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const authModel = require('../models/authModel');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'development_super_secret_temporary_key';
@@ -33,12 +33,10 @@ class AuthService {
         const payload = {
             user_id: user.user_id,
             role: primaryRole,
-            jti: jti
+            jti: jti,
         };
 
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '8h' });
-        const decoded = jwt.decode(token);
-        const expiresAt = new Date(decoded.exp * 1000);
 
         // 5. Manage Sessions (Enforce Single Session)
         await authModel.disableOtherSessions(user.user_id);
@@ -52,23 +50,24 @@ class AuthService {
             user: {
                 user_id: user.user_id,
                 name: user.name,
-                role: primaryRole
-            }
+                role: primaryRole,
+            },
         };
     }
 
     async logout(token) {
-        if (!token) return true;
+        if (!token) return false;
         const pureToken = token.replace('Bearer ', '');
         try {
             const decoded = jwt.decode(pureToken);
-            if (decoded && decoded.jti) {
+            if (decoded?.jti) {
                 const expiresAt = new Date(decoded.exp * 1000);
                 await authModel.blacklistToken(decoded.jti, decoded.user_id, expiresAt);
                 await authModel.disableOtherSessions(decoded.user_id);
             }
         } catch (err) {
-            console.error('Logout decode ignore', err);
+            console.error('Logout error:', err);
+            return false;
         }
         return true;
     }

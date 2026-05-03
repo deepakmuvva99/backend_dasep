@@ -5,7 +5,7 @@ class ExamSchedulesModel {
         const [result] = await db.execute(
             `INSERT INTO EXAM_SCHEDULES (title, class_id, subject_id, exam_datetime, created_by_user_id, created_at)
              VALUES (?, ?, ?, ?, ?, NOW())`,
-            [data.title, data.class_id, data.subject_id, data.exam_datetime, createdByUserId]
+            [data.title, data.class_id, data.subject_id, data.exam_datetime, createdByUserId],
         );
         return result.insertId;
     }
@@ -39,11 +39,16 @@ class ExamSchedulesModel {
         const [countRows] = await db.execute(countQuery, params);
         const total = countRows[0].total;
 
-        let sortAlias = `es.exam_datetime`; // default
-        if (sorting.sort_by === 'title') sortAlias = `es.title`;
-        if (sorting.sort_by === 'created_at') sortAlias = `es.created_at`;
+        // Explicit mapping to prevent SQL Injection
+        const sortColumnMap = {
+            exam_datetime: 'es.exam_datetime',
+            title: 'es.title',
+            created_at: 'es.created_at',
+        };
+        const sortColumn = sortColumnMap[sorting.sort_by] || 'es.exam_datetime';
+        const sortOrder = sorting.order && sorting.order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
 
-        query += ` ORDER BY ${sortAlias} ${sorting.order} LIMIT ? OFFSET ?`;
+        query += ` ORDER BY ${sortColumn} ${sortOrder} LIMIT ? OFFSET ?`;
         params.push(pagination.limit, pagination.offset);
 
         const [rows] = await db.query(query, params);
@@ -57,7 +62,7 @@ class ExamSchedulesModel {
              JOIN CLASSES c ON es.class_id = c.class_id
              JOIN SUBJECTS s ON es.subject_id = s.subject_id
              WHERE es.exam_schedule_id = ?`,
-            [scheduleId]
+            [scheduleId],
         );
         return rows[0];
     }
@@ -65,16 +70,13 @@ class ExamSchedulesModel {
     async updateSchedule(scheduleId, data) {
         const [result] = await db.execute(
             `UPDATE EXAM_SCHEDULES SET title = ?, exam_datetime = ? WHERE exam_schedule_id = ?`,
-            [data.title, data.exam_datetime, scheduleId]
+            [data.title, data.exam_datetime, scheduleId],
         );
         return result.affectedRows;
     }
 
     async deleteSchedule(scheduleId) {
-        const [result] = await db.execute(
-            `DELETE FROM EXAM_SCHEDULES WHERE exam_schedule_id = ?`,
-            [scheduleId]
-        );
+        const [result] = await db.execute(`DELETE FROM EXAM_SCHEDULES WHERE exam_schedule_id = ?`, [scheduleId]);
         return result.affectedRows;
     }
 }

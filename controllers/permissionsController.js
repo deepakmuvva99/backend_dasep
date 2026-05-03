@@ -5,7 +5,7 @@ const { parseSorting } = require('../utils/sorting');
 
 exports.getAllPermissions = async (req, res) => {
     const filters = {
-        search: req.query.search
+        search: req.query.search,
     };
     const pagination = parsePagination(req.query);
     const sorting = parseSorting(req.query, ['permission_id', 'name', 'created_at'], 'permission_id');

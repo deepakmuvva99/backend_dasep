@@ -7,9 +7,11 @@ class NotificationsService {
     }
 
     async getMyNotifications(userId, pagination, query) {
-        const filters = {
-            is_read: query.is_read === 'true' ? true : (query.is_read === 'false' ? false : undefined)
-        };
+        let isRead;
+        if (query.is_read === 'true') isRead = true;
+        else if (query.is_read === 'false') isRead = false;
+
+        const filters = { is_read: isRead };
         return await notificationsModel.getNotifications(userId, pagination, filters);
     }
 

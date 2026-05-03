@@ -5,7 +5,7 @@ class AssignmentsModel {
         const [result] = await db.execute(
             `INSERT INTO FACULTY_CLASS_SUBJECT_ASSIGNMENTS (faculty_id, subject_id, class_id, assigned_at) 
              VALUES (?, ?, ?, NOW())`,
-            [facultyId, subjectId, classId]
+            [facultyId, subjectId, classId],
         );
         return result.insertId;
     }
@@ -45,12 +45,16 @@ class AssignmentsModel {
         const [countRows] = await db.execute(countQuery, params);
         const total = countRows[0].total;
 
-        // Custom sort resolution
-        let sortAlias = `a.assigned_at`;
-        if (sorting.sort_by === 'faculty_name') sortAlias = `u.name`;
-        if (sorting.sort_by === 'subject_name') sortAlias = `s.name`;
+        // Explicit mapping to prevent SQL Injection
+        const sortColumnMap = {
+            faculty_name: 'u.name',
+            subject_name: 's.name',
+            assigned_at: 'a.assigned_at',
+        };
+        const sortColumn = sortColumnMap[sorting.sort_by] || 'a.assigned_at';
+        const sortOrder = sorting.order && sorting.order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
 
-        query += ` ORDER BY ${sortAlias} ${sorting.order} LIMIT ? OFFSET ?`;
+        query += ` ORDER BY ${sortColumn} ${sortOrder} LIMIT ? OFFSET ?`;
         params.push(pagination.limit, pagination.offset);
 
         const [rows] = await db.query(query, params);
@@ -66,7 +70,7 @@ class AssignmentsModel {
              JOIN SUBJECTS s ON a.subject_id = s.subject_id
              JOIN CLASSES c ON a.class_id = c.class_id
              WHERE a.assignment_id = ?`,
-            [assignmentId]
+            [assignmentId],
         );
         return rows[0];
     }
@@ -75,7 +79,7 @@ class AssignmentsModel {
         const [rows] = await db.execute(
             `SELECT assignment_id FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS 
              WHERE faculty_id = ? AND subject_id = ? AND class_id = ?`,
-            [facultyId, subjectId, classId]
+            [facultyId, subjectId, classId],
         );
         return rows[0];
     }
@@ -83,16 +87,15 @@ class AssignmentsModel {
     async updateAssignment(assignmentId, data) {
         const [result] = await db.execute(
             `UPDATE FACULTY_CLASS_SUBJECT_ASSIGNMENTS SET faculty_id = ?, subject_id = ?, class_id = ? WHERE assignment_id = ?`,
-            [data.faculty_id, data.subject_id, data.class_id, assignmentId]
+            [data.faculty_id, data.subject_id, data.class_id, assignmentId],
         );
         return result.affectedRows;
     }
 
     async deleteAssignment(assignmentId) {
-        const [result] = await db.execute(
-            `DELETE FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS WHERE assignment_id = ?`,
-            [assignmentId]
-        );
+        const [result] = await db.execute(`DELETE FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS WHERE assignment_id = ?`, [
+            assignmentId,
+        ]);
         return result.affectedRows;
     }
 }

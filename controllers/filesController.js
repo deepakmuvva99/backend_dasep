@@ -8,14 +8,24 @@ exports.getFileTypes = async (req, res) => {
 };
 
 exports.uploadFile = async (req, res) => {
-    const { document_id, original_file_name, mime_type, file_size_kb, file_type_id, blob_name, container_name, etag } = req.body;
-    
+    const { document_id, original_file_name, mime_type, file_size_kb, file_type_id, blob_name, container_name, etag } =
+        req.body;
+
     if (!document_id || !original_file_name || !blob_name || !container_name) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required upload fields' }});
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required upload fields' } });
     }
 
     const result = await filesService.uploadNewFile({
-        document_id, original_file_name, mime_type, file_size_kb, file_type_id, blob_name, container_name, etag
+        document_id,
+        original_file_name,
+        mime_type,
+        file_size_kb,
+        file_type_id,
+        blob_name,
+        container_name,
+        etag,
     });
 
     return successResponse(res, result, 201);
@@ -26,7 +36,9 @@ exports.uploadVersion = async (req, res) => {
     const { blob_name, container_name, etag } = req.body;
 
     if (!blob_name || !container_name) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing version fields' }});
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing version fields' } });
     }
 
     const result = await filesService.uploadNewVersion(fileId, { blob_name, container_name, etag });

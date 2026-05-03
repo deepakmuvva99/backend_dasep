@@ -13,7 +13,7 @@ const pool = mysql.createPool({
     ssl: { rejectUnauthorized: false }, // Required for Azure MySQL Flexible Server
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0
+    queueLimit: 0,
 });
 
 // Test the connection logic to ensure it can reach the database

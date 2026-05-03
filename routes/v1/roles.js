@@ -9,19 +9,18 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 router.use(verifyToken);
 router.use(restrictTo('Admin'));
 
-router.route('/')
-    .get(asyncHandler(rolesController.getRoles))
-    .post(asyncHandler(rolesController.createRole));
+router.route('/').get(asyncHandler(rolesController.getRoles)).post(asyncHandler(rolesController.createRole));
 
-router.route('/:role_id')
+router
+    .route('/:role_id')
     .put(asyncHandler(rolesController.updateRole))
     .delete(asyncHandler(rolesController.deleteRole));
 
-router.route('/:role_id/permissions')
+router
+    .route('/:role_id/permissions')
     .get(asyncHandler(rolesController.getRolePermissions))
     .post(asyncHandler(rolesController.assignPermission));
 
-router.route('/:role_id/permissions/:perm_id')
-    .delete(asyncHandler(rolesController.removePermission));
+router.route('/:role_id/permissions/:perm_id').delete(asyncHandler(rolesController.removePermission));
 
 module.exports = router;

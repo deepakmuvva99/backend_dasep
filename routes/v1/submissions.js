@@ -7,14 +7,15 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 
 router.use(verifyToken);
 
-router.route('/')
+router
+    .route('/')
     .get(asyncHandler(submissionsController.getSubmissions))
     .post(restrictTo('Student'), asyncHandler(submissionsController.createSubmission));
 
-router.route('/:submission_id')
-    .get(asyncHandler(submissionsController.getSubmissionDetails));
+router.route('/:submission_id').get(asyncHandler(submissionsController.getSubmissionDetails));
 
-router.route('/:submission_id/status')
+router
+    .route('/:submission_id/status')
     .put(restrictTo('Admin', 'Faculty'), asyncHandler(submissionsController.updateSubmissionStatus));
 
 module.exports = router;

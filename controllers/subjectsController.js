@@ -6,17 +6,19 @@ const { parseSorting } = require('../utils/sorting');
 exports.createSubject = async (req, res) => {
     const { name, code } = req.body;
     if (!name || !code) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'name and code required' }});
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'name and code required' } });
     }
 
-    const newSubject = await subjectsService.createSubject({ name, code });
+    const newSubject = await subjectsService.createSubject({ name, code }, req.user.user_id);
     return successResponse(res, newSubject, 201);
 };
 
 exports.getSubjects = async (req, res) => {
     const pagination = parsePagination(req.query);
     const sorting = parseSorting(req.query, ['name', 'code', 'subject_id'], 'name');
-    
+
     // Pass user context for scoping (Faculty sees assigned, Admin sees all)
     // Assume user_id maps to faculty_id if the role is Faculty (true in this platform's extension tables)
     const userContext = req.user;
@@ -39,13 +41,13 @@ exports.updateSubject = async (req, res) => {
     const subjectId = req.params.subject_id;
     const { name, code } = req.body;
 
-    const updatedSubject = await subjectsService.updateSubject(subjectId, { name, code });
+    const updatedSubject = await subjectsService.updateSubject(subjectId, { name, code }, req.user.user_id);
     return successResponse(res, updatedSubject);
 };
 
 exports.deleteSubject = async (req, res) => {
     const subjectId = req.params.subject_id;
-    await subjectsService.deleteSubject(subjectId);
+    await subjectsService.deleteSubject(subjectId, req.user.user_id);
     return successResponse(res, { message: 'Subject deleted successfully' });
 };
 

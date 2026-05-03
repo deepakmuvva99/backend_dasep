@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const facultyModel = require('../models/facultyModel');
 const usersModel = require('../models/usersModel');
 const emailService = require('./emailService');
@@ -19,15 +19,14 @@ class FacultyService {
 
         const ids = await facultyModel.createFacultyWithTransaction(
             { name: data.name, email: data.email, password_hash: passwordHash },
-            { subject_name: data.subject_name }
+            { subject_name: data.subject_name },
         );
-
 
         const result = {
             faculty_id: ids.faculty_id,
             user_id: ids.user_id,
             name: data.name,
-            initial_password: autoPassword // Should be emailed normally
+            initial_password: autoPassword, // Should be emailed normally
         };
 
         // Send Email asynchronously
@@ -40,7 +39,7 @@ class FacultyService {
         const filters = {
             search: query.search || null,
             subject_name: query.subject_name || null,
-            is_active: query.is_active || null
+            is_active: query.is_active || null,
         };
         return await facultyModel.getFaculty(filters, pagination);
     }
@@ -54,7 +53,10 @@ class FacultyService {
             throw error;
         }
 
-        if (userContext.role === 'Faculty' && parseInt(faculty.user_id) !== parseInt(userContext.user_id)) {
+        if (
+            userContext.role === 'Faculty' &&
+            Number.parseInt(faculty.user_id) !== Number.parseInt(userContext.user_id)
+        ) {
             const error = new Error('Permission denied');
             error.statusCode = 403;
             error.code = 'FORBIDDEN';
@@ -74,6 +76,7 @@ class FacultyService {
         try {
             await facultyModel.deleteFaculty(facultyId);
         } catch (e) {
+            console.error('Error deleting faculty:', e);
             const error = new Error('Faculty member not found or error deleting');
             error.statusCode = 404;
             error.code = 'NOT_FOUND';

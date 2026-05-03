@@ -7,12 +7,12 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 
 router.use(verifyToken);
 
-router.route('/')
-    .post(asyncHandler(pagesController.createPages));
+router.route('/').post(asyncHandler(pagesController.createPages));
 
 router.get('/version/:version_id', asyncHandler(pagesController.getPages));
 
-router.route('/:page_id')
+router
+    .route('/:page_id')
     .get(asyncHandler(pagesController.getPageDetails))
     .delete(asyncHandler(pagesController.deletePage));
 

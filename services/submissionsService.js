@@ -1,5 +1,6 @@
 const submissionsModel = require('../models/submissionsModel');
 const profileHelper = require('../utils/profileHelper');
+const auditLogsService = require('./auditLogsService');
 
 class SubmissionsService {
     async createSubmission(data, userContext) {
@@ -21,7 +22,7 @@ class SubmissionsService {
 
         data.student_id = studentId;
         // Default to Pending status (assuming ID 1 = Pending)
-        data.status_id = 1; 
+        data.status_id = 1;
 
         // Additional validation: verify if the assignment_id actually exists
         const submissionId = await submissionsModel.createSubmission(data);
@@ -30,9 +31,9 @@ class SubmissionsService {
 
     async getSubmissions(query, pagination, sorting, userContext) {
         const filters = {
-            status_id: query.status_id || null
+            status_id: query.status_id || null,
         };
-        
+
         return await submissionsModel.getSubmissions(filters, pagination, sorting, userContext);
     }
 
@@ -58,14 +59,26 @@ class SubmissionsService {
         return sub;
     }
 
-    async updateStatus(submissionId, statusId) {
-        const affectedRows = await submissionsModel.updateStatus(submissionId, statusId);
-        if (affectedRows === 0) {
+    async updateStatus(submissionId, statusId, actorId) {
+        const oldSub = await submissionsModel.findById(submissionId);
+        if (!oldSub) {
             const error = new Error('Submission not found');
             error.statusCode = 404;
             error.code = 'NOT_FOUND';
             throw error;
         }
+
+        await submissionsModel.updateStatus(submissionId, statusId);
+
+        await auditLogsService.logAction({
+            entity_type: 'submissions',
+            entity_id: submissionId,
+            field_name: 'status_id',
+            old_value: String(oldSub.status_id),
+            new_value: String(statusId),
+            changed_by_user_id: actorId,
+        });
+
         return true;
     }
 }

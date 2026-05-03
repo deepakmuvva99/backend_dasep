@@ -6,7 +6,7 @@
 exports.successResponse = (res, data, statusCode = 200) => {
     return res.status(statusCode).json({
         success: true,
-        data: data
+        data: data,
     });
 };
 
@@ -14,7 +14,7 @@ exports.successListResponse = (res, data, paginationMeta, statusCode = 200) => {
     return res.status(statusCode).json({
         success: true,
         data: data,
-        pagination: paginationMeta
+        pagination: paginationMeta,
     });
 };
 
@@ -23,7 +23,7 @@ exports.errorResponse = (res, code, message, statusCode = 500) => {
         success: false,
         error: {
             code: code,
-            message: message
-        }
+            message: message,
+        },
     });
 };

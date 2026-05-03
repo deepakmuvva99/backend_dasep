@@ -8,11 +8,13 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 router.use(verifyToken);
 router.use(restrictTo('Admin')); // All broad assignments routes are Admin only in docs
 
-router.route('/')
+router
+    .route('/')
     .get(asyncHandler(assignmentsController.getAssignments))
     .post(asyncHandler(assignmentsController.createAssignment));
 
-router.route('/:assignment_id')
+router
+    .route('/:assignment_id')
     .get(asyncHandler(assignmentsController.getAssignmentDetails))
     .put(asyncHandler(assignmentsController.updateAssignment))
     .delete(asyncHandler(assignmentsController.deleteAssignment));

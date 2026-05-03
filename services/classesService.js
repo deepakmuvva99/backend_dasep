@@ -9,7 +9,7 @@ class ClassesService {
             error.code = 'CONFLICT';
             throw error;
         }
-        
+
         const classId = await classesModel.createClass(data);
         return { class_id: classId, ...data };
     }
@@ -18,7 +18,7 @@ class ClassesService {
         const filters = {
             grade: query.grade || null,
             academic_year: query.academic_year || null,
-            search: query.search || null
+            search: query.search || null,
         };
         return await classesModel.getClasses(filters, pagination, sorting);
     }
@@ -44,7 +44,7 @@ class ClassesService {
         }
 
         const collision = await classesModel.findByCombo(data.grade, data.section, data.academic_year);
-        if (collision && collision.class_id !== parseInt(classId)) {
+        if (collision && collision.class_id !== Number.parseInt(classId)) {
             const error = new Error('Another class exists with this grade, section, and year');
             error.statusCode = 409;
             error.code = 'CONFLICT';
@@ -61,6 +61,7 @@ class ClassesService {
         try {
             await classesModel.deleteClass(classId);
         } catch (e) {
+            console.error('Error deleting class:', e);
             const error = new Error('Cannot delete class, it may be associated with students constraints');
             error.statusCode = 400;
             error.code = 'BAD_REQUEST';
@@ -71,7 +72,7 @@ class ClassesService {
 
     async getClassSubjects(classId, pagination) {
         // Exists check
-        await this.getClassDetails(classId); 
+        await this.getClassDetails(classId);
         return await classesModel.getClassSubjects(classId, pagination);
     }
 

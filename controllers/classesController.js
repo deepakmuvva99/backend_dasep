@@ -6,7 +6,7 @@ const { parseSorting } = require('../utils/sorting');
 exports.createClass = async (req, res) => {
     const { grade, section, academic_year } = req.body;
     if (!grade || !section || !academic_year) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing fields' }});
+        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing fields' } });
     }
 
     const newClass = await classesService.createClass({ grade, section, academic_year });

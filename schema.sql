@@ -1396,15 +1396,15 @@ INSERT INTO role_permissions (role_id, permission_id) VALUES
 
 INSERT INTO users (name, email, password_hash) VALUES
 
-('System Admin', 'admin@school.com', '$2b$10$R9h6N6VQj7l1sF1QmK1JQeJfJzL7jRkJ4fYgY5nAqZ6QmD7Tz2WQK'),
+('System Admin', 'admin@school.com', 'REMOVED_LEAKED_HASH'),
 
-('John Teacher', 'teacher1@school.com', '$2b$10$R9h6N6VQj7l1sF1QmK1JQeJfJzL7jRkJ4fYgY5nAqZ6QmD7Tz2WQK'),
+('John Teacher', 'teacher1@school.com', 'REMOVED_LEAKED_HASH'),
 
-('Mary Teacher', 'teacher2@school.com', '$2b$10$R9h6N6VQj7l1sF1QmK1JQeJfJzL7jRkJ4fYgY5nAqZ6QmD7Tz2WQK'),
+('Mary Teacher', 'teacher2@school.com', 'REMOVED_LEAKED_HASH'),
 
-('Alice Student', 'student1@school.com', '$2b$10$R9h6N6VQj7l1sF1QmK1JQeJfJzL7jRkJ4fYgY5nAqZ6QmD7Tz2WQK'),
+('Alice Student', 'student1@school.com', 'REMOVED_LEAKED_HASH'),
 
-('Bob Student', 'student2@school.com', '$2b$10$R9h6N6VQj7l1sF1QmK1JQeJfJzL7jRkJ4fYgY5nAqZ6QmD7Tz2WQK');
+('Bob Student', 'student2@school.com', 'REMOVED_LEAKED_HASH');
  
 -- ============================================================
 

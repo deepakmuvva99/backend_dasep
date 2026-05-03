@@ -1,5 +1,4 @@
 const pagesModel = require('../models/pagesModel');
-const filesService = require('../services/filesService'); // Verify version exists
 
 class PagesService {
     async createPages(fileId, versionId, pagesData) {

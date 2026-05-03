@@ -20,13 +20,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/annotations/:annotation_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "annotations",
-                                ":annotation_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["annotations", ":annotation_id"],
                             "variable": [
                                 {
                                     "key": "annotation_id",
@@ -49,13 +44,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/annotations/:annotation_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "annotations",
-                                ":annotation_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["annotations", ":annotation_id"],
                             "variable": [
                                 {
                                     "key": "annotation_id",
@@ -78,14 +68,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/annotations/evaluation/:eval_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "annotations",
-                                "evaluation",
-                                ":eval_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["annotations", "evaluation", ":eval_id"],
                             "variable": [
                                 {
                                     "key": "eval_id",
@@ -108,14 +92,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/annotations/page/:page_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "annotations",
-                                "page",
-                                ":page_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["annotations", "page", ":page_id"],
                             "variable": [
                                 {
                                     "key": "page_id",
@@ -138,12 +116,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/annotations",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "annotations"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["annotations"]
                         },
                         "body": {
                             "mode": "raw",
@@ -169,13 +143,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/annotations/:annotation_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "annotations",
-                                ":annotation_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["annotations", ":annotation_id"],
                             "variable": [
                                 {
                                     "key": "annotation_id",
@@ -212,13 +181,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/assignments/:assignment_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "assignments",
-                                ":assignment_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["assignments", ":assignment_id"],
                             "variable": [
                                 {
                                     "key": "assignment_id",
@@ -241,12 +205,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/assignments?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "assignments"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["assignments"],
                             "query": [
                                 {
                                     "key": "page",
@@ -277,13 +237,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/assignments/:assignment_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "assignments",
-                                ":assignment_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["assignments", ":assignment_id"],
                             "variable": [
                                 {
                                     "key": "assignment_id",
@@ -306,12 +261,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/assignments",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "assignments"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["assignments"]
                         },
                         "body": {
                             "mode": "raw",
@@ -337,13 +288,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/assignments/:assignment_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "assignments",
-                                ":assignment_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["assignments", ":assignment_id"],
                             "variable": [
                                 {
                                     "key": "assignment_id",
@@ -380,12 +326,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/audit-logs?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "audit-logs"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["audit-logs"],
                             "query": [
                                 {
                                     "key": "page",
@@ -416,13 +358,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/audit-logs/:audit_log_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "audit-logs",
-                                ":audit_log_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["audit-logs", ":audit_log_id"],
                             "variable": [
                                 {
                                     "key": "audit_log_id",
@@ -445,15 +382,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/audit-logs/entity/:entity_type/:entity_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "audit-logs",
-                                "entity",
-                                ":entity_type",
-                                ":entity_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["audit-logs", "entity", ":entity_type", ":entity_id"],
                             "variable": [
                                 {
                                     "key": "entity_type",
@@ -485,13 +415,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/auth/login",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "auth",
-                                "login"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["auth", "login"]
                         },
                         "body": {
                             "mode": "raw",
@@ -532,13 +457,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/auth/logout",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "auth",
-                                "logout"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["auth", "logout"]
                         },
                         "body": {
                             "mode": "raw",
@@ -564,13 +484,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/auth/verify-token",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "auth",
-                                "verify-token"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["auth", "verify-token"]
                         },
                         "body": {
                             "mode": "raw",
@@ -601,13 +516,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/classes/:class_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "classes",
-                                ":class_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["classes", ":class_id"],
                             "variable": [
                                 {
                                     "key": "class_id",
@@ -630,12 +540,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/classes?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "classes"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["classes"],
                             "query": [
                                 {
                                     "key": "page",
@@ -666,13 +572,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/classes/:class_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "classes",
-                                ":class_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["classes", ":class_id"],
                             "variable": [
                                 {
                                     "key": "class_id",
@@ -695,14 +596,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/classes/:class_id/subjects",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "classes",
-                                ":class_id",
-                                "subjects"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["classes", ":class_id", "subjects"],
                             "variable": [
                                 {
                                     "key": "class_id",
@@ -725,13 +620,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/classes/lookup?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "classes",
-                                "lookup"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["classes", "lookup"],
                             "query": [
                                 {
                                     "key": "page",
@@ -762,12 +652,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/classes",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "classes"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["classes"]
                         },
                         "body": {
                             "mode": "raw",
@@ -793,13 +679,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/classes/:class_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "classes",
-                                ":class_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["classes", ":class_id"],
                             "variable": [
                                 {
                                     "key": "class_id",
@@ -836,13 +717,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/documents/:document_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "documents",
-                                ":document_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["documents", ":document_id"],
                             "variable": [
                                 {
                                     "key": "document_id",
@@ -865,12 +741,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/documents?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "documents"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["documents"],
                             "query": [
                                 {
                                     "key": "page",
@@ -901,13 +773,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/documents/:document_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "documents",
-                                ":document_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["documents", ":document_id"],
                             "variable": [
                                 {
                                     "key": "document_id",
@@ -930,14 +797,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/documents/submission/:submission_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "documents",
-                                "submission",
-                                ":submission_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["documents", "submission", ":submission_id"],
                             "variable": [
                                 {
                                     "key": "submission_id",
@@ -960,12 +821,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/documents",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "documents"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["documents"]
                         },
                         "body": {
                             "mode": "raw",
@@ -991,13 +848,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/documents/:document_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "documents",
-                                ":document_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["documents", ":document_id"],
                             "variable": [
                                 {
                                     "key": "document_id",
@@ -1034,12 +886,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/evaluations?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "evaluations"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["evaluations"],
                             "query": [
                                 {
                                     "key": "page",
@@ -1070,13 +918,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/evaluations/:evaluation_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "evaluations",
-                                ":evaluation_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["evaluations", ":evaluation_id"],
                             "variable": [
                                 {
                                     "key": "evaluation_id",
@@ -1099,14 +942,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/evaluations/faculty/:faculty_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "evaluations",
-                                "faculty",
-                                ":faculty_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["evaluations", "faculty", ":faculty_id"],
                             "variable": [
                                 {
                                     "key": "faculty_id",
@@ -1129,13 +966,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/evaluations/statuses?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "evaluations",
-                                "statuses"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["evaluations", "statuses"],
                             "query": [
                                 {
                                     "key": "page",
@@ -1166,14 +998,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/evaluations/submission/:submission_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "evaluations",
-                                "submission",
-                                ":submission_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["evaluations", "submission", ":submission_id"],
                             "variable": [
                                 {
                                     "key": "submission_id",
@@ -1196,12 +1022,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/evaluations",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "evaluations"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["evaluations"]
                         },
                         "body": {
                             "mode": "raw",
@@ -1227,13 +1049,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/evaluations/:evaluation_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "evaluations",
-                                ":evaluation_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["evaluations", ":evaluation_id"],
                             "variable": [
                                 {
                                     "key": "evaluation_id",
@@ -1270,13 +1087,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/exam-schedules/:schedule_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "exam-schedules",
-                                ":schedule_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["exam-schedules", ":schedule_id"],
                             "variable": [
                                 {
                                     "key": "schedule_id",
@@ -1299,12 +1111,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/exam-schedules?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "exam-schedules"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["exam-schedules"],
                             "query": [
                                 {
                                     "key": "page",
@@ -1335,13 +1143,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/exam-schedules/:schedule_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "exam-schedules",
-                                ":schedule_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["exam-schedules", ":schedule_id"],
                             "variable": [
                                 {
                                     "key": "schedule_id",
@@ -1364,12 +1167,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/exam-schedules",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "exam-schedules"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["exam-schedules"]
                         },
                         "body": {
                             "mode": "raw",
@@ -1395,13 +1194,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/exam-schedules/:schedule_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "exam-schedules",
-                                ":schedule_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["exam-schedules", ":schedule_id"],
                             "variable": [
                                 {
                                     "key": "schedule_id",
@@ -1438,13 +1232,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty/:faculty_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty",
-                                ":faculty_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty", ":faculty_id"],
                             "variable": [
                                 {
                                     "key": "faculty_id",
@@ -1467,12 +1256,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty"],
                             "query": [
                                 {
                                     "key": "page",
@@ -1503,13 +1288,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty/:faculty_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty",
-                                ":faculty_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty", ":faculty_id"],
                             "variable": [
                                 {
                                     "key": "faculty_id",
@@ -1532,14 +1312,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty/:faculty_id/assignments",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty",
-                                ":faculty_id",
-                                "assignments"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty", ":faculty_id", "assignments"],
                             "variable": [
                                 {
                                     "key": "faculty_id",
@@ -1562,13 +1336,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty/lookup?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty",
-                                "lookup"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty", "lookup"],
                             "query": [
                                 {
                                     "key": "page",
@@ -1599,14 +1368,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty/subjects/lookup?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty",
-                                "subjects",
-                                "lookup"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty", "subjects", "lookup"],
                             "query": [
                                 {
                                     "key": "page",
@@ -1637,12 +1400,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty"]
                         },
                         "body": {
                             "mode": "raw",
@@ -1668,13 +1427,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty/:faculty_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty",
-                                ":faculty_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty", ":faculty_id"],
                             "variable": [
                                 {
                                     "key": "faculty_id",
@@ -1706,14 +1460,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/faculty/:faculty_id/status",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty",
-                                ":faculty_id",
-                                "status"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["faculty", ":faculty_id", "status"],
                             "variable": [
                                 {
                                     "key": "faculty_id",
@@ -1750,13 +1498,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/files/:file_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "files",
-                                ":file_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["files", ":file_id"],
                             "variable": [
                                 {
                                     "key": "file_id",
@@ -1779,13 +1522,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/files/:file_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "files",
-                                ":file_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["files", ":file_id"],
                             "variable": [
                                 {
                                     "key": "file_id",
@@ -1808,14 +1546,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/files/:file_id/versions",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "files",
-                                ":file_id",
-                                "versions"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["files", ":file_id", "versions"],
                             "variable": [
                                 {
                                     "key": "file_id",
@@ -1838,15 +1570,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/files/:file_id/versions/current",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "files",
-                                ":file_id",
-                                "versions",
-                                "current"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["files", ":file_id", "versions", "current"],
                             "variable": [
                                 {
                                     "key": "file_id",
@@ -1869,13 +1594,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/files/types?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "files",
-                                "types"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["files", "types"],
                             "query": [
                                 {
                                     "key": "page",
@@ -1906,12 +1626,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/files",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "files"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["files"]
                         },
                         "body": {
                             "mode": "raw",
@@ -1937,14 +1653,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/files/:file_id/versions",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "files",
-                                ":file_id",
-                                "versions"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["files", ":file_id", "versions"],
                             "variable": [
                                 {
                                     "key": "file_id",
@@ -1981,13 +1691,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/notifications/:notification_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "notifications",
-                                ":notification_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["notifications", ":notification_id"],
                             "variable": [
                                 {
                                     "key": "notification_id",
@@ -2010,12 +1715,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/notifications?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "notifications"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["notifications"],
                             "query": [
                                 {
                                     "key": "page",
@@ -2046,13 +1747,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/notifications/:notification_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "notifications",
-                                ":notification_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["notifications", ":notification_id"],
                             "variable": [
                                 {
                                     "key": "notification_id",
@@ -2075,12 +1771,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/notifications",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "notifications"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["notifications"]
                         },
                         "body": {
                             "mode": "raw",
@@ -2106,14 +1798,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/notifications/:notification_id/read",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "notifications",
-                                ":notification_id",
-                                "read"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["notifications", ":notification_id", "read"],
                             "variable": [
                                 {
                                     "key": "notification_id",
@@ -2145,13 +1831,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/notifications/read-all",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "notifications",
-                                "read-all"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["notifications", "read-all"]
                         },
                         "body": {
                             "mode": "raw",
@@ -2182,13 +1863,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/pages/:page_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "pages",
-                                ":page_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["pages", ":page_id"],
                             "variable": [
                                 {
                                     "key": "page_id",
@@ -2211,13 +1887,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/pages/:page_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "pages",
-                                ":page_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["pages", ":page_id"],
                             "variable": [
                                 {
                                     "key": "page_id",
@@ -2240,14 +1911,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/pages/version/:version_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "pages",
-                                "version",
-                                ":version_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["pages", "version", ":version_id"],
                             "variable": [
                                 {
                                     "key": "version_id",
@@ -2270,12 +1935,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/pages",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "pages"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["pages"]
                         },
                         "body": {
                             "mode": "raw",
@@ -2306,13 +1967,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/permissions/:id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "permissions",
-                                ":id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["permissions", ":id"],
                             "variable": [
                                 {
                                     "key": "id",
@@ -2335,12 +1991,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/permissions?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "permissions"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["permissions"],
                             "query": [
                                 {
                                     "key": "page",
@@ -2371,13 +2023,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/permissions/:id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "permissions",
-                                ":id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["permissions", ":id"],
                             "variable": [
                                 {
                                     "key": "id",
@@ -2400,12 +2047,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/permissions",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "permissions"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["permissions"]
                         },
                         "body": {
                             "mode": "raw",
@@ -2431,13 +2074,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/permissions/:id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "permissions",
-                                ":id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["permissions", ":id"],
                             "variable": [
                                 {
                                     "key": "id",
@@ -2474,13 +2112,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/roles/:role_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "roles",
-                                ":role_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["roles", ":role_id"],
                             "variable": [
                                 {
                                     "key": "role_id",
@@ -2503,15 +2136,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/roles/:role_id/permissions/:perm_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "roles",
-                                ":role_id",
-                                "permissions",
-                                ":perm_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["roles", ":role_id", "permissions", ":perm_id"],
                             "variable": [
                                 {
                                     "key": "role_id",
@@ -2538,12 +2164,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/roles?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "roles"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["roles"],
                             "query": [
                                 {
                                     "key": "page",
@@ -2574,14 +2196,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/roles/:role_id/permissions",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "roles",
-                                ":role_id",
-                                "permissions"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["roles", ":role_id", "permissions"],
                             "variable": [
                                 {
                                     "key": "role_id",
@@ -2604,12 +2220,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/roles",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "roles"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["roles"]
                         },
                         "body": {
                             "mode": "raw",
@@ -2635,14 +2247,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/roles/:role_id/permissions",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "roles",
-                                ":role_id",
-                                "permissions"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["roles", ":role_id", "permissions"],
                             "variable": [
                                 {
                                     "key": "role_id",
@@ -2674,13 +2280,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/roles/:role_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "roles",
-                                ":role_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["roles", ":role_id"],
                             "variable": [
                                 {
                                     "key": "role_id",
@@ -2717,13 +2318,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/students/:student_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "students",
-                                ":student_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["students", ":student_id"],
                             "variable": [
                                 {
                                     "key": "student_id",
@@ -2746,12 +2342,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/students?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "students"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["students"],
                             "query": [
                                 {
                                     "key": "page",
@@ -2782,13 +2374,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/students/:student_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "students",
-                                ":student_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["students", ":student_id"],
                             "variable": [
                                 {
                                     "key": "student_id",
@@ -2811,14 +2398,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/students/:student_id/submissions",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "students",
-                                ":student_id",
-                                "submissions"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["students", ":student_id", "submissions"],
                             "variable": [
                                 {
                                     "key": "student_id",
@@ -2841,12 +2422,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/students",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "students"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["students"]
                         },
                         "body": {
                             "mode": "raw",
@@ -2872,13 +2449,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/students/:student_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "students",
-                                ":student_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["students", ":student_id"],
                             "variable": [
                                 {
                                     "key": "student_id",
@@ -2910,14 +2482,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/students/:student_id/status",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "students",
-                                ":student_id",
-                                "status"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["students", ":student_id", "status"],
                             "variable": [
                                 {
                                     "key": "student_id",
@@ -2954,13 +2520,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/subjects/:subject_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "subjects",
-                                ":subject_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["subjects", ":subject_id"],
                             "variable": [
                                 {
                                     "key": "subject_id",
@@ -2983,12 +2544,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/subjects?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "subjects"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["subjects"],
                             "query": [
                                 {
                                     "key": "page",
@@ -3019,13 +2576,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/subjects/:subject_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "subjects",
-                                ":subject_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["subjects", ":subject_id"],
                             "variable": [
                                 {
                                     "key": "subject_id",
@@ -3048,13 +2600,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/subjects/lookup?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "subjects",
-                                "lookup"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["subjects", "lookup"],
                             "query": [
                                 {
                                     "key": "page",
@@ -3085,12 +2632,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/subjects",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "subjects"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["subjects"]
                         },
                         "body": {
                             "mode": "raw",
@@ -3116,13 +2659,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/subjects/:subject_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "subjects",
-                                ":subject_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["subjects", ":subject_id"],
                             "variable": [
                                 {
                                     "key": "subject_id",
@@ -3159,12 +2697,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/submissions?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "submissions"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["submissions"],
                             "query": [
                                 {
                                     "key": "page",
@@ -3195,13 +2729,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/submissions/:submission_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "submissions",
-                                ":submission_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["submissions", ":submission_id"],
                             "variable": [
                                 {
                                     "key": "submission_id",
@@ -3224,12 +2753,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/submissions",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "submissions"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["submissions"]
                         },
                         "body": {
                             "mode": "raw",
@@ -3255,14 +2780,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/submissions/:submission_id/status",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "submissions",
-                                ":submission_id",
-                                "status"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["submissions", ":submission_id", "status"],
                             "variable": [
                                 {
                                     "key": "submission_id",
@@ -3299,13 +2818,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users/:user_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                ":user_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users", ":user_id"],
                             "variable": [
                                 {
                                     "key": "user_id",
@@ -3328,15 +2842,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users/:user_id/roles/:role_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                ":user_id",
-                                "roles",
-                                ":role_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users", ":user_id", "roles", ":role_id"],
                             "variable": [
                                 {
                                     "key": "user_id",
@@ -3363,12 +2870,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users?page=1&limit=10&sort=desc",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users"],
                             "query": [
                                 {
                                     "key": "page",
@@ -3399,13 +2902,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users/:user_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                ":user_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users", ":user_id"],
                             "variable": [
                                 {
                                     "key": "user_id",
@@ -3428,14 +2926,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users/:user_id/roles",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                ":user_id",
-                                "roles"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users", ":user_id", "roles"],
                             "variable": [
                                 {
                                     "key": "user_id",
@@ -3458,12 +2950,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users"
-                            ]
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users"]
                         },
                         "body": {
                             "mode": "raw",
@@ -3489,14 +2977,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users/:user_id/change-password",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                ":user_id",
-                                "change-password"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users", ":user_id", "change-password"],
                             "variable": [
                                 {
                                     "key": "user_id",
@@ -3528,14 +3010,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users/:user_id/roles",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                ":user_id",
-                                "roles"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users", ":user_id", "roles"],
                             "variable": [
                                 {
                                     "key": "user_id",
@@ -3567,13 +3043,8 @@
                         ],
                         "url": {
                             "raw": "{{baseUrl}}/users/:user_id",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                ":user_id"
-                            ],
+                            "host": ["{{baseUrl}}"],
+                            "path": ["users", ":user_id"],
                             "variable": [
                                 {
                                     "key": "user_id",
@@ -3611,9 +3082,7 @@
             "listen": "prerequest",
             "script": {
                 "type": "text/javascript",
-                "exec": [
-                    ""
-                ]
+                "exec": [""]
             }
         }
     ],

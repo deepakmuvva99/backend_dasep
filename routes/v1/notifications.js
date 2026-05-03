@@ -7,13 +7,15 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 
 router.use(verifyToken);
 
-router.route('/')
+router
+    .route('/')
     .get(asyncHandler(notificationsController.getMyNotifications))
     .post(restrictTo('Admin'), asyncHandler(notificationsController.createNotification));
 
 router.put('/read-all', asyncHandler(notificationsController.markAllAsRead));
 
-router.route('/:notification_id')
+router
+    .route('/:notification_id')
     .get(asyncHandler(notificationsController.getNotificationDetails))
     .delete(asyncHandler(notificationsController.deleteNotification));
 

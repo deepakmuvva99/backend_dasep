@@ -27,7 +27,7 @@ class PermissionsService {
         if (!existing) {
             throw new Error('Permission not found');
         }
-        
+
         if (data.name && data.name !== existing.name) {
             const duplicate = await permissionsModel.findByName(data.name);
             if (duplicate) {

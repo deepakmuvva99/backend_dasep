@@ -5,7 +5,7 @@ const { errorResponse } = require('../utils/responseHandler');
 const JWT_SECRET = process.env.JWT_SECRET || 'development_super_secret_temporary_key';
 
 /**
- * Validate JWT stored in Bearer header. 
+ * Validate JWT stored in Bearer header.
  */
 const db = require('../config/database');
 
@@ -24,7 +24,7 @@ const verifyToken = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-        
+
         // CHECK BLACKLIST: Verify if this specific token (jti) has been blacklisted (logged out)
         if (decoded.jti) {
             const isBlacklisted = await authModel.isTokenBlacklisted(decoded.jti);
@@ -33,20 +33,20 @@ const verifyToken = async (req, res, next) => {
             }
         }
 
-        req.user = decoded; 
+        req.user = decoded;
         next();
-    } catch (error) {
+    } catch (_error) {
         return errorResponse(res, 'UNAUTHORISED', 'Invalid or expired token.', 401);
     }
 };
 
 /**
- * Middleware to resolve the specific profile ID (student_id or faculty_id) 
+ * Middleware to resolve the specific profile ID (student_id or faculty_id)
  * for the current user and attach it to req.user.profile_id.
  */
 const resolveProfile = async (req, res, next) => {
     if (!req.user) return next();
-    
+
     try {
         if (req.user.role === 'Student') {
             const [rows] = await db.execute(`SELECT student_id FROM students WHERE user_id = ?`, [req.user.user_id]);

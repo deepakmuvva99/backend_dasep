@@ -7,22 +7,22 @@ class SubmissionsModel {
             `SELECT MAX(attempt_number) as max_attempt 
              FROM SUBMISSIONS
              WHERE student_id = ? AND assignment_id = ? AND submission_type_id = ?`,
-            [data.student_id, data.assignment_id, data.submission_type_id]
+            [data.student_id, data.assignment_id, data.submission_type_id],
         );
-        
+
         const nextAttempt = existing[0].max_attempt ? existing[0].max_attempt + 1 : 1;
 
         const [result] = await db.execute(
             `INSERT INTO SUBMISSIONS (student_id, assignment_id, exam_schedule_id, submission_type_id, status_id, attempt_number, submitted_at)
              VALUES (?, ?, ?, ?, ?, ?, NOW())`,
             [
-                data.student_id, 
-                data.assignment_id, 
-                data.exam_schedule_id || null, 
-                data.submission_type_id, 
+                data.student_id,
+                data.assignment_id,
+                data.exam_schedule_id || null,
+                data.submission_type_id,
                 data.status_id, // e.g. 1 for 'Pending'
-                nextAttempt
-            ]
+                nextAttempt,
+            ],
         );
 
         return result.insertId;
@@ -48,13 +48,17 @@ class SubmissionsModel {
         // Scoping
         if (userContext.role === 'Student') {
             // Find student_id mapping
-            const [stuMapping] = await db.execute(`SELECT student_id FROM STUDENTS WHERE user_id = ?`, [userContext.user_id]);
+            const [stuMapping] = await db.execute(`SELECT student_id FROM STUDENTS WHERE user_id = ?`, [
+                userContext.user_id,
+            ]);
             const studentId = stuMapping[0] ? stuMapping[0].student_id : 0;
             conditions.push(`s.student_id = ?`);
             params.push(studentId);
         } else if (userContext.role === 'Faculty') {
             // Find faculty_id mapping
-            const [facMapping] = await db.execute(`SELECT faculty_id FROM FACULTY WHERE user_id = ?`, [userContext.user_id]);
+            const [facMapping] = await db.execute(`SELECT faculty_id FROM FACULTY WHERE user_id = ?`, [
+                userContext.user_id,
+            ]);
             const facultyId = facMapping[0] ? facMapping[0].faculty_id : 0;
             conditions.push(`fcsa.faculty_id = ?`);
             params.push(facultyId);
@@ -73,7 +77,16 @@ class SubmissionsModel {
         const [countRows] = await db.execute(countQuery, params);
         const total = countRows[0].total;
 
-        query += ` ORDER BY s.${sorting.sort_by} ${sorting.order}`;
+        // Explicit mapping to prevent SQL Injection
+        const sortColumnMap = {
+            submission_id: 's.submission_id',
+            submitted_at: 's.submitted_at',
+            attempt_number: 's.attempt_number',
+        };
+        const sortColumn = sortColumnMap[sorting.sort_by] || 's.submitted_at';
+        const sortOrder = sorting.order && sorting.order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
+
+        query += ` ORDER BY ${sortColumn} ${sortOrder}`;
         query += ` LIMIT ? OFFSET ?`;
         params.push(pagination.limit, pagination.offset);
 
@@ -82,18 +95,15 @@ class SubmissionsModel {
     }
 
     async findById(submissionId) {
-        const [rows] = await db.execute(
-            `SELECT * FROM SUBMISSIONS WHERE submission_id = ?`,
-            [submissionId]
-        );
+        const [rows] = await db.execute(`SELECT * FROM SUBMISSIONS WHERE submission_id = ?`, [submissionId]);
         return rows[0];
     }
 
     async updateStatus(submissionId, statusId) {
-        const [result] = await db.execute(
-            `UPDATE SUBMISSIONS SET status_id = ? WHERE submission_id = ?`,
-            [statusId, submissionId]
-        );
+        const [result] = await db.execute(`UPDATE SUBMISSIONS SET status_id = ? WHERE submission_id = ?`, [
+            statusId,
+            submissionId,
+        ]);
         return result.affectedRows;
     }
 }

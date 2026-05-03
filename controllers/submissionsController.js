@@ -4,15 +4,15 @@ const { parsePagination, buildPaginationMeta } = require('../utils/pagination');
 const { parseSorting } = require('../utils/sorting');
 
 exports.createSubmission = async (req, res) => {
-    const userContext = req.user
+    const userContext = req.user;
     const data = {
         assignment_id: req.body.assignment_id,
         exam_schedule_id: req.body.exam_schedule_id,
-        submission_type_id: req.body.submission_type_id
+        submission_type_id: req.body.submission_type_id,
     };
 
     if (!data.assignment_id || !data.submission_type_id) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing parameters' }});
+        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing parameters' } });
     }
 
     const newSub = await submissionsService.createSubmission(data, userContext);
@@ -41,7 +41,8 @@ exports.getSubmissionDetails = async (req, res) => {
 exports.updateSubmissionStatus = async (req, res) => {
     const submissionId = req.params.submission_id;
     const { status_id } = req.body;
-    
-    await submissionsService.updateStatus(submissionId, status_id);
+    const actorId = req.user.user_id;
+
+    await submissionsService.updateStatus(submissionId, status_id, actorId);
     return successResponse(res, { message: 'Submission status updated successfully' });
 };

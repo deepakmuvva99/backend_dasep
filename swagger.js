@@ -3,7 +3,7 @@ const swaggerAutogen = require('swagger-autogen')();
 const doc = {
     info: {
         title: 'Digital Evaluation Platform API',
-        description: 'Auto-generated documentation for the Digital Evaluation Platform APIs.'
+        description: 'Auto-generated documentation for the Digital Evaluation Platform APIs.',
     },
     host: 'localhost:3000',
     basePath: '/',
@@ -13,10 +13,10 @@ const doc = {
             type: 'apiKey',
             in: 'header',
             name: 'Authorization',
-            description: 'Enter your Bearer token in the format: Bearer <token>'
-        }
+            description: 'Enter your Bearer token in the format: Bearer <token>',
+        },
     },
-    security: [ { bearerAuth: [] } ]
+    security: [{ bearerAuth: [] }],
 };
 
 const outputFile = './swagger_output.json';

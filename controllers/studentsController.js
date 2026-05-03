@@ -5,11 +5,13 @@ const { parseSorting } = require('../utils/sorting');
 
 exports.createStudent = async (req, res) => {
     // Admin user id should be parsed from JWT user obj
-    const adminUserId = req.user.user_id; 
+    const adminUserId = req.user.user_id;
 
     // Body: { name, email, institution_id, class_id }
     if (!req.body.name || !req.body.email || !req.body.institution_id || !req.body.class_id) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required parameters' }});
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required parameters' } });
     }
 
     const result = await studentsService.createStudent(req.body, adminUserId);
@@ -38,21 +40,24 @@ exports.updateStudent = async (req, res) => {
     const studentId = req.params.student_id;
     const { class_id, institution_id } = req.body;
 
-    const updatedStudent = await studentsService.updateStudent(studentId, { class_id, institution_id });
+    const actorId = req.user.user_id;
+    const updatedStudent = await studentsService.updateStudent(studentId, { class_id, institution_id }, actorId);
     return successResponse(res, updatedStudent);
 };
 
 exports.deleteStudent = async (req, res) => {
     const studentId = req.params.student_id;
-    await studentsService.deleteStudent(studentId);
+    const actorId = req.user.user_id;
+    await studentsService.deleteStudent(studentId, actorId);
     return successResponse(res, { message: 'Student soft-deleted successfully' });
 };
 
 exports.updateStudentStatus = async (req, res) => {
     const studentId = req.params.student_id;
     const { is_active } = req.body;
-    
-    await studentsService.setStudentStatus(studentId, is_active);
+
+    const actorId = req.user.user_id;
+    await studentsService.setStudentStatus(studentId, is_active, actorId);
     return successResponse(res, { message: 'Status updated successfully' });
 };
 

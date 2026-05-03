@@ -8,21 +8,21 @@ class FacultyModel {
 
             const [userResult] = await connection.execute(
                 `INSERT INTO USERS (name, email, password_hash, created_at) VALUES (?, ?, ?, NOW())`,
-                [userData.name, userData.email, userData.password_hash]
+                [userData.name, userData.email, userData.password_hash],
             );
             const userId = userResult.insertId;
 
             const [facultyResult] = await connection.execute(
                 `INSERT INTO FACULTY (user_id, subject_name, is_active, credentials_sent_at) 
                  VALUES (?, ?, ?, NOW())`,
-                [userId, facultyData.subject_name, true]
+                [userId, facultyData.subject_name, true],
             );
             const facultyId = facultyResult.insertId;
 
             await connection.execute(
                 `INSERT INTO USER_ROLES (user_id, role_id) 
                  SELECT ?, role_id FROM ROLES WHERE name = 'Faculty'`,
-                [userId]
+                [userId],
             );
 
             await connection.commit();
@@ -74,7 +74,7 @@ class FacultyModel {
              FROM FACULTY f
              JOIN USERS u ON f.user_id = u.user_id
              WHERE f.faculty_id = ? AND f.deleted_at IS NULL AND u.deleted_at IS NULL`,
-            [facultyId]
+            [facultyId],
         );
         return rows[0];
     }
@@ -84,17 +84,18 @@ class FacultyModel {
         try {
             await connection.beginTransaction();
 
-            await connection.execute(
-                `UPDATE FACULTY SET subject_name = ? WHERE faculty_id = ?`,
-                [data.subject_name, facultyId]
-            );
+            await connection.execute(`UPDATE FACULTY SET subject_name = ? WHERE faculty_id = ?`, [
+                data.subject_name,
+                facultyId,
+            ]);
 
             const [faculty] = await connection.execute(`SELECT user_id FROM FACULTY WHERE faculty_id = ?`, [facultyId]);
             if (faculty.length > 0) {
-                await connection.execute(
-                    `UPDATE USERS SET name = ?, email = ? WHERE user_id = ?`,
-                    [data.name, data.email, faculty[0].user_id]
-                );
+                await connection.execute(`UPDATE USERS SET name = ?, email = ? WHERE user_id = ?`, [
+                    data.name,
+                    data.email,
+                    faculty[0].user_id,
+                ]);
             }
 
             await connection.commit();
@@ -130,10 +131,10 @@ class FacultyModel {
     }
 
     async setFacultyStatus(facultyId, isActive) {
-        const [result] = await db.execute(
-            `UPDATE FACULTY SET is_active = ? WHERE faculty_id = ?`,
-            [isActive ? 1 : 0, facultyId]
-        );
+        const [result] = await db.execute(`UPDATE FACULTY SET is_active = ? WHERE faculty_id = ?`, [
+            isActive ? 1 : 0,
+            facultyId,
+        ]);
         return result.affectedRows > 0;
     }
 
@@ -146,7 +147,10 @@ class FacultyModel {
             WHERE a.faculty_id = ?
         `;
 
-        const [countRows] = await db.execute(`SELECT COUNT(*) as total FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS WHERE faculty_id = ?`, [facultyId]);
+        const [countRows] = await db.execute(
+            `SELECT COUNT(*) as total FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS WHERE faculty_id = ?`,
+            [facultyId],
+        );
         const total = countRows[0].total;
 
         query += ` ORDER BY a.assigned_at DESC LIMIT ? OFFSET ?`;
@@ -157,9 +161,9 @@ class FacultyModel {
         const [rows] = await db.execute(
             `SELECT DISTINCT subject_name FROM FACULTY 
              WHERE subject_name IS NOT NULL AND deleted_at IS NULL 
-             ORDER BY subject_name ASC`
+             ORDER BY subject_name ASC`,
         );
-        return rows.map(r => ({ name: r.subject_name }));
+        return rows.map((r) => ({ name: r.subject_name }));
     }
 
     async getFacultyLookup() {
@@ -168,7 +172,7 @@ class FacultyModel {
              FROM FACULTY f
              JOIN USERS u ON f.user_id = u.user_id 
              WHERE f.deleted_at IS NULL AND u.deleted_at IS NULL 
-             ORDER BY u.name ASC`
+             ORDER BY u.name ASC`,
         );
         return rows;
     }

@@ -3,10 +3,7 @@ const db = require('../config/database');
 class SubjectsModel {
     async createSubject(name, code) {
         // Assume code is unique
-        const [result] = await db.execute(
-            `INSERT INTO SUBJECTS (name, code) VALUES (?, ?)`,
-            [name, code]
-        );
+        const [result] = await db.execute(`INSERT INTO SUBJECTS (name, code) VALUES (?, ?)`, [name, code]);
         return result.insertId;
     }
 
@@ -52,9 +49,16 @@ class SubjectsModel {
         const [countRows] = await db.execute(countQuery, params);
         const total = countRows[0].total;
 
-        // Apply sorting and pagination
-        // Using 's.' prefix in case of ambiguity, but sorting.sort_by usually provides column name
-        query += ` ORDER BY s.${sorting.sort_by} ${sorting.order}`;
+        // Apply sorting and pagination with explicit mapping to prevent SQL Injection
+        const sortColumnMap = {
+            name: 's.name',
+            code: 's.code',
+            subject_id: 's.subject_id',
+        };
+        const sortColumn = sortColumnMap[sorting.sort_by] || 's.name';
+        const sortOrder = sorting.order && sorting.order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
+
+        query += ` ORDER BY ${sortColumn} ${sortOrder}`;
         query += ` LIMIT ? OFFSET ?`;
         params.push(pagination.limit, pagination.offset);
 
@@ -65,33 +69,28 @@ class SubjectsModel {
     async findById(subjectId) {
         const [rows] = await db.execute(
             `SELECT subject_id, subject_id as id, name, code FROM SUBJECTS WHERE subject_id = ?`,
-            [subjectId]
+            [subjectId],
         );
         return rows[0];
     }
 
     async findByCode(code) {
-        const [rows] = await db.execute(
-            `SELECT * FROM SUBJECTS WHERE code = ?`,
-            [code]
-        );
+        const [rows] = await db.execute(`SELECT * FROM SUBJECTS WHERE code = ?`, [code]);
         return rows[0];
     }
 
     async updateSubject(subjectId, data) {
-        const [result] = await db.execute(
-            `UPDATE SUBJECTS SET name = ?, code = ? WHERE subject_id = ?`,
-            [data.name, data.code, subjectId]
-        );
+        const [result] = await db.execute(`UPDATE SUBJECTS SET name = ?, code = ? WHERE subject_id = ?`, [
+            data.name,
+            data.code,
+            subjectId,
+        ]);
         return result.affectedRows;
     }
 
     async deleteSubject(subjectId) {
         // Note: Full delete cascaded to CLASS_SUBJECTS and EXAM_SCHEDULES via relations or manually
-        const [result] = await db.execute(
-            `DELETE FROM SUBJECTS WHERE subject_id = ?`,
-            [subjectId]
-        );
+        const [result] = await db.execute(`DELETE FROM SUBJECTS WHERE subject_id = ?`, [subjectId]);
         return result.affectedRows;
     }
 
@@ -100,7 +99,7 @@ class SubjectsModel {
             `SELECT subject_id as id, name, code 
              FROM SUBJECTS 
              WHERE deleted_at IS NULL 
-             ORDER BY name ASC`
+             ORDER BY name ASC`,
         );
         return rows;
     }

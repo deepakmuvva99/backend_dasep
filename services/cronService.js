@@ -10,7 +10,7 @@ class CronService {
         cron.schedule('* * * * *', async () => {
             try {
                 // Find all exams where the deadline has passed and no notification has been sent yet.
-                // We check the notifications table to see if a deadline notification already exists 
+                // We check the notifications table to see if a deadline notification already exists
                 // for this exam schedule, avoiding the need for a separate column on exam_schedules.
                 const [expiredExams] = await db.execute(`
                     SELECT e.exam_schedule_id, e.class_id, e.subject_id, s.name as subject_name
@@ -32,7 +32,7 @@ class CronService {
                          FROM faculty_class_subject_assignments a
                          JOIN faculty f ON a.faculty_id = f.faculty_id
                          WHERE a.class_id = ? AND a.subject_id = ? AND f.is_active = 1 AND f.deleted_at IS NULL AND a.deleted_at IS NULL`,
-                        [exam.class_id, exam.subject_id]
+                        [exam.class_id, exam.subject_id],
                     );
 
                     // Notify each assigned faculty member
@@ -41,10 +41,10 @@ class CronService {
                             user_id: assignment.user_id,
                             entity_type: 'exam_deadline',
                             entity_id: exam.exam_schedule_id,
-                            message: `The deadline for ${exam.subject_name} has passed. Please begin evaluating the submissions.`
+                            message: `The deadline for ${exam.subject_name} has passed. Please begin evaluating the submissions.`,
                         });
                     }
-                    
+
                     console.log(`✅ Deadline notification sent for exam_schedule_id: ${exam.exam_schedule_id}`);
                 }
             } catch (error) {

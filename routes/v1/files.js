@@ -9,14 +9,15 @@ router.use(verifyToken);
 
 router.get('/types', asyncHandler(filesController.getFileTypes));
 
-router.route('/')
-    .post(asyncHandler(filesController.uploadFile));
+router.route('/').post(asyncHandler(filesController.uploadFile));
 
-router.route('/:file_id')
+router
+    .route('/:file_id')
     .get(asyncHandler(filesController.getFileDetails))
     .delete(asyncHandler(filesController.deleteFile));
 
-router.route('/:file_id/versions')
+router
+    .route('/:file_id/versions')
     .get(asyncHandler(filesController.getVersions))
     .post(asyncHandler(filesController.uploadVersion));
 

@@ -5,7 +5,7 @@ const { parsePagination, buildPaginationMeta } = require('../utils/pagination');
 exports.createFaculty = async (req, res) => {
     const { name, email, subject_name } = req.body;
     if (!name || !email || !subject_name) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing fields' }});
+        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing fields' } });
     }
 
     const newFaculty = await facultyService.createFaculty({ name, email, subject_name });
@@ -23,7 +23,7 @@ exports.getFacultyList = async (req, res) => {
 exports.getFacultyProfile = async (req, res) => {
     const facultyId = req.params.faculty_id;
     const userContext = req.user;
-    
+
     const profile = await facultyService.getFacultyProfile(facultyId, userContext);
     return successResponse(res, profile);
 };

@@ -1,4 +1,9 @@
-const { blobServiceClient, sharedKeyCredential, generateBlobSASQueryParameters, BlobSASPermissions } = require('../config/azureBlob');
+const {
+    blobServiceClient,
+    sharedKeyCredential,
+    generateBlobSASQueryParameters,
+    BlobSASPermissions,
+} = require('../config/azureBlob');
 
 class BlobStorageService {
     constructor() {
@@ -10,7 +15,7 @@ class BlobStorageService {
      */
     async getContainerClient(containerName) {
         if (!blobServiceClient) {
-            throw new Error("Blob Storage client is not initialized.");
+            throw new Error('Blob Storage client is not initialized.');
         }
 
         if (!this.containerClients[containerName]) {
@@ -35,14 +40,14 @@ class BlobStorageService {
             const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
             const uploadOptions = {
-                blobHTTPHeaders: { blobContentType: contentType }
+                blobHTTPHeaders: { blobContentType: contentType },
             };
 
             await blockBlobClient.upload(content, content.length, uploadOptions);
             return blockBlobClient.url;
         } catch (error) {
-            console.error("Error uploading file to Blob Storage:", error);
-            throw new Error("Failed to upload file");
+            console.error('Error uploading file to Blob Storage:', error);
+            throw new Error('Failed to upload file');
         }
     }
 
@@ -55,7 +60,7 @@ class BlobStorageService {
     generateSasToken(containerName, blobName, expiresInMinutes = 60) {
         try {
             if (!sharedKeyCredential) {
-                throw new Error("Shared Key Credential is not available for SAS token generation.");
+                throw new Error('Shared Key Credential is not available for SAS token generation.');
             }
 
             const startDate = new Date();
@@ -65,21 +70,21 @@ class BlobStorageService {
             const sasOptions = {
                 containerName,
                 blobName,
-                permissions: BlobSASPermissions.parse("r"), // Read-only access
+                permissions: BlobSASPermissions.parse('r'), // Read-only access
                 startsOn: startDate,
-                expiresOn: expiryDate
+                expiresOn: expiryDate,
             };
 
             const sasToken = generateBlobSASQueryParameters(sasOptions, sharedKeyCredential).toString();
-            
+
             // Return full URL with SAS token
             const containerClient = blobServiceClient.getContainerClient(containerName);
             const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-            
+
             return `${blockBlobClient.url}?${sasToken}`;
         } catch (error) {
-            console.error("Error generating SAS token:", error);
-            throw new Error("Failed to generate SAS token");
+            console.error('Error generating SAS token:', error);
+            throw new Error('Failed to generate SAS token');
         }
     }
 
@@ -95,8 +100,8 @@ class BlobStorageService {
             await blockBlobClient.deleteIfExists();
             return true;
         } catch (error) {
-            console.error("Error deleting file from Blob Storage:", error);
-            throw new Error("Failed to delete file");
+            console.error('Error deleting file from Blob Storage:', error);
+            throw new Error('Failed to delete file');
         }
     }
 }

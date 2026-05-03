@@ -11,11 +11,21 @@ class EmailService {
                 service: process.env.EMAIL_SERVICE || 'gmail',
                 auth: {
                     user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS
-                }
+                    pass: process.env.EMAIL_PASS,
+                },
             });
             console.log('✅ Email Service Initialized');
         }
+    }
+
+    /**
+     * Sanitizes strings to prevent Log Injection by removing line breaks.
+     * @param {string} str
+     * @returns {string}
+     */
+    _sanitizeForLog(str) {
+        if (typeof str !== 'string') return str;
+        return str.replace(/[\r\n]/g, '_');
     }
 
     /**
@@ -26,7 +36,7 @@ class EmailService {
      */
     async sendWelcomeEmail(user, password, role) {
         if (!this.enabled) {
-            console.log(`Skipping email to ${user.email} (Service disabled or missing config)`);
+            console.log(`Skipping email to ${this._sanitizeForLog(user.email)} (Service disabled or missing config)`);
             return null;
         }
 
@@ -34,16 +44,16 @@ class EmailService {
             from: process.env.EMAIL_FROM || '"DASEP Platform" <dasep.ndmatrix@gmail.com>',
             to: user.email,
             subject: `Welcome to DASEP - Your Account Credentials`,
-            html: this._getWelcomeTemplate(user.name, user.email, password, role)
+            html: this._getWelcomeTemplate(user.name, user.email, password, role),
         };
 
         try {
             const info = await this.transporter.sendMail(mailOptions);
-            console.log(`Email sent to ${user.email}: ${info.messageId}`);
+            console.log(`Email sent to ${this._sanitizeForLog(user.email)}: ${info.messageId}`);
             return info;
         } catch (error) {
-            console.error(`Error sending email to ${user.email}:`, error);
-            // We don't throw here to avoid breaking the creation flow if email fails, 
+            console.error(`Error sending email to ${this._sanitizeForLog(user.email)}:`, error);
+            // We don't throw here to avoid breaking the creation flow if email fails,
             // but in production you might want to handle this differently.
             return null;
         }
@@ -55,7 +65,9 @@ class EmailService {
      */
     async sendPasswordChangeNotification(user) {
         if (!this.enabled) {
-            console.log(`Skipping password change email to ${user.email} (Service disabled or missing config)`);
+            console.log(
+                `Skipping password change email to ${this._sanitizeForLog(user.email)} (Service disabled or missing config)`,
+            );
             return null;
         }
 
@@ -63,15 +75,15 @@ class EmailService {
             from: process.env.EMAIL_FROM || '"DASEP Platform" <dasep.ndmatrix@gmail.com>',
             to: user.email,
             subject: `Security Alert: Your DASEP Password was Changed`,
-            html: this._getChangePasswordTemplate(user.name)
+            html: this._getChangePasswordTemplate(user.name),
         };
 
         try {
             const info = await this.transporter.sendMail(mailOptions);
-            console.log(`Password change notification sent to ${user.email}: ${info.messageId}`);
+            console.log(`Password change notification sent to ${this._sanitizeForLog(user.email)}: ${info.messageId}`);
             return info;
         } catch (error) {
-            console.error(`Error sending password change notification to ${user.email}:`, error);
+            console.error(`Error sending password change notification to ${this._sanitizeForLog(user.email)}:`, error);
             return null;
         }
     }

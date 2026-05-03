@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const studentsModel = require('../models/studentsModel');
 const usersModel = require('../models/usersModel'); // Using cross-model logic
 const emailService = require('./emailService');
+const auditLogsService = require('./auditLogsService');
 
 class StudentsService {
     async createStudent(data, adminUserId) {
@@ -29,15 +30,23 @@ class StudentsService {
 
         const ids = await studentsModel.createStudentWithTransaction(
             { name: data.name, email: data.email, password_hash: passwordHash },
-            { institution_id: data.institution_id, class_id: data.class_id, created_by_user_id: adminUserId }
+            { institution_id: data.institution_id, class_id: data.class_id, created_by_user_id: adminUserId },
         );
 
+        await auditLogsService.logAction({
+            entity_type: 'students',
+            entity_id: ids.student_id,
+            field_name: 'all',
+            old_value: null,
+            new_value: JSON.stringify({ institution_id: data.institution_id, class_id: data.class_id }),
+            changed_by_user_id: adminUserId,
+        });
 
-        const result = { 
-            student_id: ids.student_id, 
-            user_id: ids.user_id, 
+        const result = {
+            student_id: ids.student_id,
+            user_id: ids.user_id,
             name: data.name,
-            initial_password: autoPassword // Emulate emailing the user by returning in response for demo purposes
+            initial_password: autoPassword, // Emulate emailing the user by returning in response for demo purposes
         };
 
         // Send Email asynchronously
@@ -50,7 +59,7 @@ class StudentsService {
         const filters = {
             search: query.search || null,
             class_id: query.class_id || null,
-            is_active: query.is_active || null
+            is_active: query.is_active || null,
         };
         return await studentsModel.getStudents(filters, pagination, sorting);
     }
@@ -65,7 +74,10 @@ class StudentsService {
         }
 
         // RBAC enforcement: A student can only view themselves
-        if (userContext.role === 'Student' && parseInt(student.user_id) !== parseInt(userContext.user_id)) {
+        if (
+            userContext.role === 'Student' &&
+            Number.parseInt(student.user_id) !== Number.parseInt(userContext.user_id)
+        ) {
             const error = new Error('You do not have permission to view this profile');
             error.statusCode = 403;
             error.code = 'FORBIDDEN';
@@ -75,7 +87,7 @@ class StudentsService {
         return student;
     }
 
-    async updateStudent(studentId, data) {
+    async updateStudent(studentId, data, actorId) {
         const student = await studentsModel.findById(studentId);
         if (!student) {
             const error = new Error('Student not found');
@@ -96,13 +108,34 @@ class StudentsService {
         }
 
         await studentsModel.updateStudent(studentId, data);
+
+        await auditLogsService.logAction({
+            entity_type: 'students',
+            entity_id: studentId,
+            field_name: 'all',
+            old_value: JSON.stringify({ class_id: student.class_id, institution_id: student.institution_id }),
+            new_value: JSON.stringify({ class_id: data.class_id, institution_id: data.institution_id }),
+            changed_by_user_id: actorId,
+        });
+
         return { ...student, class_id: data.class_id, institution_id: data.institution_id };
     }
 
-    async deleteStudent(studentId) {
+    async deleteStudent(studentId, actorId) {
+        const student = await studentsModel.findById(studentId);
         try {
             await studentsModel.deleteStudent(studentId);
+
+            await auditLogsService.logAction({
+                entity_type: 'students',
+                entity_id: studentId,
+                field_name: 'all',
+                old_value: JSON.stringify(student),
+                new_value: 'SOFT_DELETED',
+                changed_by_user_id: actorId,
+            });
         } catch (err) {
+            console.error('Error deleting student:', err);
             const error = new Error('Student not found or already deleted');
             error.statusCode = 404;
             error.code = 'NOT_FOUND';
@@ -111,7 +144,8 @@ class StudentsService {
         return true;
     }
 
-    async setStudentStatus(studentId, isActive) {
+    async setStudentStatus(studentId, isActive, actorId) {
+        const student = await studentsModel.findById(studentId);
         const affectedRows = await studentsModel.setStudentStatus(studentId, isActive);
         if (affectedRows === 0) {
             const error = new Error('Student not found');
@@ -119,6 +153,16 @@ class StudentsService {
             error.code = 'NOT_FOUND';
             throw error;
         }
+
+        await auditLogsService.logAction({
+            entity_type: 'students',
+            entity_id: studentId,
+            field_name: 'is_active',
+            old_value: String(student.is_active),
+            new_value: String(isActive),
+            changed_by_user_id: actorId,
+        });
+
         return true;
     }
 
@@ -131,7 +175,10 @@ class StudentsService {
             throw error;
         }
 
-        if (userContext.role === 'Student' && parseInt(student.user_id) !== parseInt(userContext.user_id)) {
+        if (
+            userContext.role === 'Student' &&
+            Number.parseInt(student.user_id) !== Number.parseInt(userContext.user_id)
+        ) {
             const error = new Error('Permission denied');
             error.statusCode = 403;
             error.code = 'FORBIDDEN';

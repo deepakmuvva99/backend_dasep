@@ -8,8 +8,7 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 router.use(verifyToken);
 router.use(restrictTo('Admin')); // Audit logs strictly accessible to Admins only
 
-router.route('/')
-    .get(asyncHandler(auditLogsController.getAuditLogs));
+router.route('/').get(asyncHandler(auditLogsController.getAuditLogs));
 
 router.get('/:audit_log_id', asyncHandler(auditLogsController.getAuditLogDetails));
 

@@ -1,5 +1,6 @@
 const evaluationsModel = require('../models/evaluationsModel');
 const profileHelper = require('../utils/profileHelper');
+const auditLogsService = require('./auditLogsService');
 
 class EvaluationsService {
     async createEvaluation(data, userContext) {
@@ -18,7 +19,7 @@ class EvaluationsService {
             error.code = 'FORBIDDEN';
             throw error;
         }
-        
+
         const facultyId = await profileHelper.getProfileId(userContext.user_id, userContext.role);
         if (!facultyId) {
             const error = new Error('Faculty profile not found');
@@ -28,7 +29,7 @@ class EvaluationsService {
         }
 
         data.faculty_id = facultyId;
-        
+
         const result = await evaluationsModel.createEvaluation(data);
         if (result.error === 'EVALUATION_EXISTS') {
             const error = new Error('An evaluation already exists for this submission');
@@ -37,12 +38,25 @@ class EvaluationsService {
             throw error;
         }
 
+        await auditLogsService.logAction({
+            entity_type: 'evaluations',
+            entity_id: result.evaluation_id,
+            field_name: 'all',
+            old_value: null,
+            new_value: JSON.stringify({
+                marks_awarded: data.marks_awarded,
+                max_marks: data.max_marks,
+                status_id: data.status_id,
+            }),
+            changed_by_user_id: userContext.user_id,
+        });
+
         return { evaluation_id: result.evaluation_id, ...data };
     }
 
     async getEvaluations(query, pagination, sorting, userContext) {
         const filters = {
-            status_id: query.status_id || null
+            status_id: query.status_id || null,
         };
         return await evaluationsModel.getEvaluations(filters, pagination, sorting, userContext);
     }
@@ -55,7 +69,7 @@ class EvaluationsService {
             error.code = 'NOT_FOUND';
             throw error;
         }
-        
+
         // Security: IDOR Check
         if (userContext.role === 'Student') {
             const studentId = await profileHelper.getProfileId(userContext.user_id, userContext.role);
@@ -66,11 +80,11 @@ class EvaluationsService {
                 throw error;
             }
         }
-        
+
         return evaluation;
     }
 
-    async updateEvaluation(evaluationId, data) {
+    async updateEvaluation(evaluationId, data, actorId) {
         const existing = await this.getEvaluationDetails(evaluationId, { role: 'Admin' });
 
         if (data.marks_awarded > data.max_marks) {
@@ -81,6 +95,16 @@ class EvaluationsService {
         }
 
         await evaluationsModel.updateEvaluation(evaluationId, data);
+
+        await auditLogsService.logAction({
+            entity_type: 'evaluations',
+            entity_id: evaluationId,
+            field_name: 'all',
+            old_value: JSON.stringify({ marks_awarded: existing.marks_awarded, status_id: existing.status_id }),
+            new_value: JSON.stringify({ marks_awarded: data.marks_awarded, status_id: data.status_id }),
+            changed_by_user_id: actorId,
+        });
+
         return { evaluation_id: evaluationId, ...existing, ...data };
     }
 

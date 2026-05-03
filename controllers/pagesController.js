@@ -2,10 +2,13 @@ const pagesService = require('../services/pagesService');
 const { successResponse } = require('../utils/responseHandler');
 
 exports.createPages = async (req, res) => {
-    const { file_id, version_id, pages } = req.body; 
+    const { file_id, version_id, pages } = req.body;
 
     if (!file_id || !version_id || !Array.isArray(pages) || pages.length === 0) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'file_id, version_id and pages array are required' }});
+        return res.status(400).json({
+            success: false,
+            error: { code: 'BAD_REQUEST', message: 'file_id, version_id and pages array are required' },
+        });
     }
 
     const result = await pagesService.createPages(file_id, version_id, pages);

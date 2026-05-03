@@ -5,7 +5,7 @@ class NotificationsModel {
         const [result] = await db.execute(
             `INSERT INTO notifications (user_id, entity_type, entity_id, message, sent_at, is_read)
              VALUES (?, ?, ?, ?, NOW(), 0)`,
-            [data.user_id, data.entity_type, data.entity_id, data.message]
+            [data.user_id, data.entity_type, data.entity_id, data.message],
         );
         return result.insertId;
     }
@@ -30,14 +30,17 @@ class NotificationsModel {
     }
 
     async findById(notificationId) {
-        const [rows] = await db.execute(`SELECT *, notification_id as id FROM notifications WHERE notification_id = ?`, [notificationId]);
+        const [rows] = await db.execute(
+            `SELECT *, notification_id as id FROM notifications WHERE notification_id = ?`,
+            [notificationId],
+        );
         return rows[0];
     }
 
     async markAsRead(notificationId, userId) {
         const [result] = await db.execute(
             `UPDATE notifications SET is_read = 1, read_at = NOW() WHERE notification_id = ? AND user_id = ?`,
-            [notificationId, userId]
+            [notificationId, userId],
         );
         return result.affectedRows;
     }
@@ -45,16 +48,16 @@ class NotificationsModel {
     async markAllAsRead(userId) {
         const [result] = await db.execute(
             `UPDATE notifications SET is_read = 1, read_at = NOW() WHERE user_id = ? AND is_read = 0`,
-            [userId]
+            [userId],
         );
         return result.affectedRows;
     }
 
     async deleteNotification(notificationId, userId) {
-        const [result] = await db.execute(
-            `DELETE FROM notifications WHERE notification_id = ? AND user_id = ?`,
-            [notificationId, userId]
-        );
+        const [result] = await db.execute(`DELETE FROM notifications WHERE notification_id = ? AND user_id = ?`, [
+            notificationId,
+            userId,
+        ]);
         return result.affectedRows;
     }
 }

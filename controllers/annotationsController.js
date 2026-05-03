@@ -1,18 +1,29 @@
 const annotationsService = require('../services/annotationsService');
 const { successResponse } = require('../utils/responseHandler');
-const { asyncHandler } = require('../middlewares/errorMiddleware');
 
 exports.createAnnotation = async (req, res) => {
-    const { evaluation_id, page_id, annotation_type_id, pos_x, pos_y, pos_width, pos_height, position_data, content } = req.body;
+    const { evaluation_id, page_id, annotation_type_id, pos_x, pos_y, pos_width, pos_height, position_data, content } =
+        req.body;
     if (!evaluation_id || !page_id || !annotation_type_id) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required fields' }});
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required fields' } });
     }
 
-    const annotation = await annotationsService.createAnnotation({ 
-        evaluation_id, page_id, annotation_type_id, 
-        pos_x, pos_y, pos_width, pos_height, 
-        position_data, content 
-    }, req.user);
+    const annotation = await annotationsService.createAnnotation(
+        {
+            evaluation_id,
+            page_id,
+            annotation_type_id,
+            pos_x,
+            pos_y,
+            pos_width,
+            pos_height,
+            position_data,
+            content,
+        },
+        req.user,
+    );
     return successResponse(res, annotation, 201);
 };
 

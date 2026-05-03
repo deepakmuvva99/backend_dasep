@@ -1,10 +1,9 @@
 const auditLogsModel = require('../models/auditLogsModel');
 
 class AuditLogsService {
-    async logAction(userId, action, resource, details, ipAddress) {
-        // Core internal service not necessarily exposed via an external POST, 
-        // to be utilized by interceptors or controllers internally.
-        return await auditLogsModel.logAction(userId, action, resource, details, ipAddress);
+    async logAction(data) {
+        // Core internal service utilized by other services/controllers to record changes.
+        return await auditLogsModel.logAction(data);
     }
 
     async getLogs(query, pagination) {
@@ -13,7 +12,7 @@ class AuditLogsService {
             entity_id: query.entity_id || null,
             user_id: query.user_id || null,
             date_from: query.date_from || null,
-            date_to: query.date_to || null
+            date_to: query.date_to || null,
         };
         return await auditLogsModel.getLogs(filters, pagination);
     }

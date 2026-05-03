@@ -1,6 +1,5 @@
 const documentsModel = require('../models/documentsModel');
 const submissionsModel = require('../models/submissionsModel');
-const db = require('../config/database');
 
 class DocumentsService {
     async createDocument(data) {
@@ -20,7 +19,7 @@ class DocumentsService {
     async getDocuments(query, pagination, sorting) {
         const filters = {
             submission_id: query.submission_id || null,
-            student_id: query.student_id || null
+            student_id: query.student_id || null,
         };
         return await documentsModel.getDocuments(filters, pagination, sorting);
     }

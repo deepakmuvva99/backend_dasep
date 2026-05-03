@@ -2,10 +2,11 @@ const db = require('../config/database');
 
 class ClassesModel {
     async createClass(data) {
-        const [result] = await db.execute(
-            `INSERT INTO CLASSES (grade, section, academic_year) VALUES (?, ?, ?)`,
-            [data.grade, data.section, data.academic_year]
-        );
+        const [result] = await db.execute(`INSERT INTO CLASSES (grade, section, academic_year) VALUES (?, ?, ?)`, [
+            data.grade,
+            data.section,
+            data.academic_year,
+        ]);
         return result.insertId;
     }
 
@@ -35,8 +36,17 @@ class ClassesModel {
         const [countRows] = await db.execute(countQuery, params);
         const total = countRows[0].total;
 
-        query += ` ORDER BY ${sorting.sort_by} ${sorting.order}`;
-        query += ` LIMIT ? OFFSET ?`;
+        // Explicit mapping to prevent SQL Injection
+        const sortColumnMap = {
+            grade: 'grade',
+            section: 'section',
+            academic_year: 'academic_year',
+            class_id: 'class_id',
+        };
+        const sortColumn = sortColumnMap[sorting.sort_by] || 'grade';
+        const sortOrder = sorting.order && sorting.order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
+
+        query += ` ORDER BY ${sortColumn} ${sortOrder} LIMIT ? OFFSET ?`;
         params.push(pagination.limit, pagination.offset);
 
         const [rows] = await db.query(query, params);
@@ -49,17 +59,18 @@ class ClassesModel {
     }
 
     async findByCombo(grade, section, academic_year) {
-        const [rows] = await db.execute(
-            `SELECT * FROM CLASSES WHERE grade = ? AND section = ? AND academic_year = ?`,
-            [grade, section, academic_year]
-        );
+        const [rows] = await db.execute(`SELECT * FROM CLASSES WHERE grade = ? AND section = ? AND academic_year = ?`, [
+            grade,
+            section,
+            academic_year,
+        ]);
         return rows[0];
     }
 
     async updateClass(classId, data) {
         const [result] = await db.execute(
             `UPDATE CLASSES SET grade = ?, section = ?, academic_year = ? WHERE class_id = ?`,
-            [data.grade, data.section, data.academic_year, classId]
+            [data.grade, data.section, data.academic_year, classId],
         );
         return result.affectedRows;
     }
@@ -103,7 +114,7 @@ class ClassesModel {
             `SELECT class_id as id, CONCAT('Grade ', grade, ' - ', section) as name, academic_year 
              FROM CLASSES 
              WHERE deleted_at IS NULL 
-             ORDER BY grade ASC, section ASC`
+             ORDER BY grade ASC, section ASC`,
         );
         return rows;
     }

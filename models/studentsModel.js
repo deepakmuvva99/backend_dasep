@@ -9,7 +9,7 @@ class StudentsModel {
             // 1. Insert User
             const [userResult] = await connection.execute(
                 `INSERT INTO USERS (name, email, password_hash, created_at) VALUES (?, ?, ?, NOW())`,
-                [userData.name, userData.email, userData.password_hash]
+                [userData.name, userData.email, userData.password_hash],
             );
             const userId = userResult.insertId;
 
@@ -17,7 +17,7 @@ class StudentsModel {
             const [studentResult] = await connection.execute(
                 `INSERT INTO STUDENTS (user_id, institution_id, class_id, is_active, created_by_user_id) 
                  VALUES (?, ?, ?, ?, ?)`,
-                [userId, studentData.institution_id, studentData.class_id, true, studentData.created_by_user_id]
+                [userId, studentData.institution_id, studentData.class_id, true, studentData.created_by_user_id],
             );
             const studentId = studentResult.insertId;
 
@@ -26,7 +26,7 @@ class StudentsModel {
             await connection.execute(
                 `INSERT INTO USER_ROLES (user_id, role_id) 
                  SELECT ?, role_id FROM ROLES WHERE name = 'Student'`,
-                [userId]
+                [userId],
             );
 
             await connection.commit();
@@ -69,14 +69,15 @@ class StudentsModel {
 
         // Sorting mapping since name actually applies to u.name mapped to 'name'
         const allowedSortCols = {
-            'name': 'u.name',
-            'institution_id': 's.institution_id',
-            'class_id': 's.class_id',
-            'created_at': 'u.created_at'
+            name: 'u.name',
+            institution_id: 's.institution_id',
+            class_id: 's.class_id',
+            created_at: 'u.created_at',
         };
         const sortAlias = allowedSortCols[sorting.sort_by] || 'u.created_at';
-        
-        query += ` ORDER BY ${sortAlias} ${sorting.order}`;
+        const sortOrder = sorting.order && sorting.order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
+
+        query += ` ORDER BY ${sortAlias} ${sortOrder}`;
         query += ` LIMIT ? OFFSET ?`;
         params.push(pagination.limit, pagination.offset);
 
@@ -90,24 +91,22 @@ class StudentsModel {
              FROM STUDENTS s
              JOIN USERS u ON s.user_id = u.user_id
              WHERE s.student_id = ? AND s.deleted_at IS NULL AND u.deleted_at IS NULL`,
-            [studentId]
+            [studentId],
         );
         return rows[0];
     }
 
     async findByInstitutionId(institutionId) {
-        const [rows] = await db.execute(
-            `SELECT student_id FROM STUDENTS WHERE institution_id = ?`,
-            [institutionId]
-        );
+        const [rows] = await db.execute(`SELECT student_id FROM STUDENTS WHERE institution_id = ?`, [institutionId]);
         return rows[0];
     }
 
     async updateStudent(studentId, data) {
-        const [result] = await db.execute(
-            `UPDATE STUDENTS SET class_id = ?, institution_id = ? WHERE student_id = ?`,
-            [data.class_id, data.institution_id, studentId]
-        );
+        const [result] = await db.execute(`UPDATE STUDENTS SET class_id = ?, institution_id = ? WHERE student_id = ?`, [
+            data.class_id,
+            data.institution_id,
+            studentId,
+        ]);
         return result.affectedRows;
     }
 
@@ -116,25 +115,18 @@ class StudentsModel {
         try {
             await connection.beginTransaction();
 
-            const [studentQuery] = await connection.execute(
-                `SELECT user_id FROM STUDENTS WHERE student_id = ?`,
-                [studentId]
-            );
+            const [studentQuery] = await connection.execute(`SELECT user_id FROM STUDENTS WHERE student_id = ?`, [
+                studentId,
+            ]);
 
             if (studentQuery.length === 0) throw new Error('Student not found');
             const userId = studentQuery[0].user_id;
 
             // Soft delete student profile
-            await connection.execute(
-                `UPDATE STUDENTS SET deleted_at = NOW() WHERE student_id = ?`,
-                [studentId]
-            );
+            await connection.execute(`UPDATE STUDENTS SET deleted_at = NOW() WHERE student_id = ?`, [studentId]);
 
             // Soft delete user profile associated
-            await connection.execute(
-                `UPDATE USERS SET deleted_at = NOW() WHERE user_id = ?`,
-                [userId]
-            );
+            await connection.execute(`UPDATE USERS SET deleted_at = NOW() WHERE user_id = ?`, [userId]);
 
             await connection.commit();
             return true;
@@ -147,10 +139,10 @@ class StudentsModel {
     }
 
     async setStudentStatus(studentId, isActive) {
-        const [result] = await db.execute(
-            `UPDATE STUDENTS SET is_active = ? WHERE student_id = ?`,
-            [isActive ? 1 : 0, studentId]
-        );
+        const [result] = await db.execute(`UPDATE STUDENTS SET is_active = ? WHERE student_id = ?`, [
+            isActive ? 1 : 0,
+            studentId,
+        ]);
         return result.affectedRows;
     }
 
@@ -163,14 +155,14 @@ class StudentsModel {
             WHERE sub.student_id = ?
             ORDER BY sub.submitted_at DESC
         `;
-        
+
         const countQuery = `SELECT COUNT(*) as total FROM SUBMISSIONS WHERE student_id = ?`;
         const [countRows] = await db.execute(countQuery, [studentId]);
         const total = countRows[0].total;
 
         query += ` LIMIT ? OFFSET ?`;
         const [rows] = await db.execute(query, [studentId, pagination.limit, pagination.offset]);
-        
+
         return { rows, total };
     }
 }

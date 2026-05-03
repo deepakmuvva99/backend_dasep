@@ -2,15 +2,17 @@ const db = require('../config/database');
 
 class EvaluationsModel {
     async createEvaluation(data) {
-        // Enforce 1:1 using INSERT, DB unique constraint will catch duplicates, 
+        // Enforce 1:1 using INSERT, DB unique constraint will catch duplicates,
         // but we handle explicitly for safety before hitting DB error
-        const [existing] = await db.execute(`SELECT evaluation_id FROM EVALUATIONS WHERE submission_id = ?`, [data.submission_id]);
+        const [existing] = await db.execute(`SELECT evaluation_id FROM EVALUATIONS WHERE submission_id = ?`, [
+            data.submission_id,
+        ]);
         if (existing.length > 0) return { error: 'EVALUATION_EXISTS' };
 
         const [result] = await db.execute(
             `INSERT INTO EVALUATIONS (submission_id, faculty_id, marks_awarded, max_marks, remarks, status_id, evaluated_at)
              VALUES (?, ?, ?, ?, ?, ?, NOW())`,
-            [data.submission_id, data.faculty_id, data.marks_awarded, data.max_marks, data.remarks, data.status_id]
+            [data.submission_id, data.faculty_id, data.marks_awarded, data.max_marks, data.remarks, data.status_id],
         );
         return { evaluation_id: result.insertId };
     }
@@ -30,18 +32,22 @@ class EvaluationsModel {
             JOIN STUDENTS stu ON sub.student_id = stu.student_id
             JOIN USERS stu_u ON stu.user_id = stu_u.user_id
         `;
-        
+
         const params = [];
         const conditions = [];
 
         // Scoping
         if (userContext.role === 'Student') {
-            const [stuMapping] = await db.execute(`SELECT student_id FROM STUDENTS WHERE user_id = ?`, [userContext.user_id]);
+            const [stuMapping] = await db.execute(`SELECT student_id FROM STUDENTS WHERE user_id = ?`, [
+                userContext.user_id,
+            ]);
             const studentId = stuMapping[0] ? stuMapping[0].student_id : 0;
             conditions.push(`sub.student_id = ?`);
             params.push(studentId);
         } else if (userContext.role === 'Faculty') {
-            const [facMapping] = await db.execute(`SELECT faculty_id FROM FACULTY WHERE user_id = ?`, [userContext.user_id]);
+            const [facMapping] = await db.execute(`SELECT faculty_id FROM FACULTY WHERE user_id = ?`, [
+                userContext.user_id,
+            ]);
             const facultyId = facMapping[0] ? facMapping[0].faculty_id : 0;
             conditions.push(`e.faculty_id = ?`);
             params.push(facultyId);
@@ -60,10 +66,15 @@ class EvaluationsModel {
         const [countRows] = await db.execute(countQuery, params);
         const total = countRows[0].total;
 
-        let sortAlias = `e.evaluated_at`;
-        if (sorting.sort_by === 'marks_awarded') sortAlias = `e.marks_awarded`;
+        // Explicit mapping to prevent SQL Injection
+        const sortColumnMap = {
+            evaluated_at: 'e.evaluated_at',
+            marks_awarded: 'e.marks_awarded',
+        };
+        const sortColumn = sortColumnMap[sorting.sort_by] || 'e.evaluated_at';
+        const sortOrder = sorting.order && sorting.order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
 
-        query += ` ORDER BY ${sortAlias} ${sorting.order} LIMIT ? OFFSET ?`;
+        query += ` ORDER BY ${sortColumn} ${sortOrder} LIMIT ? OFFSET ?`;
         params.push(pagination.limit, pagination.offset);
 
         const [rows] = await db.query(query, params);
@@ -76,7 +87,7 @@ class EvaluationsModel {
              FROM EVALUATIONS e
              JOIN EVALUATION_STATUS est ON e.status_id = est.evaluation_status_id
              WHERE e.evaluation_id = ?`,
-            [evaluationId]
+            [evaluationId],
         );
         return rows[0];
     }
@@ -86,7 +97,7 @@ class EvaluationsModel {
             `UPDATE EVALUATIONS 
              SET marks_awarded = ?, max_marks = ?, remarks = ?, status_id = ? 
              WHERE evaluation_id = ?`,
-            [data.marks_awarded, data.max_marks, data.remarks, data.status_id, evaluationId]
+            [data.marks_awarded, data.max_marks, data.remarks, data.status_id, evaluationId],
         );
         return result.affectedRows;
     }
@@ -102,7 +113,7 @@ class EvaluationsModel {
              FROM EVALUATIONS e
              JOIN EVALUATION_STATUS est ON e.status_id = est.evaluation_status_id
              WHERE e.submission_id = ?`,
-            [submissionId]
+            [submissionId],
         );
         return rows[0];
     }

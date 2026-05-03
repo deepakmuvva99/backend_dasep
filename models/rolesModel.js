@@ -2,10 +2,7 @@ const db = require('../config/database');
 
 class RolesModel {
     async createRole(name) {
-        const [result] = await db.execute(
-            `INSERT INTO ROLES (name) VALUES (?)`,
-            [name]
-        );
+        const [result] = await db.execute(`INSERT INTO ROLES (name) VALUES (?)`, [name]);
         return result.insertId;
     }
 
@@ -40,10 +37,7 @@ class RolesModel {
     }
 
     async updateRole(roleId, name) {
-        const [result] = await db.execute(
-            `UPDATE ROLES SET name = ? WHERE role_id = ?`,
-            [name, roleId]
-        );
+        const [result] = await db.execute(`UPDATE ROLES SET name = ? WHERE role_id = ?`, [name, roleId]);
         return result.affectedRows;
     }
 
@@ -72,7 +66,7 @@ class RolesModel {
              FROM PERMISSIONS p
              JOIN ROLE_PERMISSIONS rp ON p.permission_id = rp.permission_id
              WHERE rp.role_id = ?`,
-            [roleId]
+            [roleId],
         );
         return rows;
     }
@@ -80,16 +74,16 @@ class RolesModel {
     async addPermissionToRole(roleId, permissionId) {
         const [result] = await db.execute(
             `INSERT IGNORE INTO ROLE_PERMISSIONS (role_id, permission_id) VALUES (?, ?)`,
-            [roleId, permissionId]
+            [roleId, permissionId],
         );
         return result.affectedRows > 0;
     }
 
     async removePermissionFromRole(roleId, permissionId) {
-        const [result] = await db.execute(
-            `DELETE FROM ROLE_PERMISSIONS WHERE role_id = ? AND permission_id = ?`,
-            [roleId, permissionId]
-        );
+        const [result] = await db.execute(`DELETE FROM ROLE_PERMISSIONS WHERE role_id = ? AND permission_id = ?`, [
+            roleId,
+            permissionId,
+        ]);
         return result.affectedRows > 0;
     }
 }
