@@ -51,3 +51,24 @@ exports.getClassesLookup = async (req, res) => {
     const classes = await classesService.getClassesLookup();
     return successResponse(res, classes);
 };
+
+exports.addSubjectToClass = async (req, res) => {
+    const { class_id } = req.params;
+    const { subject_id } = req.body;
+
+    if (!subject_id) {
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'subject_id is required' } });
+    }
+
+    await classesService.addSubjectToClass(class_id, subject_id);
+    return successResponse(res, { message: 'Subject added to class successfully' }, 201);
+};
+
+exports.removeSubjectFromClass = async (req, res) => {
+    const { class_id, subject_id } = req.params;
+
+    await classesService.removeSubjectFromClass(class_id, subject_id);
+    return successResponse(res, { message: 'Subject removed from class successfully' });
+};

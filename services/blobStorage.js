@@ -51,13 +51,7 @@ class BlobStorageService {
         }
     }
 
-    /**
-     * Generate a SAS Token for a specific blob
-     * @param {string} containerName - The container name
-     * @param {string} blobName - The blob name
-     * @param {number} expiresInMinutes - Expiry time in minutes
-     */
-    generateSasToken(containerName, blobName, expiresInMinutes = 60) {
+    generateSasToken(containerName, blobName, permissions = 'r', expiresInMinutes = 60) {
         try {
             if (!sharedKeyCredential) {
                 throw new Error('Shared Key Credential is not available for SAS token generation.');
@@ -70,7 +64,7 @@ class BlobStorageService {
             const sasOptions = {
                 containerName,
                 blobName,
-                permissions: BlobSASPermissions.parse('r'), // Read-only access
+                permissions: BlobSASPermissions.parse(permissions),
                 startsOn: startDate,
                 expiresOn: expiryDate,
             };

@@ -22,6 +22,13 @@ router
 
 router
     .route('/:class_id/subjects')
-    .get(restrictTo('Admin', 'Faculty'), asyncHandler(classesController.getClassSubjects));
+    .get(restrictTo('Admin', 'Faculty'), asyncHandler(classesController.getClassSubjects))
+    .post(restrictTo('Admin'), asyncHandler(classesController.addSubjectToClass));
+
+router.delete(
+    '/:class_id/subjects/:subject_id',
+    restrictTo('Admin'),
+    asyncHandler(classesController.removeSubjectFromClass),
+);
 
 module.exports = router;

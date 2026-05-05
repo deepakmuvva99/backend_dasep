@@ -97,16 +97,40 @@ class ClassesModel {
             SELECT s.subject_id, s.name, s.code 
             FROM SUBJECTS s
             JOIN CLASS_SUBJECTS cs ON s.subject_id = cs.subject_id
-            WHERE cs.class_id = ?
+            WHERE cs.class_id = ? AND cs.deleted_at IS NULL
         `;
 
-        const countQuery = `SELECT COUNT(*) as total FROM CLASS_SUBJECTS WHERE class_id = ?`;
+        const countQuery = `SELECT COUNT(*) as total FROM CLASS_SUBJECTS WHERE class_id = ? AND deleted_at IS NULL`;
         const [countRows] = await db.execute(countQuery, [classId]);
         const total = countRows[0].total;
 
         query += ` LIMIT ? OFFSET ?`;
         const [rows] = await db.execute(query, [classId, pagination.limit, pagination.offset]);
         return { rows, total };
+    }
+
+    async checkClassSubjectExists(classId, subjectId) {
+        const [rows] = await db.execute(
+            `SELECT * FROM CLASS_SUBJECTS WHERE class_id = ? AND subject_id = ? AND deleted_at IS NULL`,
+            [classId, subjectId],
+        );
+        return rows[0];
+    }
+
+    async addSubjectToClass(classId, subjectId) {
+        const [result] = await db.execute(`INSERT INTO CLASS_SUBJECTS (class_id, subject_id) VALUES (?, ?)`, [
+            classId,
+            subjectId,
+        ]);
+        return result.insertId;
+    }
+
+    async removeSubjectFromClass(classId, subjectId) {
+        const [result] = await db.execute(
+            `UPDATE CLASS_SUBJECTS SET deleted_at = CURRENT_TIMESTAMP WHERE class_id = ? AND subject_id = ?`,
+            [classId, subjectId],
+        );
+        return result.affectedRows;
     }
 
     async getLookup() {

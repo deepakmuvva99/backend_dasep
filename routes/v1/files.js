@@ -10,6 +10,7 @@ router.use(verifyToken);
 router.get('/types', asyncHandler(filesController.getFileTypes));
 
 router.route('/').post(asyncHandler(filesController.uploadFile));
+router.post('/request-upload', asyncHandler(filesController.requestUpload));
 
 router
     .route('/:file_id')
@@ -22,5 +23,6 @@ router
     .post(asyncHandler(filesController.uploadVersion));
 
 router.get('/:file_id/versions/current', asyncHandler(filesController.getCurrentVersion));
+router.get('/:file_id/sas-token', asyncHandler(filesController.getSasToken));
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const classesModel = require('../models/classesModel');
+const subjectsModel = require('../models/subjectsModel');
 
 class ClassesService {
     async createClass(data) {
@@ -78,6 +79,47 @@ class ClassesService {
 
     async getClassesLookup() {
         return await classesModel.getLookup();
+    }
+
+    async addSubjectToClass(classId, subjectId) {
+        // 1. Verify class exists
+        await this.getClassDetails(classId);
+
+        // 2. Verify subject exists
+        const subject = await subjectsModel.findById(subjectId);
+        if (!subject) {
+            const error = new Error('Subject not found');
+            error.statusCode = 404;
+            error.code = 'NOT_FOUND';
+            throw error;
+        }
+
+        // 3. Check if association already exists
+        const existing = await classesModel.checkClassSubjectExists(classId, subjectId);
+        if (existing) {
+            const error = new Error('Subject already associated with this class');
+            error.statusCode = 409;
+            error.code = 'CONFLICT';
+            throw error;
+        }
+
+        return await classesModel.addSubjectToClass(classId, subjectId);
+    }
+
+    async removeSubjectFromClass(classId, subjectId) {
+        // 1. Verify class exists
+        await this.getClassDetails(classId);
+
+        // 2. Remove
+        const affectedRows = await classesModel.removeSubjectFromClass(classId, subjectId);
+        if (affectedRows === 0) {
+            const error = new Error('Subject association not found for this class');
+            error.statusCode = 404;
+            error.code = 'NOT_FOUND';
+            throw error;
+        }
+
+        return true;
     }
 }
 

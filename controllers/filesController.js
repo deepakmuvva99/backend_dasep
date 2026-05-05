@@ -69,3 +69,23 @@ exports.deleteFile = async (req, res) => {
     await filesService.deleteFile(req.params.file_id);
     return successResponse(res, { message: 'File soft-deleted' });
 };
+
+exports.getSasToken = async (req, res) => {
+    const fileId = req.params.file_id;
+    const { permissions } = req.query; // 'r' or 'w'
+
+    const result = await filesService.getSasToken(fileId, permissions || 'r');
+    return successResponse(res, result);
+};
+
+exports.requestUpload = async (req, res) => {
+    const { file_name } = req.body;
+    if (!file_name) {
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'file_name is required' } });
+    }
+
+    const result = await filesService.requestUploadUrl(file_name);
+    return successResponse(res, result);
+};
