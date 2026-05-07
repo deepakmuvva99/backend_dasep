@@ -19,7 +19,7 @@ class FacultyService {
 
         const ids = await facultyModel.createFacultyWithTransaction(
             { name: data.name, email: data.email, password_hash: passwordHash },
-            { department: data.department },
+            {},
         );
 
         const result = {
@@ -38,7 +38,6 @@ class FacultyService {
     async getFaculty(query, pagination) {
         const filters = {
             search: query.search || null,
-            department: query.department || null,
             is_active: query.is_active || null,
         };
         return await facultyModel.getFaculty(filters, pagination);

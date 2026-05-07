@@ -105,7 +105,7 @@ class ClassesModel {
         const total = countRows[0].total;
 
         query += ` LIMIT ? OFFSET ?`;
-        const [rows] = await db.execute(query, [classId, pagination.limit, pagination.offset]);
+        const [rows] = await db.query(query, [classId, Number(pagination.limit), Number(pagination.offset)]);
         return { rows, total };
     }
 

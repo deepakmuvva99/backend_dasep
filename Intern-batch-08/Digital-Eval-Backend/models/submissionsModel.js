@@ -24,7 +24,7 @@ class SubmissionsModel {
                    sub.name as subject_name, c.grade, c.section
             FROM SUBMISSIONS s
             JOIN SUBMISSION_TYPES st ON s.submission_type_id = st.submission_type_id
-            JOIN SUBMISSION_STATUS stat ON s.status_id = stat.submission_status_id
+            JOIN submission_statuses stat ON s.status_id = stat.submission_status_id
             JOIN STUDENTS stu ON s.student_id = stu.student_id
             JOIN EXAM_SCHEDULES es ON s.exam_schedule_id = es.exam_schedule_id
             JOIN SUBJECTS sub ON es.subject_id = sub.subject_id

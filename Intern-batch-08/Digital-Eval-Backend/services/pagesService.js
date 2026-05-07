@@ -1,9 +1,9 @@
 const pagesModel = require('../models/pagesModel');
 
 class PagesService {
-    async createPages(fileId, versionId, pagesData) {
+    async createPages(versionId, pagesData) {
         // Validation could be added here
-        const affectedRows = await pagesModel.createPages(fileId, versionId, pagesData);
+        const affectedRows = await pagesModel.createPages(versionId, pagesData);
         return { version_id: versionId, pages_created: affectedRows };
     }
 

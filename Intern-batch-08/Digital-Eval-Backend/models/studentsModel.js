@@ -148,10 +148,10 @@ class StudentsModel {
 
     async getStudentSubmissions(studentId, pagination) {
         let query = `
-            SELECT submission_id, sub.assignment_id, sub.exam_schedule_id, st.name as type, ss.name as status, sub.attempt_number, sub.submitted_at
+            SELECT submission_id, sub.exam_schedule_id, st.name as type, ss.name as status, sub.submitted_at
             FROM SUBMISSIONS sub
             JOIN SUBMISSION_TYPES st ON sub.submission_type_id = st.submission_type_id
-            JOIN SUBMISSION_STATUS ss ON sub.status_id = ss.submission_status_id
+            JOIN submission_statuses ss ON sub.status_id = ss.submission_status_id
             WHERE sub.student_id = ?
             ORDER BY sub.submitted_at DESC
         `;

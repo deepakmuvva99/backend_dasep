@@ -13,9 +13,9 @@ class FacultyModel {
             const userId = userResult.insertId;
 
             const [facultyResult] = await connection.execute(
-                `INSERT INTO FACULTY (user_id, department, is_active, credentials_sent_at) 
-                 VALUES (?, ?, ?, NOW())`,
-                [userId, facultyData.department, true],
+                `INSERT INTO FACULTY (user_id, is_active, credentials_sent_at) 
+                 VALUES (?, ?, NOW())`,
+                [userId, true],
             );
             const facultyId = facultyResult.insertId;
 
@@ -37,17 +37,13 @@ class FacultyModel {
 
     async getFaculty(filters, pagination) {
         let query = `
-            SELECT f.faculty_id, f.faculty_id as id, u.name, u.email, f.department, f.is_active, f.credentials_sent_at 
+            SELECT f.faculty_id, f.faculty_id as id, u.name, u.email, f.is_active, f.credentials_sent_at 
             FROM FACULTY f
             JOIN USERS u ON f.user_id = u.user_id
             WHERE f.deleted_at IS NULL AND u.deleted_at IS NULL
         `;
         const params = [];
 
-        if (filters.department) {
-            query += ` AND f.department = ?`;
-            params.push(filters.department);
-        }
         if (filters.is_active !== null && filters.is_active !== undefined) {
             query += ` AND f.is_active = ?`;
             params.push(filters.is_active === 'true' || filters.is_active === true ? 1 : 0);
@@ -70,7 +66,7 @@ class FacultyModel {
 
     async findById(facultyId) {
         const [rows] = await db.execute(
-            `SELECT f.faculty_id, f.faculty_id as id, f.user_id, u.name, u.email, f.department, f.is_active
+            `SELECT f.faculty_id, f.faculty_id as id, f.user_id, u.name, u.email, f.is_active
              FROM FACULTY f
              JOIN USERS u ON f.user_id = u.user_id
              WHERE f.faculty_id = ? AND f.deleted_at IS NULL AND u.deleted_at IS NULL`,
@@ -83,11 +79,6 @@ class FacultyModel {
         const connection = await db.getConnection();
         try {
             await connection.beginTransaction();
-
-            await connection.execute(`UPDATE FACULTY SET department = ? WHERE faculty_id = ?`, [
-                data.department,
-                facultyId,
-            ]);
 
             const [faculty] = await connection.execute(`SELECT user_id FROM FACULTY WHERE faculty_id = ?`, [facultyId]);
             if (faculty.length > 0) {
@@ -140,7 +131,7 @@ class FacultyModel {
 
     async getFacultyAssignments(facultyId, pagination) {
         let query = `
-            SELECT a.assignment_id, c.grade, c.section, c.academic_year, s.name as department, s.code as subject_code
+            SELECT a.assignment_id, c.grade, c.section, c.academic_year, s.name as subject_name, s.code as subject_code
             FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS a
             JOIN CLASSES c ON a.class_id = c.class_id
             JOIN SUBJECTS s ON a.subject_id = s.subject_id
@@ -157,18 +148,20 @@ class FacultyModel {
         const [rows] = await db.execute(query, [facultyId, pagination.limit, pagination.offset]);
         return { rows, total };
     }
+
     async getSubjectNamesLookup() {
         const [rows] = await db.execute(
-            `SELECT DISTINCT department FROM FACULTY 
-             WHERE department IS NOT NULL AND deleted_at IS NULL 
-             ORDER BY department ASC`,
+            `SELECT DISTINCT s.name 
+             FROM SUBJECTS s
+             WHERE s.deleted_at IS NULL 
+             ORDER BY s.name ASC`,
         );
-        return rows.map((r) => ({ name: r.department }));
+        return rows;
     }
 
     async getFacultyLookup() {
         const [rows] = await db.execute(
-            `SELECT f.faculty_id as id, u.name, f.department 
+            `SELECT f.faculty_id as id, u.name 
              FROM FACULTY f
              JOIN USERS u ON f.user_id = u.user_id 
              WHERE f.deleted_at IS NULL AND u.deleted_at IS NULL 

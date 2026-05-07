@@ -32,7 +32,9 @@ class ExamSchedulesModel {
         }
 
         if (conditions.length > 0) {
-            query += ` WHERE ` + conditions.join(' AND ');
+            query += ` WHERE ` + conditions.join(' AND ') + ` AND es.deleted_at IS NULL`;
+        } else {
+            query += ` WHERE es.deleted_at IS NULL`;
         }
 
         const countQuery = `SELECT COUNT(*) as total FROM (${query}) as sub`;
@@ -61,7 +63,7 @@ class ExamSchedulesModel {
              FROM EXAM_SCHEDULES es
              JOIN CLASSES c ON es.class_id = c.class_id
              JOIN SUBJECTS s ON es.subject_id = s.subject_id
-             WHERE es.exam_schedule_id = ?`,
+             WHERE es.exam_schedule_id = ? AND es.deleted_at IS NULL`,
             [scheduleId],
         );
         return rows[0];
@@ -76,7 +78,7 @@ class ExamSchedulesModel {
     }
 
     async deleteSchedule(scheduleId) {
-        const [result] = await db.execute(`DELETE FROM EXAM_SCHEDULES WHERE exam_schedule_id = ?`, [scheduleId]);
+        const [result] = await db.execute(`UPDATE EXAM_SCHEDULES SET deleted_at = NOW() WHERE exam_schedule_id = ?`, [scheduleId]);
         return result.affectedRows;
     }
 }

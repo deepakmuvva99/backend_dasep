@@ -1,7 +1,7 @@
 const db = require('../config/database');
 
 class PagesModel {
-    async createPages(fileId, versionId, pages) {
+    async createPages(versionId, pages) {
         if (!pages || pages.length === 0) return 0;
 
         const connection = await db.getConnection();
@@ -12,19 +12,17 @@ class PagesModel {
             const placeholders = pages
                 .map((p) => {
                     values.push(
-                        fileId,
                         versionId,
                         p.page_number,
-                        p.blob_name,
-                        p.container_name,
-                        p.extracted_text || null,
+                        p.width || null,
+                        p.height || null,
                     );
-                    return '(?, ?, ?, ?, ?, ?)';
+                    return '(?, ?, ?, ?)';
                 })
                 .join(', ');
 
             const [result] = await connection.execute(
-                `INSERT INTO pages (file_id, version_id, page_number, blob_name, container_name, extracted_text)
+                `INSERT INTO pages (version_id, page_number, width, height)
                  VALUES ${placeholders}`,
                 values,
             );
@@ -40,24 +38,20 @@ class PagesModel {
     }
 
     async getPagesByVersionId(versionId) {
-        const [rows] = await db.execute(`SELECT * FROM pages WHERE version_id = ? ORDER BY page_number ASC`, [
-            versionId,
-        ]);
-        return rows;
-    }
-
-    async getPagesByFileId(fileId) {
-        const [rows] = await db.execute(`SELECT * FROM pages WHERE file_id = ? ORDER BY page_number ASC`, [fileId]);
+        const [rows] = await db.execute(
+            `SELECT * FROM pages WHERE version_id = ? AND deleted_at IS NULL ORDER BY page_number ASC`,
+            [versionId],
+        );
         return rows;
     }
 
     async findById(pageId) {
-        const [rows] = await db.execute(`SELECT * FROM pages WHERE page_id = ?`, [pageId]);
+        const [rows] = await db.execute(`SELECT * FROM pages WHERE page_id = ? AND deleted_at IS NULL`, [pageId]);
         return rows[0];
     }
 
     async deletePage(pageId) {
-        const [result] = await db.execute(`DELETE FROM pages WHERE page_id = ?`, [pageId]);
+        const [result] = await db.execute(`UPDATE pages SET deleted_at = NOW() WHERE page_id = ?`, [pageId]);
         return result.affectedRows;
     }
 }

@@ -3,14 +3,13 @@ const { successResponse, successListResponse } = require('../utils/responseHandl
 const { parsePagination, buildPaginationMeta } = require('../utils/pagination');
 
 exports.createFaculty = async (req, res) => {
-    const { name, email, subject_name, department, password } = req.body;
-    const finalSubjectOrDept = department || subject_name;
+    const { name, email, password } = req.body;
 
-    if (!name || !email || !finalSubjectOrDept) {
-        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing fields (name, email, and department/subject_name required)' } });
+    if (!name || !email) {
+        return res.status(400).json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing fields (name and email required)' } });
     }
 
-    const newFaculty = await facultyService.createFaculty({ name, email, subject_name: finalSubjectOrDept, password });
+    const newFaculty = await facultyService.createFaculty({ name, email, password });
     return successResponse(res, newFaculty, 201);
 };
 

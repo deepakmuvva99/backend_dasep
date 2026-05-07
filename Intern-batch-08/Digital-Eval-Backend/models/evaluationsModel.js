@@ -24,7 +24,7 @@ class EvaluationsModel {
                    u.name as faculty_name,
                    stu_u.name as student_name
             FROM EVALUATIONS e
-            JOIN EVALUATION_STATUS est ON e.status_id = est.evaluation_status_id
+            JOIN evaluation_statuses est ON e.status_id = est.evaluation_status_id
             JOIN SUBMISSIONS sub ON e.submission_id = sub.submission_id
             JOIN SUBMISSION_TYPES st ON sub.submission_type_id = st.submission_type_id
             JOIN FACULTY f ON e.faculty_id = f.faculty_id
@@ -85,7 +85,7 @@ class EvaluationsModel {
         const [rows] = await db.execute(
             `SELECT e.*, est.name as status
              FROM EVALUATIONS e
-             JOIN EVALUATION_STATUS est ON e.status_id = est.evaluation_status_id
+             JOIN evaluation_statuses est ON e.status_id = est.evaluation_status_id
              WHERE e.evaluation_id = ?`,
             [evaluationId],
         );
@@ -103,7 +103,7 @@ class EvaluationsModel {
     }
 
     async getStatuses() {
-        const [rows] = await db.execute(`SELECT evaluation_status_id as id, name, description FROM EVALUATION_STATUS`);
+        const [rows] = await db.execute(`SELECT evaluation_status_id as id, name FROM evaluation_statuses`);
         return rows;
     }
 
@@ -111,7 +111,7 @@ class EvaluationsModel {
         const [rows] = await db.execute(
             `SELECT e.*, est.name as status
              FROM EVALUATIONS e
-             JOIN EVALUATION_STATUS est ON e.status_id = est.evaluation_status_id
+             JOIN evaluation_statuses est ON e.status_id = est.evaluation_status_id
              WHERE e.submission_id = ?`,
             [submissionId],
         );
@@ -122,7 +122,7 @@ class EvaluationsModel {
         let query = `
             SELECT e.*, est.name as status
             FROM EVALUATIONS e
-            JOIN EVALUATION_STATUS est ON e.status_id = est.evaluation_status_id
+            JOIN evaluation_statuses est ON e.status_id = est.evaluation_status_id
             WHERE e.faculty_id = ?
         `;
         const params = [facultyId];
