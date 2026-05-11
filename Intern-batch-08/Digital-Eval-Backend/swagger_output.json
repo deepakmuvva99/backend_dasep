@@ -19,6 +19,16 @@
     }
   },
   "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/health": {
       "get": {
         "description": "",
@@ -105,6 +115,29 @@
         }
       },
       "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/users/{user_id}/change-password": {
+      "post": {
         "description": "",
         "parameters": [
           {
@@ -216,6 +249,23 @@
         }
       },
       "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/subjects/lookup": {
+      "get": {
         "description": "",
         "parameters": [
           {
@@ -725,6 +775,86 @@
             "description": ""
           }
         }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/permissions/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/api/v1/classes/": {
@@ -744,6 +874,23 @@
         }
       },
       "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/classes/lookup": {
+      "get": {
         "description": "",
         "parameters": [
           {
@@ -834,6 +981,113 @@
             "required": true,
             "type": "string"
           },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/classes/{class_id}/students": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/classes/{class_id}/subjects/{subject_id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "class_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "subject_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/faculty/subjects/lookup": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/faculty/lookup": {
+      "get": {
+        "description": "",
+        "parameters": [
           {
             "name": "authorization",
             "in": "header",
@@ -1216,6 +1470,69 @@
         }
       }
     },
+    "/api/v1/evaluations/statuses": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/evaluations/submission/{submission_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/evaluations/faculty/{faculty_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "faculty_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/v1/evaluations/{evaluation_id}": {
       "get": {
         "description": "",
@@ -1292,8 +1609,52 @@
         }
       }
     },
+    "/api/v1/documents/submission/{submission_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/v1/documents/{document_id}": {
       "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
         "description": "",
         "parameters": [
           {
@@ -1336,12 +1697,90 @@
         }
       }
     },
-    "/api/v1/files/{document_id}/versions": {
+    "/api/v1/files/types": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "document_id",
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/files/": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/files/{file_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "file_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/files/{file_id}/versions": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "file_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1362,7 +1801,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "document_id",
+            "name": "file_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1380,33 +1819,12 @@
         }
       }
     },
-    "/api/v1/files/versions/{version_id}": {
+    "/api/v1/files/{file_id}/versions/current": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "version_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "version_id",
+            "name": "file_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1424,32 +1842,28 @@
         }
       }
     },
-    "/api/v1/pages/{version_id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "version_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      },
+    "/api/v1/pages/": {
       "post": {
         "description": "",
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/pages/version/{version_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
             "name": "version_id",
             "in": "path",
             "required": true,
@@ -1468,7 +1882,7 @@
         }
       }
     },
-    "/api/v1/pages/page/{page_id}": {
+    "/api/v1/pages/{page_id}": {
       "get": {
         "description": "",
         "parameters": [
@@ -1489,10 +1903,8 @@
             "description": ""
           }
         }
-      }
-    },
-    "/api/v1/pages/page/{page_id}/annotated": {
-      "put": {
+      },
+      "delete": {
         "description": "",
         "parameters": [
           {
@@ -1554,7 +1966,51 @@
         }
       }
     },
+    "/api/v1/annotations/evaluation/{eval_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "eval_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/v1/annotations/{annotation_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "annotation_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
       "put": {
         "description": "",
         "parameters": [
@@ -1613,12 +2069,71 @@
             "description": ""
           }
         }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
       }
     },
     "/api/v1/notifications/read-all": {
       "put": {
         "description": "",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/{notification_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "notification_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "notification_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -1659,6 +2174,58 @@
       "get": {
         "description": "",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/audit-logs/{audit_log_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "audit_log_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/audit-logs/entity/{entity_type}/{entity_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "entity_type",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "entity_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",

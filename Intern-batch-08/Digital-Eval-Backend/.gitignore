@@ -16,3 +16,4 @@ mysql_commands.sql
 lint_output2.txt
 index.sql
 generate_postman.js
+scratch/
