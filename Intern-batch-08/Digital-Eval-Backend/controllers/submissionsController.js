@@ -23,7 +23,8 @@ exports.createSubmission = async (req, res) => {
     // If filename is provided, generate a secure upload URL
     if (req.body.filename) {
         const blobName = `submissions/${newSub.submission_id}/${req.body.filename}`;
-        newSub.upload_url = await generateSASUrl('dasep-container', blobName, 'w');
+        const containerName = process.env.AZURE_CONTAINER_NAME || 'submissions';
+        newSub.upload_url = await generateSASUrl(containerName, blobName, 'w');
         newSub.blob_name = blobName;
     }
 
