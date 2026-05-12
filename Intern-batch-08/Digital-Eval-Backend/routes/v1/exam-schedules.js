@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const examSchedulesController = require('../../controllers/examSchedulesController');
-const { verifyToken, restrictTo } = require('../../middlewares/authMiddleware');
+const { verifyToken, restrictTo, resolveProfile } = require('../../middlewares/authMiddleware');
 const { asyncHandler } = require('../../middlewares/errorMiddleware');
 
 router.use(verifyToken);
 
 router
     .route('/')
-    .get(asyncHandler(examSchedulesController.getSchedules)) // Accessible to all logged-in users (Student/Faculty/Admin) usually
+    .get(resolveProfile, asyncHandler(examSchedulesController.getSchedules)) // Accessible to all logged-in users (Student/Faculty/Admin) usually
     .post(restrictTo('Admin'), asyncHandler(examSchedulesController.createSchedule));
 
 router

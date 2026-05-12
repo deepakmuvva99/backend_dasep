@@ -9,7 +9,7 @@ router.use(verifyToken);
 
 router
     .route('/')
-    .get(restrictTo('Admin', 'Faculty'), asyncHandler(classesController.getClasses))
+    .get(resolveProfile, restrictTo('Admin', 'Faculty'), asyncHandler(classesController.getClasses))
     .post(restrictTo('Admin'), asyncHandler(classesController.createClass));
 
 router.get('/lookup', asyncHandler(classesController.getClassesLookup));
