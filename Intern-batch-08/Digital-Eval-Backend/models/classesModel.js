@@ -10,21 +10,28 @@ class ClassesModel {
         return result.insertId;
     }
 
-    async getClasses(filters, pagination, sorting) {
-        let query = `SELECT *, class_id as id FROM classes`;
+    async getClasses(filters, pagination, sorting, userContext) {
+        let query = `SELECT DISTINCT c.*, c.class_id as id FROM classes c`;
         const params = [];
         const conditions = [];
 
+        // Scoping for Faculty: Only show classes where they have an assignment
+        if (userContext && userContext.role === 'Faculty') {
+            query += ` JOIN faculty_class_subject_assignments a ON c.class_id = a.class_id `;
+            conditions.push(`a.faculty_id = ?`);
+            params.push(userContext.profile_id);
+        }
+
         if (filters.grade) {
-            conditions.push(`grade = ?`);
+            conditions.push(`c.grade = ?`);
             params.push(filters.grade);
         }
         if (filters.academic_year) {
-            conditions.push(`academic_year = ?`);
+            conditions.push(`c.academic_year = ?`);
             params.push(filters.academic_year);
         }
         if (filters.search) {
-            conditions.push(`(section LIKE ? OR grade LIKE ?)`);
+            conditions.push(`(c.section LIKE ? OR c.grade LIKE ?)`);
             params.push(`%${filters.search}%`, `%${filters.search}%`);
         }
 
