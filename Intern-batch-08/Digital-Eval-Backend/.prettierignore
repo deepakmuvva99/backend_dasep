@@ -1,0 +1,9 @@
+node_modules
+package-lock.json
+swagger_output.json
+*.sql
+.env
+Dockerfile
+.dockerignore
+dist
+build

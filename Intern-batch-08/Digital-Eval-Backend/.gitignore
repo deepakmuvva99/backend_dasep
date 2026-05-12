@@ -1,0 +1,19 @@
+node_modules/
+.env
+.DS_Store
+npm-debug.log*
+yarn-error.log*
+yarn-debug.log*
+pnpm-debug.log*
+swagger.js
+# Test and scratchpad scripts (do not push to repo)
+test_db.js
+test_email.js
+fix_passwords.js
+schema.sql
+lint_output.txt
+mysql_commands.sql
+lint_output2.txt
+index.sql
+generate_postman.js
+scratch/

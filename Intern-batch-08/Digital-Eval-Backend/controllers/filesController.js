@@ -1,0 +1,78 @@
+const filesService = require('../services/filesService');
+const { successResponse, successListResponse } = require('../utils/responseHandler');
+const { parsePagination, buildPaginationMeta } = require('../utils/pagination');
+const { generateSASUrl } = require('../utils/azureStorage');
+
+exports.getFileTypes = async (req, res) => {
+    const types = await filesService.getFileTypes();
+    return successResponse(res, types);
+};
+
+exports.uploadFile = async (req, res) => {
+    const { document_id, original_file_name, mime_type, file_size_kb, file_type_id, blob_name, container_name, etag } =
+        req.body;
+
+    if (!document_id || !original_file_name || !blob_name || !container_name) {
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required upload fields' } });
+    }
+
+    const result = await filesService.uploadNewFile({
+        document_id,
+        original_file_name,
+        mime_type,
+        file_size_kb,
+        file_type_id,
+        blob_name,
+        container_name,
+        etag,
+    });
+
+    return successResponse(res, result, 201);
+};
+
+exports.uploadVersion = async (req, res) => {
+    const fileId = req.params.file_id;
+    const { blob_name, container_name, etag } = req.body;
+
+    if (!blob_name || !container_name) {
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing version fields' } });
+    }
+
+    const result = await filesService.uploadNewVersion(fileId, { blob_name, container_name, etag });
+    return successResponse(res, result, 201);
+};
+
+exports.getFileDetails = async (req, res) => {
+    const details = await filesService.getFileDetails(req.params.file_id);
+    if (details && details.blob_name && details.container_name) {
+        details.secure_url = await generateSASUrl(details.container_name, details.blob_name, 'r');
+    }
+    return successResponse(res, details);
+};
+
+exports.getVersions = async (req, res) => {
+    const pagination = parsePagination(req.query);
+    const fileId = req.params.file_id;
+
+    const { rows, total } = await filesService.getVersions(fileId, pagination);
+    const meta = buildPaginationMeta(total, pagination.page, pagination.limit);
+
+    return successListResponse(res, rows, meta);
+};
+
+exports.getCurrentVersion = async (req, res) => {
+    const result = await filesService.getCurrentVersion(req.params.file_id);
+    if (result && result.blob_name && result.container_name) {
+        result.secure_url = await generateSASUrl(result.container_name, result.blob_name, 'r');
+    }
+    return successResponse(res, result);
+};
+
+exports.deleteFile = async (req, res) => {
+    await filesService.deleteFile(req.params.file_id);
+    return successResponse(res, { message: 'File soft-deleted' });
+};

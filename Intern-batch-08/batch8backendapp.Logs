@@ -1,0 +1,406 @@
+2026_05_07_lw1sdlwk00033O_docker.log:
+2026-05-07T09:01:51.6924470Z State: Starting, Action: EstablishingSiteNetworks, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-05-07T09:01:52.6140245Z State: Starting, Action: StartingSiteContainers, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: , DetailsLevel: INFO
+2026-05-07T09:01:52.6210877Z Container start method called.
+2026-05-07T09:01:52.6214570Z State: Starting, Action: PullingImage, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pulling image batch8registry.azurecr.io/digital-eval-backend:latest for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:01:52.6217159Z Establishing network.
+2026-05-07T09:01:52.6220256Z Pulling image: batch8registry.azurecr.io/digital-eval-backend:latest.
+2026-05-07T09:02:06.8336726Z Image batch8registry.azurecr.io/digital-eval-backend:latest is pulled from registry batch8registry.azurecr.io
+2026-05-07T09:02:06.8338067Z Container is starting.
+2026-05-07T09:02:06.8828702Z State: Starting, Action: MountingVolumes, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Mounting volumes for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:02:06.8840150Z Establishing user namespace if not established already.
+2026-05-07T09:02:06.8844190Z Establishing network if not established already.
+2026-05-07T09:02:06.8847168Z Mounting volumes.
+2026-05-07T09:02:06.8852589Z Nested mountpoint volatile/logs
+2026-05-07T09:02:06.8970073Z Nested mountpoint 
+2026-05-07T09:02:06.9374260Z Nested mountpoint 
+2026-05-07T09:02:07.0281972Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Finished pulling container image and mounting volumes for batch8backendapp_main. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-05-07T09:02:07.0282742Z Creating container.
+2026-05-07T09:02:07.0283267Z Creating pipes for streaming container io.
+2026-05-07T09:02:07.0283764Z Creating stdout named pipe at /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stdout_b7da6e86195a49c98a5f755a41710771.
+2026-05-07T09:02:07.0285014Z Successfully created stdout named pipe at: /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stdout_b7da6e86195a49c98a5f755a41710771.
+2026-05-07T09:02:07.0285490Z Opening named pipe /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stdout_b7da6e86195a49c98a5f755a41710771 for reading in non-blocking mode.
+2026-05-07T09:02:07.0286075Z Successfully opened named pipe: /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stdout_b7da6e86195a49c98a5f755a41710771.
+2026-05-07T09:02:07.0286575Z Successfully removed non-blocking flag from /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stdout_b7da6e86195a49c98a5f755a41710771.
+2026-05-07T09:02:07.0463067Z Creating stderr named pipe at /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stderr_e67ddbea549448969d00945758898bb1.
+2026-05-07T09:02:07.0464669Z Successfully created stderr named pipe at: /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stderr_e67ddbea549448969d00945758898bb1.
+2026-05-07T09:02:07.0465167Z Opening named pipe /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stderr_e67ddbea549448969d00945758898bb1 for reading in non-blocking mode.
+2026-05-07T09:02:07.0465774Z Successfully opened named pipe: /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stderr_e67ddbea549448969d00945758898bb1.
+2026-05-07T09:02:07.0466311Z Successfully removed non-blocking flag from /podr/container/pipe/4481b05c5b91_batch8backendapp_main/stderr_e67ddbea549448969d00945758898bb1.
+2026-05-07T09:02:07.0486833Z Creating container with image: batch8registry.azurecr.io/digital-eval-backend:latest from registry: batch8registry.azurecr.io and fully qualified image name: batch8registry.azurecr.io/digital-eval-backend:latest
+2026-05-07T09:02:07.7580679Z Starting container: 4481b05c5b91_batch8backendapp_main.
+2026-05-07T09:02:07.8271420Z Starting watchers and probes.
+2026-05-07T09:02:07.8358288Z Starting metrics collection.
+2026-05-07T09:02:07.8359881Z Container is running.
+2026-05-07T09:02:07.8360713Z State: Starting, Action: CreatingContainer, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:02:07.9284470Z Container start method finished after 15307 ms.
+2026-05-07T09:02:07.9963457Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:02:07.9964179Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: , LastErrorTimestamp: 01/01/0001 00:00:00, LastErrorDetails: , Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-05-07T09:05:58.0183393Z Site startup probe failed after 230.0204362 seconds.
+2026-05-07T09:05:58.1092066Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:05:58.1186503Z Failed to start site. Revert by stopping site.
+2026-05-07T09:05:58.1194816Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:05:58.1385506Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:05:58.1394160Z Container is terminating. Grace period: 5 seconds.
+2026-05-07T09:05:58.1505051Z Stop and delete container. Retry count = 0
+2026-05-07T09:05:58.1578447Z Stopping container: 4481b05c5b91_batch8backendapp_main.
+2026-05-07T09:05:58.7962627Z Deleting container: 4481b05c5b91_batch8backendapp_main. Retry count = 0
+2026-05-07T09:05:58.9262325Z Container spec TerminationMessagePolicy  path 
+2026-05-07T09:05:58.9266459Z Container is terminated. Total time elapsed: 786 ms.
+2026-05-07T09:05:58.9269660Z Site container: batch8backendapp_main terminated during site startup.
+2026-05-07T09:05:58.9357330Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:05:58.9460630Z Site: batch8backendapp stopped.
+2026-05-07T09:05:58.9548111Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:05:59.1462084Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:05:59.3102257Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:05:59 (UTC), DetailsLevel: ERR
+2026-05-07T09:05:59.4888188Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:05:59 (UTC), DetailsLevel: ERR
+2026-05-07T09:06:12.7063122Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:05:59 (UTC), DetailsLevel: ERR
+2026-05-07T09:06:13.9665539Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:05:59 (UTC), DetailsLevel: ERR
+2026-05-07T09:06:13.9666435Z Container start method called.
+2026-05-07T09:06:13.9670583Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image batch8registry.azurecr.io/digital-eval-backend:latest for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:06:13.9671767Z Establishing network.
+2026-05-07T09:06:13.9672754Z Pulling image: batch8registry.azurecr.io/digital-eval-backend:latest.
+2026-05-07T09:06:14.8161435Z Container is starting.
+2026-05-07T09:06:14.8162068Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:06:14.8162596Z Establishing user namespace if not established already.
+2026-05-07T09:06:14.8163138Z Establishing network if not established already.
+2026-05-07T09:06:14.8163943Z Mounting volumes.
+2026-05-07T09:06:14.8164971Z Nested mountpoint volatile/logs
+2026-05-07T09:06:14.8753072Z Nested mountpoint 
+2026-05-07T09:06:14.9362428Z Nested mountpoint 
+2026-05-07T09:06:15.0559671Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for batch8backendapp_main. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-05-07T09:06:15.0560349Z Creating container.
+2026-05-07T09:06:15.0560859Z Creating pipes for streaming container io.
+2026-05-07T09:06:15.0561367Z Creating stdout named pipe at /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stdout_5cd7d8bd191e4996bd7b347946958d4b.
+2026-05-07T09:06:15.0562442Z Successfully created stdout named pipe at: /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stdout_5cd7d8bd191e4996bd7b347946958d4b.
+2026-05-07T09:06:15.0562917Z Opening named pipe /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stdout_5cd7d8bd191e4996bd7b347946958d4b for reading in non-blocking mode.
+2026-05-07T09:06:15.0563483Z Successfully opened named pipe: /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stdout_5cd7d8bd191e4996bd7b347946958d4b.
+2026-05-07T09:06:15.0563975Z Successfully removed non-blocking flag from /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stdout_5cd7d8bd191e4996bd7b347946958d4b.
+2026-05-07T09:06:15.0949186Z Creating stderr named pipe at /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stderr_49af5e0a7e6345edac1ddbda440f2fff.
+2026-05-07T09:06:15.0950583Z Successfully created stderr named pipe at: /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stderr_49af5e0a7e6345edac1ddbda440f2fff.
+2026-05-07T09:06:15.0951102Z Opening named pipe /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stderr_49af5e0a7e6345edac1ddbda440f2fff for reading in non-blocking mode.
+2026-05-07T09:06:15.0951701Z Successfully opened named pipe: /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stderr_49af5e0a7e6345edac1ddbda440f2fff.
+2026-05-07T09:06:15.0952194Z Successfully removed non-blocking flag from /podr/container/pipe/8f61fd3fa3e2_batch8backendapp_main/stderr_49af5e0a7e6345edac1ddbda440f2fff.
+2026-05-07T09:06:15.0953119Z Creating container with image: batch8registry.azurecr.io/digital-eval-backend:latest from registry: batch8registry.azurecr.io and fully qualified image name: batch8registry.azurecr.io/digital-eval-backend:latest
+2026-05-07T09:06:15.5051460Z Starting container: 8f61fd3fa3e2_batch8backendapp_main.
+2026-05-07T09:06:15.5749744Z Starting watchers and probes.
+2026-05-07T09:06:15.5848259Z Starting metrics collection.
+2026-05-07T09:06:15.5849640Z Container is running.
+2026-05-07T09:06:15.5850455Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:06:15.6543338Z Container start method finished after 1680 ms.
+2026-05-07T09:06:15.6545294Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:06:15.6545457Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:05:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-05-07T09:10:05.6729290Z Site startup probe failed after 230.0176266 seconds.
+2026-05-07T09:10:05.7620887Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:10:05.7827585Z Failed to start site. Revert by stopping site.
+2026-05-07T09:10:05.7833012Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:10:05.7843629Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:10:05.7915629Z Container is terminating. Grace period: 5 seconds.
+2026-05-07T09:10:05.8029862Z Stop and delete container. Retry count = 0
+2026-05-07T09:10:05.8034894Z Stopping container: 8f61fd3fa3e2_batch8backendapp_main.
+2026-05-07T09:10:06.4470929Z Deleting container: 8f61fd3fa3e2_batch8backendapp_main. Retry count = 0
+2026-05-07T09:10:06.5964568Z Container spec TerminationMessagePolicy  path 
+2026-05-07T09:10:06.5966612Z Container is terminated. Total time elapsed: 804 ms.
+2026-05-07T09:10:06.5967461Z Site container: batch8backendapp_main terminated during site startup.
+2026-05-07T09:10:06.5967927Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:10:06.5973330Z Site: batch8backendapp stopped.
+2026-05-07T09:10:06.6062130Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:10:06.8272129Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:10:06.9481086Z Site: batch8backendapp will be blocked for 1 minutes till 05/07/2026 09:11:06
+2026-05-07T09:10:06.9583023Z State: Blocked, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site: batch8backendapp will be blocked for 1 minutes till 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:06.9880618Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:10:06 (UTC), DetailsLevel: WARN
+2026-05-07T09:10:07.1061198Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:10:06 (UTC), DetailsLevel: WARN
+2026-05-07T09:10:07.2197942Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:07.2198178Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:12.1573504Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:12.1574120Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:17.3002222Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:17.3002405Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:21.9707091Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:21.9707487Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:22.1349731Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:22.1350644Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:22.4076798Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:22.4076975Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:24.8565603Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:24.8567227Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:24.9654153Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:24.9654698Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:27.4574305Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:27.4574979Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:32.5928132Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:32.5934087Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:37.7188920Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:37.7189119Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:42.8627630Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:42.8627995Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:47.9906359Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:47.9906544Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:53.1061057Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:53.1062040Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:10:58.2015908Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:10:58.2016563Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:11:03.2700023Z State: Blocked, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:11:03.2700381Z Start site prohibitted because the site is being blocked.
+2026-05-07T09:11:06.9506526Z Site: batch8backendapp is unblocked.
+2026-05-07T09:11:08.4054252Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:11:09.2692688Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:11:06, DetailsLevel: WARN
+2026-05-07T09:11:09.2694674Z Container start method called.
+2026-05-07T09:11:09.2695946Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image batch8registry.azurecr.io/digital-eval-backend:latest for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:11:09.2697694Z Establishing network.
+2026-05-07T09:11:09.2699790Z Pulling image: batch8registry.azurecr.io/digital-eval-backend:latest.
+2026-05-07T09:11:09.8662669Z Container is starting.
+2026-05-07T09:11:09.8665477Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:11:09.8667704Z Establishing user namespace if not established already.
+2026-05-07T09:11:09.8669582Z Establishing network if not established already.
+2026-05-07T09:11:09.8671933Z Mounting volumes.
+2026-05-07T09:11:09.8675348Z Nested mountpoint volatile/logs
+2026-05-07T09:11:09.8777530Z Nested mountpoint 
+2026-05-07T09:11:09.9093070Z Nested mountpoint 
+2026-05-07T09:11:10.0179087Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for batch8backendapp_main. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-05-07T09:11:10.0182089Z Creating container.
+2026-05-07T09:11:10.0184879Z Creating pipes for streaming container io.
+2026-05-07T09:11:10.0187785Z Creating stdout named pipe at /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stdout_8d83ae2c1c3d471d9fad6c7029436d0a.
+2026-05-07T09:11:10.0192016Z Successfully created stdout named pipe at: /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stdout_8d83ae2c1c3d471d9fad6c7029436d0a.
+2026-05-07T09:11:10.0378464Z Opening named pipe /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stdout_8d83ae2c1c3d471d9fad6c7029436d0a for reading in non-blocking mode.
+2026-05-07T09:11:10.0561732Z Successfully opened named pipe: /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stdout_8d83ae2c1c3d471d9fad6c7029436d0a.
+2026-05-07T09:11:10.0565057Z Successfully removed non-blocking flag from /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stdout_8d83ae2c1c3d471d9fad6c7029436d0a.
+2026-05-07T09:11:10.0588331Z Creating stderr named pipe at /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stderr_92198ee05b754b81bdc7bad4e5b254e3.
+2026-05-07T09:11:10.0592365Z Successfully created stderr named pipe at: /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stderr_92198ee05b754b81bdc7bad4e5b254e3.
+2026-05-07T09:11:10.0670519Z Opening named pipe /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stderr_92198ee05b754b81bdc7bad4e5b254e3 for reading in non-blocking mode.
+2026-05-07T09:11:10.0674130Z Successfully opened named pipe: /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stderr_92198ee05b754b81bdc7bad4e5b254e3.
+2026-05-07T09:11:10.0677305Z Successfully removed non-blocking flag from /podr/container/pipe/18eac2c2a85d_batch8backendapp_main/stderr_92198ee05b754b81bdc7bad4e5b254e3.
+2026-05-07T09:11:10.0681790Z Creating container with image: batch8registry.azurecr.io/digital-eval-backend:latest from registry: batch8registry.azurecr.io and fully qualified image name: batch8registry.azurecr.io/digital-eval-backend:latest
+2026-05-07T09:11:10.4366929Z Starting container: 18eac2c2a85d_batch8backendapp_main.
+2026-05-07T09:11:10.5113734Z Starting watchers and probes.
+2026-05-07T09:11:10.5291959Z Starting metrics collection.
+2026-05-07T09:11:10.5298411Z Container is running.
+2026-05-07T09:11:10.5301855Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:11:10.6711674Z Container start method finished after 1401 ms.
+2026-05-07T09:11:10.6712945Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:11:10.6791118Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:10:05, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-05-07T09:15:00.6927418Z Site startup probe failed after 230.0127509 seconds.
+2026-05-07T09:15:00.7793527Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:15:00.7980771Z Failed to start site. Revert by stopping site.
+2026-05-07T09:15:00.7985055Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:15:00.7994048Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:15:00.8079420Z Container is terminating. Grace period: 5 seconds.
+2026-05-07T09:15:00.8181787Z Stop and delete container. Retry count = 0
+2026-05-07T09:15:00.8182863Z Stopping container: 18eac2c2a85d_batch8backendapp_main.
+2026-05-07T09:15:01.5299322Z Deleting container: 18eac2c2a85d_batch8backendapp_main. Retry count = 0
+2026-05-07T09:15:01.8498190Z Container spec TerminationMessagePolicy  path 
+2026-05-07T09:15:01.8502806Z Container is terminated. Total time elapsed: 1041 ms.
+2026-05-07T09:15:01.8574249Z Site container: batch8backendapp_main terminated during site startup.
+2026-05-07T09:15:01.8577511Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:15:01.8585587Z Site: batch8backendapp stopped.
+2026-05-07T09:16:08.6188097Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:16:02, DetailsLevel: WARN
+2026-05-07T09:16:09.4764939Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site is blocked due to multiple, consecutive cold start failures. Site scheduled to be unblocked at 05/07/2026 09:16:02, DetailsLevel: WARN
+2026-05-07T09:16:09.4768083Z Container start method called.
+2026-05-07T09:16:09.4787303Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image batch8registry.azurecr.io/digital-eval-backend:latest for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:16:09.4789430Z Establishing network.
+2026-05-07T09:16:09.4793053Z Pulling image: batch8registry.azurecr.io/digital-eval-backend:latest.
+2026-05-07T09:16:09.7503796Z Container is starting.
+2026-05-07T09:16:09.7508321Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:16:09.7510707Z Establishing user namespace if not established already.
+2026-05-07T09:16:09.7513876Z Establishing network if not established already.
+2026-05-07T09:16:09.7516459Z Mounting volumes.
+2026-05-07T09:16:09.7521243Z Nested mountpoint volatile/logs
+2026-05-07T09:16:09.7707372Z Nested mountpoint 
+2026-05-07T09:16:09.8309319Z Nested mountpoint 
+2026-05-07T09:16:09.9828816Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for batch8backendapp_main. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-05-07T09:16:09.9829824Z Creating container.
+2026-05-07T09:16:09.9830407Z Creating pipes for streaming container io.
+2026-05-07T09:16:09.9916947Z Creating stdout named pipe at /podr/container/pipe/30e377e17de7_batch8backendapp_main/stdout_62d717afab374324960d82a0286f06ff.
+2026-05-07T09:16:09.9919190Z Successfully created stdout named pipe at: /podr/container/pipe/30e377e17de7_batch8backendapp_main/stdout_62d717afab374324960d82a0286f06ff.
+2026-05-07T09:16:09.9919764Z Opening named pipe /podr/container/pipe/30e377e17de7_batch8backendapp_main/stdout_62d717afab374324960d82a0286f06ff for reading in non-blocking mode.
+2026-05-07T09:16:09.9920382Z Successfully opened named pipe: /podr/container/pipe/30e377e17de7_batch8backendapp_main/stdout_62d717afab374324960d82a0286f06ff.
+2026-05-07T09:16:09.9920905Z Successfully removed non-blocking flag from /podr/container/pipe/30e377e17de7_batch8backendapp_main/stdout_62d717afab374324960d82a0286f06ff.
+2026-05-07T09:16:09.9921862Z Creating stderr named pipe at /podr/container/pipe/30e377e17de7_batch8backendapp_main/stderr_5c656f832e0d46458eaa06dd36544581.
+2026-05-07T09:16:09.9922657Z Successfully created stderr named pipe at: /podr/container/pipe/30e377e17de7_batch8backendapp_main/stderr_5c656f832e0d46458eaa06dd36544581.
+2026-05-07T09:16:09.9923119Z Opening named pipe /podr/container/pipe/30e377e17de7_batch8backendapp_main/stderr_5c656f832e0d46458eaa06dd36544581 for reading in non-blocking mode.
+2026-05-07T09:16:09.9923653Z Successfully opened named pipe: /podr/container/pipe/30e377e17de7_batch8backendapp_main/stderr_5c656f832e0d46458eaa06dd36544581.
+2026-05-07T09:16:09.9924143Z Successfully removed non-blocking flag from /podr/container/pipe/30e377e17de7_batch8backendapp_main/stderr_5c656f832e0d46458eaa06dd36544581.
+2026-05-07T09:16:09.9927354Z Creating container with image: batch8registry.azurecr.io/digital-eval-backend:latest from registry: batch8registry.azurecr.io and fully qualified image name: batch8registry.azurecr.io/digital-eval-backend:latest
+2026-05-07T09:16:10.3261001Z Starting container: 30e377e17de7_batch8backendapp_main.
+2026-05-07T09:16:10.4032905Z Starting watchers and probes.
+2026-05-07T09:16:10.4109137Z Starting metrics collection.
+2026-05-07T09:16:10.4115271Z Container is running.
+2026-05-07T09:16:10.4137724Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:16:10.4610382Z Container start method finished after 976 ms.
+2026-05-07T09:16:10.4615769Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:16:10.4616171Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:15:00, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-05-07T09:20:01.0976379Z Site startup probe failed after 230.5565899 seconds.
+2026-05-07T09:20:02.5072040Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:20:02.7354436Z Failed to start site. Revert by stopping site.
+2026-05-07T09:20:02.7357655Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:20:02.7364303Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:20:02.7365514Z Container is terminating. Grace period: 5 seconds.
+2026-05-07T09:20:02.9266323Z Stop and delete container. Retry count = 0
+2026-05-07T09:20:02.9267131Z Stopping container: 30e377e17de7_batch8backendapp_main.
+2026-05-07T09:20:04.5647512Z Deleting container: 30e377e17de7_batch8backendapp_main. Retry count = 0
+2026-05-07T09:20:04.6343295Z Container get mounts received unexpected exception.
+2026-05-07T09:20:04.8628745Z Container get processes received unexpected exception.
+2026-05-07T09:20:05.1831793Z Container spec TerminationMessagePolicy  path 
+2026-05-07T09:20:05.1836584Z Container is terminated. Total time elapsed: 2446 ms.
+2026-05-07T09:20:05.1837464Z Site container: batch8backendapp_main terminated during site startup.
+2026-05-07T09:20:05.1838263Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:20:05.1843487Z Site: batch8backendapp stopped.
+2026-05-07T09:20:05.2125829Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:20:05.5723977Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:20:05.7919444Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:20:05 (UTC), DetailsLevel: ERR
+2026-05-07T09:20:05.9231086Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:20:05 (UTC), DetailsLevel: ERR
+2026-05-07T09:20:06.0130060Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:20:05 (UTC), DetailsLevel: ERR
+2026-05-07T09:20:07.0720186Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:20:05 (UTC), DetailsLevel: ERR
+2026-05-07T09:20:07.0721358Z Container start method called.
+2026-05-07T09:20:07.0721727Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image batch8registry.azurecr.io/digital-eval-backend:latest for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:20:07.0722375Z Establishing network.
+2026-05-07T09:20:07.0723261Z Pulling image: batch8registry.azurecr.io/digital-eval-backend:latest.
+2026-05-07T09:20:07.3070486Z Container is starting.
+2026-05-07T09:20:07.3071094Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:20:07.3071639Z Establishing user namespace if not established already.
+2026-05-07T09:20:07.3072132Z Establishing network if not established already.
+2026-05-07T09:20:07.3072742Z Mounting volumes.
+2026-05-07T09:20:07.3073800Z Nested mountpoint volatile/logs
+2026-05-07T09:20:07.3883034Z Nested mountpoint 
+2026-05-07T09:20:07.4192012Z Nested mountpoint 
+2026-05-07T09:20:07.5375761Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for batch8backendapp_main. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-05-07T09:20:07.5377767Z Creating container.
+2026-05-07T09:20:07.5571148Z Creating pipes for streaming container io.
+2026-05-07T09:20:07.5572937Z Creating stdout named pipe at /podr/container/pipe/111e181cad71_batch8backendapp_main/stdout_022ee0b2b0274adc8956dc01606998c4.
+2026-05-07T09:20:07.5870438Z Successfully created stdout named pipe at: /podr/container/pipe/111e181cad71_batch8backendapp_main/stdout_022ee0b2b0274adc8956dc01606998c4.
+2026-05-07T09:20:07.5871651Z Opening named pipe /podr/container/pipe/111e181cad71_batch8backendapp_main/stdout_022ee0b2b0274adc8956dc01606998c4 for reading in non-blocking mode.
+2026-05-07T09:20:07.5872505Z Successfully opened named pipe: /podr/container/pipe/111e181cad71_batch8backendapp_main/stdout_022ee0b2b0274adc8956dc01606998c4.
+2026-05-07T09:20:07.5873039Z Successfully removed non-blocking flag from /podr/container/pipe/111e181cad71_batch8backendapp_main/stdout_022ee0b2b0274adc8956dc01606998c4.
+2026-05-07T09:20:07.5873896Z Creating stderr named pipe at /podr/container/pipe/111e181cad71_batch8backendapp_main/stderr_d42e3ea5dde349c8951491010f676d24.
+2026-05-07T09:20:07.5874699Z Successfully created stderr named pipe at: /podr/container/pipe/111e181cad71_batch8backendapp_main/stderr_d42e3ea5dde349c8951491010f676d24.
+2026-05-07T09:20:07.5875192Z Opening named pipe /podr/container/pipe/111e181cad71_batch8backendapp_main/stderr_d42e3ea5dde349c8951491010f676d24 for reading in non-blocking mode.
+2026-05-07T09:20:07.5875732Z Successfully opened named pipe: /podr/container/pipe/111e181cad71_batch8backendapp_main/stderr_d42e3ea5dde349c8951491010f676d24.
+2026-05-07T09:20:07.5876203Z Successfully removed non-blocking flag from /podr/container/pipe/111e181cad71_batch8backendapp_main/stderr_d42e3ea5dde349c8951491010f676d24.
+2026-05-07T09:20:07.5876909Z Creating container with image: batch8registry.azurecr.io/digital-eval-backend:latest from registry: batch8registry.azurecr.io and fully qualified image name: batch8registry.azurecr.io/digital-eval-backend:latest
+2026-05-07T09:20:08.3571696Z Starting container: 111e181cad71_batch8backendapp_main.
+2026-05-07T09:20:08.4282562Z Starting watchers and probes.
+2026-05-07T09:20:08.4284188Z Starting metrics collection.
+2026-05-07T09:20:08.4284892Z Container is running.
+2026-05-07T09:20:08.4285455Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:20:08.5280730Z Container start method finished after 1455 ms.
+2026-05-07T09:20:08.5778597Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:20:08.5779451Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:20:02, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-05-07T09:23:58.6160387Z Site startup probe failed after 230.0376702 seconds.
+2026-05-07T09:23:58.7464422Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:23:58.7559381Z Failed to start site. Revert by stopping site.
+2026-05-07T09:23:58.7569702Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:23:58.7576928Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:23:58.7579712Z Container is terminating. Grace period: 5 seconds.
+2026-05-07T09:23:58.8169993Z Stop and delete container. Retry count = 0
+2026-05-07T09:23:58.8172191Z Stopping container: 111e181cad71_batch8backendapp_main.
+2026-05-07T09:23:59.4739798Z Deleting container: 111e181cad71_batch8backendapp_main. Retry count = 0
+2026-05-07T09:23:59.6916027Z Container spec TerminationMessagePolicy  path 
+2026-05-07T09:23:59.6918245Z Container is terminated. Total time elapsed: 933 ms.
+2026-05-07T09:23:59.6920040Z Site container: batch8backendapp_main terminated during site startup.
+2026-05-07T09:23:59.6921942Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:23:59.7013422Z Site: batch8backendapp stopped.
+2026-05-07T09:54:42.4156629Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:24:00 (UTC), DetailsLevel: WARN
+2026-05-07T09:54:44.6430132Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:24:00 (UTC), DetailsLevel: WARN
+2026-05-07T09:54:44.6431541Z Container start method called.
+2026-05-07T09:54:44.6431863Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image batch8registry.azurecr.io/digital-eval-backend:latest for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:54:44.6432415Z Establishing network.
+2026-05-07T09:54:44.6433183Z Pulling image: batch8registry.azurecr.io/digital-eval-backend:latest.
+2026-05-07T09:54:47.6068594Z Image batch8registry.azurecr.io/digital-eval-backend:latest is pulled from registry batch8registry.azurecr.io
+2026-05-07T09:54:47.6072880Z Container is starting.
+2026-05-07T09:54:47.6213141Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:54:47.6217660Z Establishing user namespace if not established already.
+2026-05-07T09:54:47.6221916Z Establishing network if not established already.
+2026-05-07T09:54:47.6226096Z Mounting volumes.
+2026-05-07T09:54:47.6229265Z Nested mountpoint volatile/logs
+2026-05-07T09:54:47.6255577Z Nested mountpoint 
+2026-05-07T09:54:47.6426196Z Nested mountpoint 
+2026-05-07T09:54:47.7641828Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for batch8backendapp_main. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-05-07T09:54:47.7643403Z Creating container.
+2026-05-07T09:54:47.7644211Z Creating pipes for streaming container io.
+2026-05-07T09:54:47.7644912Z Creating stdout named pipe at /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stdout_5c579113f62d4990a412b770657746e1.
+2026-05-07T09:54:47.8047125Z Successfully created stdout named pipe at: /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stdout_5c579113f62d4990a412b770657746e1.
+2026-05-07T09:54:47.8048074Z Opening named pipe /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stdout_5c579113f62d4990a412b770657746e1 for reading in non-blocking mode.
+2026-05-07T09:54:47.8048956Z Successfully opened named pipe: /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stdout_5c579113f62d4990a412b770657746e1.
+2026-05-07T09:54:47.8053590Z Successfully removed non-blocking flag from /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stdout_5c579113f62d4990a412b770657746e1.
+2026-05-07T09:54:47.8157619Z Creating stderr named pipe at /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stderr_619816adbecd4c48b5333518a3a46b38.
+2026-05-07T09:54:47.8159563Z Successfully created stderr named pipe at: /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stderr_619816adbecd4c48b5333518a3a46b38.
+2026-05-07T09:54:47.8160418Z Opening named pipe /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stderr_619816adbecd4c48b5333518a3a46b38 for reading in non-blocking mode.
+2026-05-07T09:54:47.8161253Z Successfully opened named pipe: /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stderr_619816adbecd4c48b5333518a3a46b38.
+2026-05-07T09:54:47.8161971Z Successfully removed non-blocking flag from /podr/container/pipe/446b9fc2d211_batch8backendapp_main/stderr_619816adbecd4c48b5333518a3a46b38.
+2026-05-07T09:54:47.8254350Z Creating container with image: batch8registry.azurecr.io/digital-eval-backend:latest from registry: batch8registry.azurecr.io and fully qualified image name: batch8registry.azurecr.io/digital-eval-backend:latest
+2026-05-07T09:54:48.3529364Z Starting container: 446b9fc2d211_batch8backendapp_main.
+2026-05-07T09:54:48.3896250Z Starting watchers and probes.
+2026-05-07T09:54:48.3900252Z Starting metrics collection.
+2026-05-07T09:54:48.3902625Z Container is running.
+2026-05-07T09:54:48.4084249Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:54:48.4901093Z Container start method finished after 3846 ms.
+2026-05-07T09:54:48.5090376Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:54:48.5090964Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:23:58, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-05-07T09:58:38.5483873Z Site startup probe failed after 230.0222406 seconds.
+2026-05-07T09:58:38.6300534Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:58:38.6736306Z Failed to start site. Revert by stopping site.
+2026-05-07T09:58:38.6743716Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:58:38.6807098Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T09:58:38.6818716Z Container is terminating. Grace period: 5 seconds.
+2026-05-07T09:58:38.7083092Z Stop and delete container. Retry count = 0
+2026-05-07T09:58:38.7085394Z Stopping container: 446b9fc2d211_batch8backendapp_main.
+2026-05-07T09:58:39.3080100Z Deleting container: 446b9fc2d211_batch8backendapp_main. Retry count = 0
+2026-05-07T09:58:39.4673937Z Container spec TerminationMessagePolicy  path 
+2026-05-07T09:58:39.4679929Z Container is terminated. Total time elapsed: 785 ms.
+2026-05-07T09:58:39.4683450Z Site container: batch8backendapp_main terminated during site startup.
+2026-05-07T09:58:39.4688890Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:58:39.4775625Z Site: batch8backendapp stopped.
+2026-05-07T09:58:39.4786816Z State: Stopping, Action: UnmountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:58:39.6479488Z State: Stopping, Action: StoppingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T09:58:39.7996824Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:58:39 (UTC), DetailsLevel: ERR
+2026-05-07T09:58:39.8979004Z State: Stopped, Action: None, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:58:39 (UTC), DetailsLevel: ERR
+2026-05-07T09:58:40.1423053Z State: Starting, Action: EstablishingSiteNetworks, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:58:39 (UTC), DetailsLevel: ERR
+2026-05-07T09:58:41.0238806Z State: Starting, Action: StartingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site stopped at 05/07/2026 09:58:39 (UTC), DetailsLevel: ERR
+2026-05-07T09:58:41.0241650Z Container start method called.
+2026-05-07T09:58:41.0252983Z State: Starting, Action: PullingImage, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pulling image batch8registry.azurecr.io/digital-eval-backend:latest for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:58:41.0257378Z Establishing network.
+2026-05-07T09:58:41.0353524Z Pulling image: batch8registry.azurecr.io/digital-eval-backend:latest.
+2026-05-07T09:58:41.2281236Z Container is starting.
+2026-05-07T09:58:41.2286757Z State: Starting, Action: MountingVolumes, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Mounting volumes for batch8backendapp_main., DetailsLevel: INFO
+2026-05-07T09:58:41.2290063Z Establishing user namespace if not established already.
+2026-05-07T09:58:41.2294366Z Establishing network if not established already.
+2026-05-07T09:58:41.2297396Z Mounting volumes.
+2026-05-07T09:58:41.2372411Z Nested mountpoint volatile/logs
+2026-05-07T09:58:41.2392840Z Nested mountpoint 
+2026-05-07T09:58:41.2578802Z Nested mountpoint 
+2026-05-07T09:58:41.2882238Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Finished pulling container image and mounting volumes for batch8backendapp_main. Allocatinng the rest of the container resources to finish container creation., DetailsLevel: INFO
+2026-05-07T09:58:41.2884536Z Creating container.
+2026-05-07T09:58:41.2887052Z Creating pipes for streaming container io.
+2026-05-07T09:58:41.2892679Z Creating stdout named pipe at /podr/container/pipe/42715edfd386_batch8backendapp_main/stdout_961eeedce65a429dbc217dad6c928997.
+2026-05-07T09:58:41.2898839Z Successfully created stdout named pipe at: /podr/container/pipe/42715edfd386_batch8backendapp_main/stdout_961eeedce65a429dbc217dad6c928997.
+2026-05-07T09:58:41.2975126Z Opening named pipe /podr/container/pipe/42715edfd386_batch8backendapp_main/stdout_961eeedce65a429dbc217dad6c928997 for reading in non-blocking mode.
+2026-05-07T09:58:41.3055580Z Successfully opened named pipe: /podr/container/pipe/42715edfd386_batch8backendapp_main/stdout_961eeedce65a429dbc217dad6c928997.
+2026-05-07T09:58:41.3059734Z Successfully removed non-blocking flag from /podr/container/pipe/42715edfd386_batch8backendapp_main/stdout_961eeedce65a429dbc217dad6c928997.
+2026-05-07T09:58:41.3067417Z Creating stderr named pipe at /podr/container/pipe/42715edfd386_batch8backendapp_main/stderr_9b5243ffa6924a4bb888bc1bc073dd57.
+2026-05-07T09:58:41.3068830Z Successfully created stderr named pipe at: /podr/container/pipe/42715edfd386_batch8backendapp_main/stderr_9b5243ffa6924a4bb888bc1bc073dd57.
+2026-05-07T09:58:41.3072035Z Opening named pipe /podr/container/pipe/42715edfd386_batch8backendapp_main/stderr_9b5243ffa6924a4bb888bc1bc073dd57 for reading in non-blocking mode.
+2026-05-07T09:58:41.3075472Z Successfully opened named pipe: /podr/container/pipe/42715edfd386_batch8backendapp_main/stderr_9b5243ffa6924a4bb888bc1bc073dd57.
+2026-05-07T09:58:41.3076848Z Successfully removed non-blocking flag from /podr/container/pipe/42715edfd386_batch8backendapp_main/stderr_9b5243ffa6924a4bb888bc1bc073dd57.
+2026-05-07T09:58:41.3081783Z Creating container with image: batch8registry.azurecr.io/digital-eval-backend:latest from registry: batch8registry.azurecr.io and fully qualified image name: batch8registry.azurecr.io/digital-eval-backend:latest
+2026-05-07T09:58:41.5877972Z Starting container: 42715edfd386_batch8backendapp_main.
+2026-05-07T09:58:41.6677313Z Starting watchers and probes.
+2026-05-07T09:58:41.6691826Z Starting metrics collection.
+2026-05-07T09:58:41.6693524Z Container is running.
+2026-05-07T09:58:41.6873771Z State: Starting, Action: CreatingContainer, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:58:41.7876203Z Container start method finished after 695 ms.
+2026-05-07T09:58:41.7887359Z State: Starting, Action: InitiatingSiteWarmUpProbe, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Container batch8backendapp_main successfully created and is running., DetailsLevel: INFO
+2026-05-07T09:58:41.7890464Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 09:58:38, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: INFO
+2026-05-07T10:02:31.8053477Z Site startup probe failed after 230.0071355 seconds.
+2026-05-07T10:02:31.8773799Z State: Starting, Action: WaitingForSiteWarmUpProbeSuccess, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 10:02:31, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T10:02:31.8780566Z Failed to start site. Revert by stopping site.
+2026-05-07T10:02:31.8781442Z State: Stopping, Action: StoppingSite, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 10:02:31, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T10:02:31.8955325Z State: Stopping, Action: StoppingSiteContainers, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 10:02:31, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Pinging warmup path to ensure container is ready to receive requests., DetailsLevel: ERR
+2026-05-07T10:02:31.8956741Z Container is terminating. Grace period: 5 seconds.
+2026-05-07T10:02:31.8971685Z Stop and delete container. Retry count = 0
+2026-05-07T10:02:31.8972555Z Stopping container: 42715edfd386_batch8backendapp_main.
+2026-05-07T10:02:32.5414002Z Deleting container: 42715edfd386_batch8backendapp_main. Retry count = 0
+2026-05-07T10:02:32.7105707Z Container spec TerminationMessagePolicy  path 
+2026-05-07T10:02:32.7211249Z Container is terminated. Total time elapsed: 814 ms.
+2026-05-07T10:02:32.7216500Z Site container: batch8backendapp_main terminated during site startup.
+2026-05-07T10:02:32.7221124Z State: Stopping, Action: CancellingStartup, LastError: ContainerTimeout, LastErrorTimestamp: 05/07/2026 10:02:31, LastErrorDetails: Container did not start within expected time limit of 230s. Please inspect your container logs for more details., Details: Site container: batch8backendapp_main terminated during site startup. Cancelling site startup., DetailsLevel: ERR
+2026-05-07T10:02:32.7320351Z Site: batch8backendapp stopped.
