@@ -20,8 +20,22 @@ exports.createSubmission = async (req, res) => {
 
     const newSub = await submissionsService.createSubmission(data, userContext);
 
-    // If filename is provided, generate a secure upload URL
-    if (req.body.filename) {
+    // If filenames array is provided, generate multiple SAS URLs
+    if (req.body.filenames && Array.isArray(req.body.filenames)) {
+        const containerName = process.env.AZURE_CONTAINER_NAME || 'submissions';
+        newSub.uploads = await Promise.all(
+            req.body.filenames.map(async (filename) => {
+                const blobName = `submissions/${newSub.submission_id}/${filename}`;
+                const upload_url = await generateSASUrl(containerName, blobName, 'w');
+                return {
+                    filename,
+                    blob_name: blobName,
+                    upload_url,
+                };
+            }),
+        );
+    } else if (req.body.filename) {
+        // Fallback for single filename
         const blobName = `submissions/${newSub.submission_id}/${req.body.filename}`;
         const containerName = process.env.AZURE_CONTAINER_NAME || 'submissions';
         newSub.upload_url = await generateSASUrl(containerName, blobName, 'w');
