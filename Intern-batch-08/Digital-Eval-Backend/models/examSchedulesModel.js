@@ -60,9 +60,9 @@ class ExamSchedulesModel {
     async findById(scheduleId) {
         const [rows] = await db.execute(
             `SELECT es.*, es.exam_schedule_id as id, c.grade, c.section, s.name as subject_name
-             FROM EXAM_SCHEDULES es
-             JOIN CLASSES c ON es.class_id = c.class_id
-             JOIN SUBJECTS s ON es.subject_id = s.subject_id
+             FROM exam_schedules es
+             JOIN classes c ON es.class_id = c.class_id
+             JOIN subjects s ON es.subject_id = s.subject_id
              WHERE es.exam_schedule_id = ? AND es.deleted_at IS NULL`,
             [scheduleId],
         );
