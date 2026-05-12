@@ -11,6 +11,7 @@ class EmailService {
                 host: 'smtp.gmail.com',
                 port: 465,
                 secure: true, // Use SSL
+                family: 4,    // FORCE IPv4 to avoid ENETUNREACH issues on some cloud networks
                 auth: {
                     user: process.env.EMAIL_USER,
                     pass: process.env.EMAIL_PASS,
@@ -18,9 +19,9 @@ class EmailService {
                 pool: true, // Use connection pool
                 maxConnections: 5,
                 maxMessages: 100,
-                connectionTimeout: 10000, // 10 seconds
-                greetingTimeout: 5000,
-                socketTimeout: 15000,
+                connectionTimeout: 20000, // 20 seconds
+                greetingTimeout: 10000,
+                socketTimeout: 30000,
                 tls: {
                     // Do not fail on invalid certificates (helpful in some cloud environments)
                     rejectUnauthorized: false,
