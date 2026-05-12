@@ -27,7 +27,7 @@ class SubjectsModel {
 
         if (userContext.role === 'Faculty') {
             conditions.push(`fcsa.faculty_id = ?`);
-            params.push(userContext.user_id);
+            params.push(userContext.profile_id);
         }
 
         if (filters.class_id) {
