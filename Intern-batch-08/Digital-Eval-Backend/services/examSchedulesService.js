@@ -8,7 +8,7 @@ class ExamSchedulesService {
     async createSchedule(data, createdByUserId) {
         // Validate if subject is in class (prevent scheduling physics for a class that only has humanities)
         const [validCombo] = await db.execute(
-            `SELECT class_subject_id FROM CLASS_SUBJECTS WHERE class_id = ? AND subject_id = ?`,
+            `SELECT class_subject_id FROM class_subjects WHERE class_id = ? AND subject_id = ?`,
             [data.class_id, data.subject_id],
         );
 
@@ -37,12 +37,12 @@ class ExamSchedulesService {
 
         // Notify Students
         const [students] = await db.execute(
-            `SELECT user_id FROM STUDENTS WHERE class_id = ? AND is_active = 1 AND deleted_at IS NULL`,
+            `SELECT user_id FROM students WHERE class_id = ? AND is_active = 1 AND deleted_at IS NULL`,
             [data.class_id],
         );
 
         // Fetch subject and class names for notification
-        const [subjectData] = await db.execute(`SELECT name FROM SUBJECTS WHERE subject_id = ?`, [data.subject_id]);
+        const [subjectData] = await db.execute(`SELECT name FROM subjects WHERE subject_id = ?`, [data.subject_id]);
         const subjectName = subjectData[0]?.name || 'a Subject';
 
         for (const student of students) {
@@ -57,8 +57,8 @@ class ExamSchedulesService {
         // Notify Faculty
         const [assignments] = await db.execute(
             `SELECT f.user_id 
-             FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS a
-             JOIN FACULTY f ON a.faculty_id = f.faculty_id
+             FROM faculty_class_subject_assignments a
+             JOIN faculty f ON a.faculty_id = f.faculty_id
              WHERE a.class_id = ? AND a.subject_id = ? AND f.is_active = 1 AND f.deleted_at IS NULL`,
             [data.class_id, data.subject_id],
         );
@@ -87,7 +87,7 @@ class ExamSchedulesService {
             filters.class_id = classId;
         }
 
-        return await examSchedulesModel.getSchedules(filters, pagination, sorting);
+        return await examSchedulesModel.getSchedules(filters, pagination, sorting, userContext);
     }
 
     async getScheduleDetails(scheduleId) {

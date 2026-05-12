@@ -18,13 +18,13 @@ class ClassesService {
         return { class_id: classId, ...data };
     }
 
-    async getClasses(query, pagination, sorting) {
+    async getClasses(query, pagination, sorting, userContext) {
         const filters = {
             grade: query.grade || null,
             academic_year: query.academic_year || null,
             search: query.search || null,
         };
-        return await classesModel.getClasses(filters, pagination, sorting);
+        return await classesModel.getClasses(filters, pagination, sorting, userContext);
     }
 
     async getClassDetails(classId) {

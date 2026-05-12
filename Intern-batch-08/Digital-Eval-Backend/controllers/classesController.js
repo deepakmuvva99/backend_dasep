@@ -16,8 +16,9 @@ exports.createClass = async (req, res) => {
 exports.getClasses = async (req, res) => {
     const pagination = parsePagination(req.query);
     const sorting = parseSorting(req.query, ['grade', 'academic_year', 'created_at'], 'grade');
+    const userContext = req.user;
 
-    const { rows, total } = await classesService.getClasses(req.query, pagination, sorting);
+    const { rows, total } = await classesService.getClasses(req.query, pagination, sorting, userContext);
     const meta = buildPaginationMeta(total, pagination.page, pagination.limit);
 
     return successListResponse(res, rows, meta);

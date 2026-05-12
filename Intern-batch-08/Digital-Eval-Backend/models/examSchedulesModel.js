@@ -10,7 +10,7 @@ class ExamSchedulesModel {
         return result.insertId;
     }
 
-    async getSchedules(filters, pagination, sorting) {
+    async getSchedules(filters, pagination, sorting, userContext) {
         let query = `
             SELECT es.exam_schedule_id, es.exam_schedule_id as id, es.title, es.exam_datetime, es.created_at,
                    c.grade, c.section, c.academic_year,
@@ -21,6 +21,13 @@ class ExamSchedulesModel {
         `;
         const params = [];
         const conditions = [];
+
+        // Scoping for Faculty: Only show exams for classes/subjects they are assigned to
+        if (userContext && userContext.role === 'Faculty') {
+            query += ` JOIN faculty_class_subject_assignments a ON (es.class_id = a.class_id AND es.subject_id = a.subject_id) `;
+            conditions.push(`a.faculty_id = ?`);
+            params.push(userContext.profile_id);
+        }
 
         if (filters.class_id) {
             conditions.push(`es.class_id = ?`);
