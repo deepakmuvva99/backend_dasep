@@ -3242,7 +3242,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"student_id\": 1,\n    \"exam_schedule_id\": 1,\n    \"submission_type_id\": 1,\n    \"status_id\": 1,\n    \"submitted_at\": \"2024-05-20T12:00:00Z\",\n    \"filename\": \"answer_sheet.pdf\"\n}",
+                            "raw": "{\n    \"student_id\": 1,\n    \"exam_schedule_id\": 1,\n    \"submission_type_id\": 1,\n    \"status_id\": 1,\n    \"submitted_at\": \"2024-05-20T12:00:00Z\",\n    \"filename\": \"answer_sheet.pdf\",\n    \"filenames\": [\"page1.jpg\", \"page2.jpg\"]\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -3281,7 +3281,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"student_id\": 1,\n    \"exam_schedule_id\": 1,\n    \"submission_type_id\": 1,\n    \"status_id\": 1,\n    \"submitted_at\": \"2024-05-20T12:00:00Z\",\n    \"filename\": \"answer_sheet.pdf\"\n}",
+                            "raw": "{\n    \"student_id\": 1,\n    \"exam_schedule_id\": 1,\n    \"submission_type_id\": 1,\n    \"status_id\": 1,\n    \"submitted_at\": \"2024-05-20T12:00:00Z\",\n    \"filename\": \"answer_sheet.pdf\",\n    \"filenames\": [\"page1.jpg\", \"page2.jpg\"]\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
