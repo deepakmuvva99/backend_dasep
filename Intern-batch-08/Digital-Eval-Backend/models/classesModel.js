@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 class ClassesModel {
     async createClass(data) {
-        const [result] = await db.execute(`INSERT INTO CLASSES (grade, section, academic_year) VALUES (?, ?, ?)`, [
+        const [result] = await db.execute(`INSERT INTO classes (grade, section, academic_year) VALUES (?, ?, ?)`, [
             data.grade,
             data.section,
             data.academic_year,
@@ -11,7 +11,7 @@ class ClassesModel {
     }
 
     async getClasses(filters, pagination, sorting) {
-        let query = `SELECT *, class_id as id FROM CLASSES`;
+        let query = `SELECT *, class_id as id FROM classes`;
         const params = [];
         const conditions = [];
 
@@ -54,12 +54,12 @@ class ClassesModel {
     }
 
     async findById(classId) {
-        const [rows] = await db.execute(`SELECT *, class_id as id FROM CLASSES WHERE class_id = ?`, [classId]);
+        const [rows] = await db.execute(`SELECT *, class_id as id FROM classes WHERE class_id = ?`, [classId]);
         return rows[0];
     }
 
     async findByCombo(grade, section, academic_year) {
-        const [rows] = await db.execute(`SELECT * FROM CLASSES WHERE grade = ? AND section = ? AND academic_year = ?`, [
+        const [rows] = await db.execute(`SELECT * FROM classes WHERE grade = ? AND section = ? AND academic_year = ?`, [
             grade,
             section,
             academic_year,
@@ -69,7 +69,7 @@ class ClassesModel {
 
     async updateClass(classId, data) {
         const [result] = await db.execute(
-            `UPDATE CLASSES SET grade = ?, section = ?, academic_year = ? WHERE class_id = ?`,
+            `UPDATE classes SET grade = ?, section = ?, academic_year = ? WHERE class_id = ?`,
             [data.grade, data.section, data.academic_year, classId],
         );
         return result.affectedRows;
@@ -79,9 +79,9 @@ class ClassesModel {
         const connection = await db.getConnection();
         try {
             await connection.beginTransaction();
-            await connection.execute(`DELETE FROM CLASS_SUBJECTS WHERE class_id = ?`, [classId]);
-            await connection.execute(`DELETE FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS WHERE class_id = ?`, [classId]);
-            await connection.execute(`DELETE FROM CLASSES WHERE class_id = ?`, [classId]);
+            await connection.execute(`DELETE FROM class_subjects WHERE class_id = ?`, [classId]);
+            await connection.execute(`DELETE FROM faculty_class_subject_assignments WHERE class_id = ?`, [classId]);
+            await connection.execute(`DELETE FROM classes WHERE class_id = ?`, [classId]);
             await connection.commit();
             return true;
         } catch (error) {
@@ -95,12 +95,12 @@ class ClassesModel {
     async getClassSubjects(classId, pagination) {
         let query = `
             SELECT s.subject_id, s.name, s.code 
-            FROM SUBJECTS s
-            JOIN CLASS_SUBJECTS cs ON s.subject_id = cs.subject_id
+            FROM subjects s
+            JOIN class_subjects cs ON s.subject_id = cs.subject_id
             WHERE cs.class_id = ?
         `;
 
-        const countQuery = `SELECT COUNT(*) as total FROM CLASS_SUBJECTS WHERE class_id = ?`;
+        const countQuery = `SELECT COUNT(*) as total FROM class_subjects WHERE class_id = ?`;
         const [countRows] = await db.execute(countQuery, [classId]);
         const total = countRows[0].total;
 
@@ -112,7 +112,7 @@ class ClassesModel {
     async getLookup() {
         const [rows] = await db.execute(
             `SELECT class_id as id, CONCAT('Grade ', grade, ' - ', section) as name, academic_year 
-             FROM CLASSES 
+             FROM classes 
              WHERE deleted_at IS NULL 
              ORDER BY grade ASC, section ASC`,
         );
@@ -121,7 +121,7 @@ class ClassesModel {
 
     async addClassSubject(classId, subjectId) {
         const [result] = await db.execute(
-            `INSERT INTO CLASS_SUBJECTS (class_id, subject_id, created_at, updated_at) 
+            `INSERT INTO class_subjects (class_id, subject_id, created_at, updated_at) 
              VALUES (?, ?, NOW(), NOW())`,
             [classId, subjectId],
         );
@@ -129,7 +129,7 @@ class ClassesModel {
     }
 
     async removeClassSubject(classId, subjectId) {
-        const [result] = await db.execute(`DELETE FROM CLASS_SUBJECTS WHERE class_id = ? AND subject_id = ?`, [
+        const [result] = await db.execute(`DELETE FROM class_subjects WHERE class_id = ? AND subject_id = ?`, [
             classId,
             subjectId,
         ]);
@@ -137,7 +137,7 @@ class ClassesModel {
     }
 
     async findClassSubject(classId, subjectId) {
-        const [rows] = await db.execute(`SELECT * FROM CLASS_SUBJECTS WHERE class_id = ? AND subject_id = ?`, [
+        const [rows] = await db.execute(`SELECT * FROM class_subjects WHERE class_id = ? AND subject_id = ?`, [
             classId,
             subjectId,
         ]);

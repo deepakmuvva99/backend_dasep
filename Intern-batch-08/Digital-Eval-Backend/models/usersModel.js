@@ -3,7 +3,7 @@ const db = require('../config/database');
 class UsersModel {
     async createUser(name, email, passwordHash) {
         const [result] = await db.execute(
-            `INSERT INTO USERS (name, email, password_hash, created_at) VALUES (?, ?, ?, NOW())`,
+            `INSERT INTO users (name, email, password_hash, created_at) VALUES (?, ?, ?, NOW())`,
             [name, email, passwordHash],
         );
         return result.insertId;
@@ -12,7 +12,7 @@ class UsersModel {
     async findUsers(filters, pagination, sorting) {
         let query = `
             SELECT u.user_id, u.user_id as id, u.name, u.email, u.created_at, u.deleted_at
-            FROM USERS u
+            FROM users u
             WHERE u.deleted_at IS NULL
         `;
         const params = [];
@@ -22,11 +22,11 @@ class UsersModel {
             params.push(`%${filters.search}%`, `%${filters.search}%`);
         }
 
-        // Add role filtering by joining USER_ROLES and ROLES
+        // Add role filtering by joining user_roles and roles
         if (filters.role) {
             query += ` AND u.user_id IN (
-                SELECT ur.user_id FROM USER_ROLES ur 
-                JOIN ROLES r ON ur.role_id = r.role_id 
+                SELECT ur.user_id FROM user_roles ur 
+                JOIN roles r ON ur.role_id = r.role_id 
                 WHERE r.name = ?
             )`;
             params.push(filters.role); // e.g. 'Student', 'Faculty', 'Admin'
@@ -62,7 +62,7 @@ class UsersModel {
 
     async findById(userId) {
         const [rows] = await db.execute(
-            `SELECT user_id, user_id as id, name, email, created_at FROM USERS WHERE user_id = ? AND deleted_at IS NULL`,
+            `SELECT user_id, user_id as id, name, email, created_at FROM users WHERE user_id = ? AND deleted_at IS NULL`,
             [userId],
         );
         return rows[0];
@@ -70,19 +70,19 @@ class UsersModel {
 
     async findWithPasswordById(userId) {
         const [rows] = await db.execute(
-            `SELECT user_id, name, email, password_hash FROM USERS WHERE user_id = ? AND deleted_at IS NULL`,
+            `SELECT user_id, name, email, password_hash FROM users WHERE user_id = ? AND deleted_at IS NULL`,
             [userId],
         );
         return rows[0];
     }
 
     async findByEmail(email) {
-        const [rows] = await db.execute(`SELECT * FROM USERS WHERE email = ? AND deleted_at IS NULL`, [email]);
+        const [rows] = await db.execute(`SELECT * FROM users WHERE email = ? AND deleted_at IS NULL`, [email]);
         return rows[0];
     }
 
     async updateUser(userId, data) {
-        const [result] = await db.execute(`UPDATE USERS SET name = ?, email = ? WHERE user_id = ?`, [
+        const [result] = await db.execute(`UPDATE users SET name = ?, email = ? WHERE user_id = ?`, [
             data.name,
             data.email,
             userId,
@@ -91,7 +91,7 @@ class UsersModel {
     }
 
     async updatePassword(userId, passwordHash) {
-        const [result] = await db.execute(`UPDATE USERS SET password_hash = ? WHERE user_id = ?`, [
+        const [result] = await db.execute(`UPDATE users SET password_hash = ? WHERE user_id = ?`, [
             passwordHash,
             userId,
         ]);
@@ -99,15 +99,15 @@ class UsersModel {
     }
 
     async softDeleteUser(userId) {
-        const [result] = await db.execute(`UPDATE USERS SET deleted_at = NOW() WHERE user_id = ?`, [userId]);
+        const [result] = await db.execute(`UPDATE users SET deleted_at = NOW() WHERE user_id = ?`, [userId]);
         return result.affectedRows;
     }
 
     async getUserRoles(userId) {
         const [rows] = await db.execute(
             `SELECT r.role_id, r.name 
-             FROM ROLES r 
-             JOIN USER_ROLES ur ON r.role_id = ur.role_id 
+             FROM roles r 
+             JOIN user_roles ur ON r.role_id = ur.role_id 
              WHERE ur.user_id = ?`,
             [userId],
         );
@@ -115,7 +115,7 @@ class UsersModel {
     }
 
     async assignRoleToUser(userId, roleId) {
-        const [result] = await db.execute(`INSERT IGNORE INTO USER_ROLES (user_id, role_id) VALUES (?, ?)`, [
+        const [result] = await db.execute(`INSERT IGNORE INTO user_roles (user_id, role_id) VALUES (?, ?)`, [
             userId,
             roleId,
         ]);
@@ -123,7 +123,7 @@ class UsersModel {
     }
 
     async removeRoleFromUser(userId, roleId) {
-        const [result] = await db.execute(`DELETE FROM USER_ROLES WHERE user_id = ? AND role_id = ?`, [userId, roleId]);
+        const [result] = await db.execute(`DELETE FROM user_roles WHERE user_id = ? AND role_id = ?`, [userId, roleId]);
         return result.affectedRows > 0;
     }
 }

@@ -3,7 +3,7 @@ const db = require('../config/database');
 class ExamSchedulesModel {
     async createSchedule(data, createdByUserId) {
         const [result] = await db.execute(
-            `INSERT INTO EXAM_SCHEDULES (title, class_id, subject_id, exam_datetime, created_by_user_id, created_at)
+            `INSERT INTO exam_schedules (title, class_id, subject_id, exam_datetime, created_by_user_id, created_at)
              VALUES (?, ?, ?, ?, ?, NOW())`,
             [data.title, data.class_id, data.subject_id, data.exam_datetime, createdByUserId],
         );
@@ -15,9 +15,9 @@ class ExamSchedulesModel {
             SELECT es.exam_schedule_id, es.exam_schedule_id as id, es.title, es.exam_datetime, es.created_at,
                    c.grade, c.section, c.academic_year,
                    s.name as subject_name, s.code as subject_code
-            FROM EXAM_SCHEDULES es
-            JOIN CLASSES c ON es.class_id = c.class_id
-            JOIN SUBJECTS s ON es.subject_id = s.subject_id
+            FROM exam_schedules es
+            JOIN classes c ON es.class_id = c.class_id
+            JOIN subjects s ON es.subject_id = s.subject_id
         `;
         const params = [];
         const conditions = [];
@@ -71,14 +71,14 @@ class ExamSchedulesModel {
 
     async updateSchedule(scheduleId, data) {
         const [result] = await db.execute(
-            `UPDATE EXAM_SCHEDULES SET title = ?, exam_datetime = ? WHERE exam_schedule_id = ?`,
+            `UPDATE exam_schedules SET title = ?, exam_datetime = ? WHERE exam_schedule_id = ?`,
             [data.title, data.exam_datetime, scheduleId],
         );
         return result.affectedRows;
     }
 
     async deleteSchedule(scheduleId) {
-        const [result] = await db.execute(`UPDATE EXAM_SCHEDULES SET deleted_at = NOW() WHERE exam_schedule_id = ?`, [scheduleId]);
+        const [result] = await db.execute(`UPDATE exam_schedules SET deleted_at = NOW() WHERE exam_schedule_id = ?`, [scheduleId]);
         return result.affectedRows;
     }
 }

@@ -8,13 +8,25 @@ class EmailService {
         } else {
             this.enabled = true;
             this.transporter = nodemailer.createTransport({
-                service: process.env.EMAIL_SERVICE || 'gmail',
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true, // Use SSL
                 auth: {
                     user: process.env.EMAIL_USER,
                     pass: process.env.EMAIL_PASS,
                 },
+                pool: true, // Use connection pool
+                maxConnections: 5,
+                maxMessages: 100,
+                connectionTimeout: 10000, // 10 seconds
+                greetingTimeout: 5000,
+                socketTimeout: 15000,
+                tls: {
+                    // Do not fail on invalid certificates (helpful in some cloud environments)
+                    rejectUnauthorized: false,
+                },
             });
-            console.log('✅ Email Service Initialized');
+            console.log('✅ Email Service Initialized (SSL/Pool enabled)');
         }
     }
 

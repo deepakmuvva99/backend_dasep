@@ -13,7 +13,8 @@ class CronService {
                 // We check the notifications table to see if a deadline notification already exists
                 // for this exam schedule, avoiding the need for a separate column on exam_schedules.
                 const [expiredExams] = await db.execute(`
-                    SELECT e.exam_schedule_id, e.class_id, e.subject_id, s.name as subject_name, c.name as class_name
+                    SELECT e.exam_schedule_id, e.class_id, e.subject_id, s.name as subject_name, 
+                           CONCAT('Grade ', c.grade, ' - ', c.section) as class_name
                     FROM exam_schedules e
                     JOIN subjects s ON e.subject_id = s.subject_id
                     JOIN classes c ON e.class_id = c.class_id

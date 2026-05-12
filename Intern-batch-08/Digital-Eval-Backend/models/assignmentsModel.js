@@ -3,7 +3,7 @@ const db = require('../config/database');
 class AssignmentsModel {
     async createAssignment(facultyId, subjectId, classId) {
         const [result] = await db.execute(
-            `INSERT INTO FACULTY_CLASS_SUBJECT_ASSIGNMENTS (faculty_id, subject_id, class_id, assigned_at) 
+            `INSERT INTO faculty_class_subject_assignments (faculty_id, subject_id, class_id, assigned_at) 
              VALUES (?, ?, ?, NOW())`,
             [facultyId, subjectId, classId],
         );
@@ -14,11 +14,11 @@ class AssignmentsModel {
         let query = `
             SELECT a.assignment_id, a.faculty_id, a.subject_id, a.class_id, a.assigned_at,
                    u.name as faculty_name, s.name as subject_name, c.grade, c.section, c.academic_year
-            FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS a
-            JOIN FACULTY f ON a.faculty_id = f.faculty_id
-            JOIN USERS u ON f.user_id = u.user_id
-            JOIN SUBJECTS s ON a.subject_id = s.subject_id
-            JOIN CLASSES c ON a.class_id = c.class_id
+            FROM faculty_class_subject_assignments a
+            JOIN faculty f ON a.faculty_id = f.faculty_id
+            JOIN users u ON f.user_id = u.user_id
+            JOIN subjects s ON a.subject_id = s.subject_id
+            JOIN classes c ON a.class_id = c.class_id
             WHERE u.deleted_at IS NULL AND f.deleted_at IS NULL
         `;
         const params = [];
@@ -64,11 +64,11 @@ class AssignmentsModel {
     async findById(assignmentId) {
         const [rows] = await db.execute(
             `SELECT a.*, u.name as faculty_name, s.name as subject_name, c.grade, c.section 
-             FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS a
-             JOIN FACULTY f ON a.faculty_id = f.faculty_id
-             JOIN USERS u ON f.user_id = u.user_id
-             JOIN SUBJECTS s ON a.subject_id = s.subject_id
-             JOIN CLASSES c ON a.class_id = c.class_id
+             FROM faculty_class_subject_assignments a
+             JOIN faculty f ON a.faculty_id = f.faculty_id
+             JOIN users u ON f.user_id = u.user_id
+             JOIN subjects s ON a.subject_id = s.subject_id
+             JOIN classes c ON a.class_id = c.class_id
              WHERE a.assignment_id = ?`,
             [assignmentId],
         );
@@ -77,7 +77,7 @@ class AssignmentsModel {
 
     async findExactDuplicate(facultyId, subjectId, classId) {
         const [rows] = await db.execute(
-            `SELECT assignment_id FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS 
+            `SELECT assignment_id FROM faculty_class_subject_assignments 
              WHERE faculty_id = ? AND subject_id = ? AND class_id = ?`,
             [facultyId, subjectId, classId],
         );
@@ -86,14 +86,14 @@ class AssignmentsModel {
 
     async updateAssignment(assignmentId, data) {
         const [result] = await db.execute(
-            `UPDATE FACULTY_CLASS_SUBJECT_ASSIGNMENTS SET faculty_id = ?, subject_id = ?, class_id = ? WHERE assignment_id = ?`,
+            `UPDATE faculty_class_subject_assignments SET faculty_id = ?, subject_id = ?, class_id = ? WHERE assignment_id = ?`,
             [data.faculty_id, data.subject_id, data.class_id, assignmentId],
         );
         return result.affectedRows;
     }
 
     async deleteAssignment(assignmentId) {
-        const [result] = await db.execute(`DELETE FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS WHERE assignment_id = ?`, [
+        const [result] = await db.execute(`DELETE FROM faculty_class_subject_assignments WHERE assignment_id = ?`, [
             assignmentId,
         ]);
         return result.affectedRows;

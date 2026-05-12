@@ -7,21 +7,21 @@ class FacultyModel {
             await connection.beginTransaction();
 
             const [userResult] = await connection.execute(
-                `INSERT INTO USERS (name, email, password_hash, created_at) VALUES (?, ?, ?, NOW())`,
+                `INSERT INTO users (name, email, password_hash, created_at) VALUES (?, ?, ?, NOW())`,
                 [userData.name, userData.email, userData.password_hash],
             );
             const userId = userResult.insertId;
 
             const [facultyResult] = await connection.execute(
-                `INSERT INTO FACULTY (user_id, is_active, credentials_sent_at) 
+                `INSERT INTO faculty (user_id, is_active, credentials_sent_at) 
                  VALUES (?, ?, NOW())`,
                 [userId, true],
             );
             const facultyId = facultyResult.insertId;
 
             await connection.execute(
-                `INSERT INTO USER_ROLES (user_id, role_id) 
-                 SELECT ?, role_id FROM ROLES WHERE name = 'Faculty'`,
+                `INSERT INTO user_roles (user_id, role_id) 
+                 SELECT ?, role_id FROM roles WHERE name = 'Faculty'`,
                 [userId],
             );
 
@@ -38,8 +38,8 @@ class FacultyModel {
     async getFaculty(filters, pagination) {
         let query = `
             SELECT f.faculty_id, f.faculty_id as id, u.name, u.email, f.is_active, f.credentials_sent_at 
-            FROM FACULTY f
-            JOIN USERS u ON f.user_id = u.user_id
+            FROM faculty f
+            JOIN users u ON f.user_id = u.user_id
             WHERE f.deleted_at IS NULL AND u.deleted_at IS NULL
         `;
         const params = [];
@@ -67,8 +67,8 @@ class FacultyModel {
     async findById(facultyId) {
         const [rows] = await db.execute(
             `SELECT f.faculty_id, f.faculty_id as id, f.user_id, u.name, u.email, f.is_active
-             FROM FACULTY f
-             JOIN USERS u ON f.user_id = u.user_id
+             FROM faculty f
+             JOIN users u ON f.user_id = u.user_id
              WHERE f.faculty_id = ? AND f.deleted_at IS NULL AND u.deleted_at IS NULL`,
             [facultyId],
         );
@@ -80,9 +80,9 @@ class FacultyModel {
         try {
             await connection.beginTransaction();
 
-            const [faculty] = await connection.execute(`SELECT user_id FROM FACULTY WHERE faculty_id = ?`, [facultyId]);
+            const [faculty] = await connection.execute(`SELECT user_id FROM faculty WHERE faculty_id = ?`, [facultyId]);
             if (faculty.length > 0) {
-                await connection.execute(`UPDATE USERS SET name = ?, email = ? WHERE user_id = ?`, [
+                await connection.execute(`UPDATE users SET name = ?, email = ? WHERE user_id = ?`, [
                     data.name,
                     data.email,
                     faculty[0].user_id,
@@ -104,12 +104,12 @@ class FacultyModel {
         try {
             await connection.beginTransaction();
 
-            const [faculty] = await connection.execute(`SELECT user_id FROM FACULTY WHERE faculty_id = ?`, [facultyId]);
+            const [faculty] = await connection.execute(`SELECT user_id FROM faculty WHERE faculty_id = ?`, [facultyId]);
             if (faculty.length === 0) throw new Error('Faculty not found');
             const userId = faculty[0].user_id;
 
-            await connection.execute(`UPDATE FACULTY SET deleted_at = NOW() WHERE faculty_id = ?`, [facultyId]);
-            await connection.execute(`UPDATE USERS SET deleted_at = NOW() WHERE user_id = ?`, [userId]);
+            await connection.execute(`UPDATE faculty SET deleted_at = NOW() WHERE faculty_id = ?`, [facultyId]);
+            await connection.execute(`UPDATE users SET deleted_at = NOW() WHERE user_id = ?`, [userId]);
 
             await connection.commit();
             return true;
@@ -122,7 +122,7 @@ class FacultyModel {
     }
 
     async setFacultyStatus(facultyId, isActive) {
-        const [result] = await db.execute(`UPDATE FACULTY SET is_active = ? WHERE faculty_id = ?`, [
+        const [result] = await db.execute(`UPDATE faculty SET is_active = ? WHERE faculty_id = ?`, [
             isActive ? 1 : 0,
             facultyId,
         ]);
@@ -132,14 +132,14 @@ class FacultyModel {
     async getFacultyAssignments(facultyId, pagination) {
         let query = `
             SELECT a.assignment_id, c.grade, c.section, c.academic_year, s.name as subject_name, s.code as subject_code
-            FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS a
-            JOIN CLASSES c ON a.class_id = c.class_id
-            JOIN SUBJECTS s ON a.subject_id = s.subject_id
+            FROM faculty_class_subject_assignments a
+            JOIN classes c ON a.class_id = c.class_id
+            JOIN subjects s ON a.subject_id = s.subject_id
             WHERE a.faculty_id = ?
         `;
 
         const [countRows] = await db.execute(
-            `SELECT COUNT(*) as total FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS WHERE faculty_id = ?`,
+            `SELECT COUNT(*) as total FROM faculty_class_subject_assignments WHERE faculty_id = ?`,
             [facultyId],
         );
         const total = countRows[0].total;
@@ -152,7 +152,7 @@ class FacultyModel {
     async getSubjectNamesLookup() {
         const [rows] = await db.execute(
             `SELECT DISTINCT s.name 
-             FROM SUBJECTS s
+             FROM subjects s
              WHERE s.deleted_at IS NULL 
              ORDER BY s.name ASC`,
         );
@@ -162,8 +162,8 @@ class FacultyModel {
     async getFacultyLookup() {
         const [rows] = await db.execute(
             `SELECT f.faculty_id as id, u.name 
-             FROM FACULTY f
-             JOIN USERS u ON f.user_id = u.user_id 
+             FROM faculty f
+             JOIN users u ON f.user_id = u.user_id 
              WHERE f.deleted_at IS NULL AND u.deleted_at IS NULL 
              ORDER BY u.name ASC`,
         );
@@ -173,8 +173,8 @@ class FacultyModel {
     async findUserIdsBySubjectAndClass(subjectId, classId) {
         const [rows] = await db.execute(
             `SELECT f.user_id 
-             FROM FACULTY f
-             JOIN FACULTY_CLASS_SUBJECT_ASSIGNMENTS a ON f.faculty_id = a.faculty_id
+             FROM faculty f
+             JOIN faculty_class_subject_assignments a ON f.faculty_id = a.faculty_id
              WHERE a.subject_id = ? AND a.class_id = ? AND f.deleted_at IS NULL`,
             [subjectId, classId],
         );
@@ -183,7 +183,7 @@ class FacultyModel {
 
     async isAssignedToClass(facultyId, classId) {
         const [rows] = await db.execute(
-            `SELECT 1 FROM FACULTY_CLASS_SUBJECT_ASSIGNMENTS 
+            `SELECT 1 FROM faculty_class_subject_assignments 
              WHERE faculty_id = ? AND class_id = ? 
              LIMIT 1`,
             [facultyId, classId],
