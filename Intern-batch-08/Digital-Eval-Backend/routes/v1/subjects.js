@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const subjectsController = require('../../controllers/subjectsController');
-const { verifyToken, restrictTo } = require('../../middlewares/authMiddleware');
+const { verifyToken, restrictTo, resolveProfile } = require('../../middlewares/authMiddleware');
 const { asyncHandler } = require('../../middlewares/errorMiddleware');
 
 // Route safeguards
@@ -10,7 +10,7 @@ router.use(verifyToken);
 
 router
     .route('/')
-    .get(restrictTo('Admin', 'Faculty'), asyncHandler(subjectsController.getSubjects))
+    .get(resolveProfile, restrictTo('Admin', 'Faculty'), asyncHandler(subjectsController.getSubjects))
     .post(restrictTo('Admin'), asyncHandler(subjectsController.createSubject));
 
 router.get('/lookup', asyncHandler(subjectsController.getSubjectsLookup));
