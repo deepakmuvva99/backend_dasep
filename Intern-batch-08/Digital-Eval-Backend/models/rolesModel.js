@@ -2,12 +2,12 @@ const db = require('../config/database');
 
 class RolesModel {
     async createRole(name) {
-        const [result] = await db.execute(`INSERT INTO ROLES (name) VALUES (?)`, [name]);
+        const [result] = await db.execute(`INSERT INTO roles (name) VALUES (?)`, [name]);
         return result.insertId;
     }
 
     async getRoles(pagination, search) {
-        let query = `SELECT *, role_id as id FROM ROLES`;
+        let query = `SELECT *, role_id as id FROM roles`;
         const params = [];
 
         if (search) {
@@ -27,17 +27,17 @@ class RolesModel {
     }
 
     async findById(roleId) {
-        const [rows] = await db.execute(`SELECT *, role_id as id FROM ROLES WHERE role_id = ?`, [roleId]);
+        const [rows] = await db.execute(`SELECT *, role_id as id FROM roles WHERE role_id = ?`, [roleId]);
         return rows[0];
     }
 
     async findByName(name) {
-        const [rows] = await db.execute(`SELECT * FROM ROLES WHERE name = ?`, [name]);
+        const [rows] = await db.execute(`SELECT * FROM roles WHERE name = ?`, [name]);
         return rows[0];
     }
 
     async updateRole(roleId, name) {
-        const [result] = await db.execute(`UPDATE ROLES SET name = ? WHERE role_id = ?`, [name, roleId]);
+        const [result] = await db.execute(`UPDATE roles SET name = ? WHERE role_id = ?`, [name, roleId]);
         return result.affectedRows;
     }
 
@@ -46,9 +46,9 @@ class RolesModel {
         try {
             await connection.beginTransaction();
             // Cascades deletes using transactions since constraints might exist
-            await connection.execute(`DELETE FROM ROLE_PERMISSIONS WHERE role_id = ?`, [roleId]);
-            await connection.execute(`DELETE FROM USER_ROLES WHERE role_id = ?`, [roleId]);
-            await connection.execute(`DELETE FROM ROLES WHERE role_id = ?`, [roleId]);
+            await connection.execute(`DELETE FROM role_permissions WHERE role_id = ?`, [roleId]);
+            await connection.execute(`DELETE FROM user_roles WHERE role_id = ?`, [roleId]);
+            await connection.execute(`DELETE FROM roles WHERE role_id = ?`, [roleId]);
 
             await connection.commit();
             return true;
@@ -63,8 +63,8 @@ class RolesModel {
     async getRolePermissions(roleId) {
         const [rows] = await db.execute(
             `SELECT p.permission_id, p.name 
-             FROM PERMISSIONS p
-             JOIN ROLE_PERMISSIONS rp ON p.permission_id = rp.permission_id
+             FROM permissions p
+             JOIN role_permissions rp ON p.permission_id = rp.permission_id
              WHERE rp.role_id = ?`,
             [roleId],
         );
@@ -80,7 +80,7 @@ class RolesModel {
     }
 
     async removePermissionFromRole(roleId, permissionId) {
-        const [result] = await db.execute(`DELETE FROM ROLE_PERMISSIONS WHERE role_id = ? AND permission_id = ?`, [
+        const [result] = await db.execute(`DELETE FROM role_permissions WHERE role_id = ? AND permission_id = ?`, [
             roleId,
             permissionId,
         ]);
