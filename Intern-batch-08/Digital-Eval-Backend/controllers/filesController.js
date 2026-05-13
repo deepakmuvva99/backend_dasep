@@ -49,7 +49,7 @@ exports.uploadVersion = async (req, res) => {
 exports.getFileDetails = async (req, res) => {
     const details = await filesService.getFileDetails(req.params.file_id);
     if (details && details.blob_name && details.container_name) {
-        details.secure_url = await generateSASUrl(details.container_name, details.blob_name, 'r');
+        details.secure_url = await generateSASUrl(details.container_name, details.blob_name, 'r', 30);
     }
     return successResponse(res, details);
 };
@@ -67,7 +67,7 @@ exports.getVersions = async (req, res) => {
 exports.getCurrentVersion = async (req, res) => {
     const result = await filesService.getCurrentVersion(req.params.file_id);
     if (result && result.blob_name && result.container_name) {
-        result.secure_url = await generateSASUrl(result.container_name, result.blob_name, 'r');
+        result.secure_url = await generateSASUrl(result.container_name, result.blob_name, 'r', 30);
     }
     return successResponse(res, result);
 };

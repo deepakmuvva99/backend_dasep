@@ -11,6 +11,7 @@ class AuditLogsService {
             entity_type: query.entity_type || null,
             entity_id: query.entity_id || null,
             user_id: query.user_id || null,
+            role: query.role || null,
             date_from: query.date_from || null,
             date_to: query.date_to || null,
         };
@@ -30,6 +31,10 @@ class AuditLogsService {
 
     async getAuditLogsByEntity(entityType, entityId) {
         return await auditLogsModel.getByEntity(entityType, entityId);
+    }
+
+    async cleanupOldLogs(days = 90) {
+        return await auditLogsModel.deleteOldLogs(days);
     }
 }
 

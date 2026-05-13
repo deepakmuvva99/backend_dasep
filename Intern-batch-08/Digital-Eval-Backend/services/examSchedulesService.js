@@ -1,4 +1,5 @@
 const examSchedulesModel = require('../models/examSchedulesModel');
+const typeOfExamModel = require('../models/typeOfExamModel');
 const db = require('../config/database');
 const notificationsService = require('./notificationsService');
 const auditLogsService = require('./auditLogsService');
@@ -30,6 +31,7 @@ class ExamSchedulesService {
                 title: data.title,
                 class_id: data.class_id,
                 subject_id: data.subject_id,
+                exam_type: data.exam_type,
                 exam_datetime: data.exam_datetime,
             }),
             changed_by_user_id: createdByUserId,
@@ -101,6 +103,17 @@ class ExamSchedulesService {
         return schedule;
     }
 
+    async getExamTypes(userContext) {
+        const allTypes = await typeOfExamModel.getAll();
+
+        // RBAC: Faculty cannot see 'Quiz' (ID: 4)
+        if (userContext && userContext.role === 'Faculty') {
+            return allTypes.filter((type) => type.name.toLowerCase() !== 'quiz');
+        }
+
+        return allTypes;
+    }
+
     async updateSchedule(scheduleId, data, actorId) {
         const existing = await examSchedulesModel.findById(scheduleId);
         if (!existing) {
@@ -116,8 +129,8 @@ class ExamSchedulesService {
             entity_type: 'exam_schedules',
             entity_id: scheduleId,
             field_name: 'all',
-            old_value: JSON.stringify({ title: existing.title, exam_datetime: existing.exam_datetime }),
-            new_value: JSON.stringify({ title: data.title, exam_datetime: data.exam_datetime }),
+            old_value: JSON.stringify({ title: existing.title, exam_type: existing.exam_type, exam_datetime: existing.exam_datetime }),
+            new_value: JSON.stringify({ title: data.title, exam_type: data.exam_type, exam_datetime: data.exam_datetime }),
             changed_by_user_id: actorId,
         });
 

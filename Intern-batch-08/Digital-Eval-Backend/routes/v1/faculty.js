@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const facultyController = require('../../controllers/facultyController');
-const { verifyToken, restrictTo } = require('../../middlewares/authMiddleware');
+const { verifyToken, restrictTo, resolveProfile } = require('../../middlewares/authMiddleware');
 const { asyncHandler } = require('../../middlewares/errorMiddleware');
 
 router.use(verifyToken);
@@ -17,7 +17,7 @@ router
 
 router
     .route('/:faculty_id')
-    .get(restrictTo('Admin', 'Faculty'), asyncHandler(facultyController.getFacultyProfile))
+    .get(resolveProfile, restrictTo('Admin', 'Faculty'), asyncHandler(facultyController.getFacultyProfile))
     .put(restrictTo('Admin'), asyncHandler(facultyController.updateFaculty))
     .delete(restrictTo('Admin'), asyncHandler(facultyController.deleteFaculty));
 
@@ -25,6 +25,6 @@ router.route('/:faculty_id/status').put(restrictTo('Admin'), asyncHandler(facult
 
 router
     .route('/:faculty_id/assignments')
-    .get(restrictTo('Admin', 'Faculty'), asyncHandler(facultyController.getFacultyAssignments));
+    .get(resolveProfile, restrictTo('Admin', 'Faculty'), asyncHandler(facultyController.getFacultyAssignments));
 
 module.exports = router;

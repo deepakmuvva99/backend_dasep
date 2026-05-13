@@ -25,7 +25,9 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.getUserProfile = async (req, res) => {
-    const userId = req.params.user_id;
+    let userId = req.params.user_id;
+    if (userId === 'me') userId = req.user.user_id;
+    
     // Assume req.user is populated by authMiddleware
     const requestId = req.user.user_id;
     const requestRole = req.user.role;
@@ -51,7 +53,9 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.changePassword = async (req, res) => {
-    const userId = req.params.user_id;
+    let userId = req.params.user_id;
+    if (userId === 'me') userId = req.user.user_id;
+
     const { currentPassword, newPassword } = req.body;
 
     if (!currentPassword || !newPassword) {

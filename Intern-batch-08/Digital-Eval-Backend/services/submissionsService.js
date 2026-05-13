@@ -33,8 +33,21 @@ class SubmissionsService {
         // Default to Pending status (assuming ID 1 = Pending)
         data.status_id = data.status_id || 1;
 
-        // Additional validation: verify if the exam_schedule_id actually exists
         const submissionId = await submissionsModel.createSubmission(data);
+
+        await auditLogsService.logAction({
+            entity_type: 'submissions',
+            entity_id: submissionId,
+            field_name: 'all',
+            old_value: null,
+            new_value: JSON.stringify({
+                student_id: data.student_id,
+                exam_schedule_id: data.exam_schedule_id,
+                status_id: data.status_id,
+            }),
+            changed_by_user_id: userContext.user_id,
+        });
+
         return { submission_id: submissionId, status: 'Pending' };
     }
 

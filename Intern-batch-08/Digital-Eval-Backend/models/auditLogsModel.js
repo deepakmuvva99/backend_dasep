@@ -19,9 +19,11 @@ class AuditLogsModel {
 
     async getLogs(filters, pagination) {
         let query = `
-            SELECT a.*, a.audit_log_id as id, u.name as user_name
+            SELECT a.*, a.audit_log_id as id, u.name as user_name, r.name as role_name
             FROM audit_logs a
             JOIN users u ON a.changed_by_user_id = u.user_id
+            LEFT JOIN user_roles ur ON u.user_id = ur.user_id
+            LEFT JOIN roles r ON ur.role_id = r.role_id
         `;
         const params = [];
         const conditions = [];
@@ -45,6 +47,10 @@ class AuditLogsModel {
         if (filters.date_to) {
             conditions.push(`a.changed_at <= ?`);
             params.push(filters.date_to + ' 23:59:59');
+        }
+        if (filters.role) {
+            conditions.push(`r.name = ?`);
+            params.push(filters.role);
         }
 
         if (conditions.length > 0) {
@@ -76,6 +82,14 @@ class AuditLogsModel {
             [entityType, entityId],
         );
         return rows;
+    }
+
+    async deleteOldLogs(days) {
+        const [result] = await db.execute(
+            `DELETE FROM audit_logs WHERE changed_at < DATE_SUB(NOW(), INTERVAL ? DAY)`,
+            [days],
+        );
+        return result.affectedRows;
     }
 }
 

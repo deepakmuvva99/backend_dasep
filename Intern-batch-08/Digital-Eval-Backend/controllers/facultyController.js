@@ -22,7 +22,9 @@ exports.getFacultyList = async (req, res) => {
 };
 
 exports.getFacultyProfile = async (req, res) => {
-    const facultyId = req.params.faculty_id;
+    let facultyId = req.params.faculty_id;
+    if (facultyId === 'me') facultyId = req.user.profile_id;
+    
     const userContext = req.user;
 
     const profile = await facultyService.getFacultyProfile(facultyId, userContext);
@@ -51,7 +53,9 @@ exports.updateFacultyStatus = async (req, res) => {
 };
 
 exports.getFacultyAssignments = async (req, res) => {
-    const facultyId = req.params.faculty_id;
+    let facultyId = req.params.faculty_id;
+    if (facultyId === 'me') facultyId = req.user.profile_id;
+
     const userContext = req.user;
     const pagination = parsePagination(req.query);
 

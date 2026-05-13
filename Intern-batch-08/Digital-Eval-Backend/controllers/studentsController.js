@@ -29,7 +29,9 @@ exports.getStudents = async (req, res) => {
 };
 
 exports.getStudentProfile = async (req, res) => {
-    const studentId = req.params.student_id;
+    let studentId = req.params.student_id;
+    if (studentId === 'me') studentId = req.user.profile_id;
+    
     const userContext = req.user;
 
     const student = await studentsService.getStudentProfile(studentId, userContext);
@@ -62,7 +64,9 @@ exports.updateStudentStatus = async (req, res) => {
 };
 
 exports.getStudentSubmissions = async (req, res) => {
-    const studentId = req.params.student_id;
+    let studentId = req.params.student_id;
+    if (studentId === 'me') studentId = req.user.profile_id;
+
     const pagination = parsePagination(req.query);
     const userContext = req.user;
 

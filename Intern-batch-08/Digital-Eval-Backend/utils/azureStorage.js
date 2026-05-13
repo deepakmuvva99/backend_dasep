@@ -41,7 +41,7 @@ const getCredentials = () => {
  * @param {string} permissions 'r' for read, 'w' for write, 'rw' for both
  * @param {number} expiryInMinutes 
  */
-const generateSASUrl = async (containerName, blobName, permissions = 'r', expiryInMinutes = 60) => {
+const generateSASUrl = async (containerName, blobName, permissions = 'r', expiryInMinutes = 15) => {
     try {
         const { accountName, accountKey } = getCredentials();
         const sharedKeyCredential = new StorageSharedKeyCredential(accountName, accountKey);
@@ -50,7 +50,9 @@ const generateSASUrl = async (containerName, blobName, permissions = 'r', expiry
             containerName,
             blobName,
             permissions: BlobSASPermissions.parse(permissions),
-            startsOn: new Date(),
+            // startsOn: Handle clock skew by starting 5 minutes in the past
+            startsOn: new Date(new Date().valueOf() - 5 * 60 * 1000),
+            // expiresOn: Set expiry based on parameter (default 15 mins)
             expiresOn: new Date(new Date().valueOf() + expiryInMinutes * 60 * 1000),
         };
 

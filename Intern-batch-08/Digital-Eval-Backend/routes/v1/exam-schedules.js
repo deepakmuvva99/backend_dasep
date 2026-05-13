@@ -12,6 +12,8 @@ router
     .get(resolveProfile, asyncHandler(examSchedulesController.getSchedules)) // Accessible to all logged-in users (Student/Faculty/Admin) usually
     .post(restrictTo('Admin'), asyncHandler(examSchedulesController.createSchedule));
 
+router.get('/types', asyncHandler(examSchedulesController.getExamTypes));
+
 router
     .route('/:schedule_id')
     .get(asyncHandler(examSchedulesController.getScheduleDetails))
