@@ -12,6 +12,7 @@ router.route('/').post(restrictTo('Faculty'), asyncHandler(annotationsController
 router.route('/page/:page_id').get(asyncHandler(annotationsController.getAnnotations));
 
 router.get('/evaluation/:eval_id', asyncHandler(annotationsController.getAnnotationsByEvaluation));
+router.get('/submission/:submission_id', asyncHandler(annotationsController.getAnnotationsBySubmission));
 
 router
     .route('/:annotation_id')

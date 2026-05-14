@@ -127,6 +127,36 @@
                     "response": []
                 },
                 {
+                    "name": "GET /submission/:submission_id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/annotations/submission/:submission_id",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "annotations",
+                                "submission",
+                                ":submission_id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "submission_id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
                     "name": "POST ",
                     "request": {
                         "method": "POST",
@@ -185,7 +215,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"evaluation_id\": 1,\n    \"page_id\": 1,\n    \"annotation_type_id\": 1,\n    \"pos_x\": 10.5,\n    \"pos_y\": 20.0,\n    \"pos_width\": 100,\n    \"pos_height\": 50,\n    \"content\": \"Check here\"\n}",
+                            "raw": "{\n    \"evaluation_id\": 1,\n    \"page_id\": 1,\n    \"annotation_type_id\": 1,\n    \"pos_x\": 10.5,\n    \"pos_y\": 20.0,\n    \"pos_width\": 100,\n    \"pos_height\": 50,\n    \"position_data\": {\"type\": \"highlight\", \"color\": \"yellow\"},\n    \"content\": \"Check here\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1284,56 +1314,7 @@
                             }
                         }
                     },
-                    "response": [
-                        {
-                            "name": "Evaluation Completed",
-                            "originalRequest": {
-                                "method": "PUT",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "body": {
-                                    "mode": "raw",
-                                    "raw": "{\n    \"marks_awarded\": 90,\n    \"max_marks\": 100,\n    \"remarks\": \"Excellent work\",\n    \"status_id\": 3\n}",
-                                    "options": {
-                                        "raw": {
-                                            "language": "json"
-                                        }
-                                    }
-                                },
-                                "url": {
-                                    "raw": "{{baseUrl}}/evaluations/:evaluation_id",
-                                    "host": [
-                                        "{{baseUrl}}"
-                                    ],
-                                    "path": [
-                                        "evaluations",
-                                        ":evaluation_id"
-                                    ],
-                                    "variable": [
-                                        {
-                                            "key": "evaluation_id",
-                                            "value": "1"
-                                        }
-                                    ]
-                                }
-                            },
-                            "status": "OK",
-                            "code": 200,
-                            "_postman_previewlanguage": "json",
-                            "header": [
-                                {
-                                    "key": "Content-Type",
-                                    "value": "application/json"
-                                }
-                            ],
-                            "cookie": [],
-                            "body": "{\n    \"success\": true,\n    \"data\": {\n        \"evaluation_id\": \"1\",\n        \"submission_id\": 67,\n        \"faculty_id\": 9,\n        \"marks_awarded\": 90,\n        \"max_marks\": 100,\n        \"remarks\": \"Excellent work\",\n        \"status_id\": 3,\n        \"status\": \"Completed\"\n    }\n}"
-                        }
-                    ]
+                    "response": []
                 }
             ]
         },
@@ -3300,54 +3281,7 @@
                             ]
                         }
                     },
-                    "response": [
-                        {
-                            "name": "Success Response",
-                            "originalRequest": {
-                                "method": "GET",
-                                "header": [
-                                    {
-                                        "key": "Content-Type",
-                                        "value": "application/json"
-                                    }
-                                ],
-                                "url": {
-                                    "raw": "{{baseUrl}}/submissions?page=1&limit=10&sort=desc",
-                                    "host": [
-                                        "{{baseUrl}}"
-                                    ],
-                                    "path": [
-                                        "submissions"
-                                    ],
-                                    "query": [
-                                        {
-                                            "key": "page",
-                                            "value": "1"
-                                        },
-                                        {
-                                            "key": "limit",
-                                            "value": "10"
-                                        },
-                                        {
-                                            "key": "sort",
-                                            "value": "desc"
-                                        }
-                                    ]
-                                }
-                            },
-                            "status": "OK",
-                            "code": 200,
-                            "_postman_previewlanguage": "json",
-                            "header": [
-                                {
-                                    "key": "Content-Type",
-                                    "value": "application/json"
-                                }
-                            ],
-                            "cookie": [],
-                            "body": "{\n    \"success\": true,\n    \"data\": {\n        \"rows\": [\n            {\n                \"submission_id\": 1,\n                \"submitted_at\": \"2024-05-14T10:00:00Z\",\n                \"exam_schedule_id\": 5,\n                \"task_name\": \"Telugu Assignment 1\",\n                \"submission_type\": \"Assignment\",\n                \"status\": \"Pending\",\n                \"student_identifier\": \"STU001\",\n                \"subject_name\": \"Telugu\",\n                \"grade\": 8,\n                \"section\": \"B\"\n            }\n        ],\n        \"total\": 1\n    }\n}"
-                        }
-                    ]
+                    "response": []
                 },
                 {
                     "name": "GET /:submission_id",

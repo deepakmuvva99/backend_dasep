@@ -18,6 +18,15 @@ class AnnotationsService {
             throw error;
         }
         data.created_by_faculty_id = facultyId;
+        
+        // Auto-resolve submission_id if not provided
+        if (!data.submission_id && data.evaluation_id) {
+            const evaluationsModel = require('../models/evaluationsModel');
+            const evaluation = await evaluationsModel.findById(data.evaluation_id);
+            if (evaluation) {
+                data.submission_id = evaluation.submission_id;
+            }
+        }
 
         const annotationId = await annotationsModel.createAnnotation(data);
         return { annotation_id: annotationId, ...data };
@@ -29,6 +38,10 @@ class AnnotationsService {
 
     async getAnnotationsForEvaluation(evaluationId) {
         return await annotationsModel.getAnnotationsByEvaluationId(evaluationId);
+    }
+
+    async getAnnotationsForSubmission(submissionId) {
+        return await annotationsModel.getAnnotationsBySubmissionId(submissionId);
     }
 
     async getAnnotationDetails(annotationId) {

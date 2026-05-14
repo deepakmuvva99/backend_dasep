@@ -3,10 +3,11 @@ const db = require('../config/database');
 class AnnotationsModel {
     async createAnnotation(data) {
         const [result] = await db.execute(
-            `INSERT INTO annotations (evaluation_id, page_id, annotation_type_id, pos_x, pos_y, pos_width, pos_height, position_data, content, created_by_faculty_id, created_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
+            `INSERT INTO annotations (evaluation_id, submission_id, page_id, annotation_type_id, pos_x, pos_y, pos_width, pos_height, position_data, content, created_by_faculty_id, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
             [
                 data.evaluation_id,
+                data.submission_id,
                 data.page_id,
                 data.annotation_type_id,
                 data.pos_x,
@@ -41,6 +42,18 @@ class AnnotationsModel {
              JOIN users u ON f.user_id = u.user_id
              WHERE a.evaluation_id = ? AND a.deleted_at IS NULL`,
             [evaluationId],
+        );
+        return rows;
+    }
+
+    async getAnnotationsBySubmissionId(submissionId) {
+        const [rows] = await db.execute(
+            `SELECT a.*, u.name as faculty_name 
+             FROM annotations a
+             JOIN faculty f ON a.created_by_faculty_id = f.faculty_id
+             JOIN users u ON f.user_id = u.user_id
+             WHERE a.submission_id = ? AND a.deleted_at IS NULL`,
+            [submissionId],
         );
         return rows;
     }

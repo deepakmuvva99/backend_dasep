@@ -39,6 +39,12 @@ exports.getAnnotationsByEvaluation = async (req, res) => {
     return successResponse(res, annotations);
 };
 
+exports.getAnnotationsBySubmission = async (req, res) => {
+    const submissionId = req.params.submission_id;
+    const annotations = await annotationsService.getAnnotationsForSubmission(submissionId);
+    return successResponse(res, annotations);
+};
+
 exports.getAnnotationDetails = async (req, res) => {
     const annotationId = req.params.annotation_id;
     const annotation = await annotationsService.getAnnotationDetails(annotationId);
