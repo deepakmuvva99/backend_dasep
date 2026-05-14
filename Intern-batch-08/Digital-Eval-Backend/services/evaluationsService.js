@@ -1,6 +1,7 @@
 const evaluationsModel = require('../models/evaluationsModel');
 const profileHelper = require('../utils/profileHelper');
 const auditLogsService = require('./auditLogsService');
+const submissionsService = require('./submissionsService');
 
 class EvaluationsService {
     async createEvaluation(data, userContext) {
@@ -81,6 +82,10 @@ class EvaluationsService {
             }
         }
 
+        // Fetch submission details (which now includes files with SAS URLs)
+        const submission = await submissionsService.getSubmissionDetails(evaluation.submission_id, { role: 'Admin' });
+        evaluation.submission = submission;
+
         return evaluation;
     }
 
@@ -120,6 +125,11 @@ class EvaluationsService {
             error.code = 'NOT_FOUND';
             throw error;
         }
+
+        // Fetch submission details (which now includes files with SAS URLs)
+        const submission = await submissionsService.getSubmissionDetails(submissionId, { role: 'Admin' });
+        evaluation.submission = submission;
+
         return evaluation;
     }
 

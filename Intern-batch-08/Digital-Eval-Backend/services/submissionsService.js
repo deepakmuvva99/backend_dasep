@@ -1,6 +1,7 @@
 const submissionsModel = require('../models/submissionsModel');
 const profileHelper = require('../utils/profileHelper');
 const auditLogsService = require('./auditLogsService');
+const { generateSASUrl } = require('../utils/azureStorage');
 
 class SubmissionsService {
     async createSubmission(data, userContext) {
@@ -78,6 +79,19 @@ class SubmissionsService {
                 throw error;
             }
         }
+
+        // Fetch associated files and generate Read SAS URLs
+        const files = await submissionsModel.getFilesBySubmissionId(submissionId);
+        sub.files = await Promise.all(
+            files.map(async (file) => {
+                const secure_url = await generateSASUrl(file.container_name, file.blob_name, 'r', 60);
+                return {
+                    ...file,
+                    secure_url,
+                };
+            }),
+        );
+
         return sub;
     }
 

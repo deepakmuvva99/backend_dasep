@@ -379,7 +379,7 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/audit-logs",
+                            "raw": "{{baseUrl}}/audit-logs?page=1&limit=10&sort=desc",
                             "host": [
                                 "{{baseUrl}}"
                             ],
@@ -398,27 +398,6 @@
                                 {
                                     "key": "sort",
                                     "value": "desc"
-                                },
-                                {
-                                    "key": "role",
-                                    "value": "Student",
-                                    "description": "Filter by role: Admin, Faculty, Student",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "user_id",
-                                    "value": "",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "date_from",
-                                    "value": "2024-01-01",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "date_to",
-                                    "value": "2024-12-31",
-                                    "disabled": true
                                 }
                             ]
                         }
@@ -1383,6 +1362,43 @@
                     "response": []
                 },
                 {
+                    "name": "GET /types",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/exam-schedules/types?page=1&limit=10&sort=desc",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "exam-schedules",
+                                "types"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "desc"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
                     "name": "POST ",
                     "request": {
                         "method": "POST",
@@ -1403,7 +1419,7 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"class_id\": 1,\n    \"subject_id\": 1,\n    \"exam_type\": 1,\n    \"exam_datetime\": \"2024-05-20T10:00:00Z\",\n    \"title\": \"Midterm Exam\"\n}",
+                            "raw": "{\n    \"class_id\": 1,\n    \"subject_id\": 1,\n    \"exam_datetime\": \"2024-05-20T10:00:00Z\",\n    \"title\": \"Midterm Exam\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -1441,35 +1457,12 @@
                         },
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"class_id\": 1,\n    \"subject_id\": 1,\n    \"exam_type\": 1,\n    \"exam_datetime\": \"2024-05-20T10:00:00Z\",\n    \"title\": \"Midterm Exam\"\n}",
+                            "raw": "{\n    \"class_id\": 1,\n    \"subject_id\": 1,\n    \"exam_datetime\": \"2024-05-20T10:00:00Z\",\n    \"title\": \"Midterm Exam\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
                                 }
                             }
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "GET /types",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{baseUrl}}/exam-schedules/types",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "exam-schedules",
-                                "types"
-                            ]
                         }
                     },
                     "response": []
@@ -1782,29 +1775,6 @@
                                     "language": "json"
                                 }
                             }
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "GET /me (Self Profile)",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{baseUrl}}/faculty/me",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "faculty",
-                                "me"
-                            ]
                         }
                     },
                     "response": []
@@ -3012,29 +2982,6 @@
                         }
                     },
                     "response": []
-                },
-                {
-                    "name": "GET /me (Self Profile)",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{baseUrl}}/students/me",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "students",
-                                "me"
-                            ]
-                        }
-                    },
-                    "response": []
                 }
             ]
         },
@@ -3683,62 +3630,6 @@
                         "body": {
                             "mode": "raw",
                             "raw": "{\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@test.com\",\n    \"password\": \"securepassword123\",\n    \"role_id\": 3\n}",
-                            "options": {
-                                "raw": {
-                                    "language": "json"
-                                }
-                            }
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "GET /me (Self Profile)",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{baseUrl}}/users/me",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                "me"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "POST /me/change-password",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application/json"
-                            }
-                        ],
-                        "url": {
-                            "raw": "{{baseUrl}}/users/me/change-password",
-                            "host": [
-                                "{{baseUrl}}"
-                            ],
-                            "path": [
-                                "users",
-                                "me",
-                                "change-password"
-                            ]
-                        },
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"currentPassword\": \"1234\",\n    \"newPassword\": \"5678\"\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
