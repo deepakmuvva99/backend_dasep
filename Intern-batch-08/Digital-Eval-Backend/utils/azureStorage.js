@@ -68,6 +68,27 @@ const generateSASUrl = async (containerName, blobName, permissions = 'r', expiry
     }
 };
 
+/**
+ * List blobs in a container with a prefix
+ * @param {string} containerName 
+ * @param {string} prefix 
+ */
+const listBlobs = async (containerName, prefix) => {
+    try {
+        const blobServiceClient = getBlobServiceClient();
+        const containerClient = blobServiceClient.getContainerClient(containerName);
+        const blobs = [];
+        for await (const blob of containerClient.listBlobsFlat({ prefix })) {
+            blobs.push(blob.name);
+        }
+        return blobs;
+    } catch (error) {
+        console.error('Error listing blobs:', error);
+        return [];
+    }
+};
+
 module.exports = {
     generateSASUrl,
+    listBlobs,
 };

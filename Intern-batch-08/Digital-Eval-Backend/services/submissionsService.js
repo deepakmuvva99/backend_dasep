@@ -1,7 +1,7 @@
 const submissionsModel = require('../models/submissionsModel');
 const profileHelper = require('../utils/profileHelper');
 const auditLogsService = require('./auditLogsService');
-const { generateSASUrl } = require('../utils/azureStorage');
+const { generateSASUrl, listBlobs } = require('../utils/azureStorage');
 
 class SubmissionsService {
     async createSubmission(data, userContext) {
@@ -80,8 +80,25 @@ class SubmissionsService {
             }
         }
 
-        // Fetch associated files and generate Read SAS URLs
-        const files = await submissionsModel.getFilesBySubmissionId(submissionId);
+        // Fetch associated files from DB
+        let files = await submissionsModel.getFilesBySubmissionId(submissionId);
+
+        // Fallback: If DB is empty, scan Blob Storage directly
+        if (files.length === 0) {
+            const containerName = process.env.AZURE_CONTAINER_NAME || 'submissions';
+            const prefix = `submissions/${submissionId}/`;
+            const discoveredBlobs = await listBlobs(containerName, prefix);
+
+            files = discoveredBlobs.map((blobPath) => {
+                const parts = blobPath.split('/');
+                return {
+                    original_file_name: parts[parts.length - 1],
+                    blob_name: blobPath,
+                    container_name: containerName,
+                };
+            });
+        }
+
         sub.files = await Promise.all(
             files.map(async (file) => {
                 const secure_url = await generateSASUrl(file.container_name, file.blob_name, 'r', 60);
