@@ -2,6 +2,8 @@ const evaluationsModel = require('../models/evaluationsModel');
 const profileHelper = require('../utils/profileHelper');
 const auditLogsService = require('./auditLogsService');
 const submissionsService = require('./submissionsService');
+const notificationsService = require('./notificationsService');
+const studentsModel = require('../models/studentsModel');
 
 class EvaluationsService {
     async createEvaluation(data, userContext) {
@@ -90,6 +92,14 @@ class EvaluationsService {
     async updateEvaluation(evaluationId, data, actorId) {
         const existing = await this.getEvaluationDetails(evaluationId, { role: 'Admin' });
 
+        // If current status is Completed (ID 3), prevent any changes
+        if (existing.status_id === 3) {
+            const error = new Error('Cannot update a completed evaluation');
+            error.statusCode = 403;
+            error.code = 'FORBIDDEN';
+            throw error;
+        }
+
         if (data.marks_awarded > data.max_marks) {
             const error = new Error('marks_awarded cannot exceed max_marks');
             error.statusCode = 400;
@@ -98,6 +108,25 @@ class EvaluationsService {
         }
 
         await evaluationsModel.updateEvaluation(evaluationId, data);
+
+        // Notify student if status changed to Completed
+        if (data.status_id === 3 && existing.status_id !== 3) {
+            try {
+                const studentId = existing.submission.student_id;
+                const student = await studentsModel.findById(studentId);
+                if (student && student.user_id) {
+                    await notificationsService.createNotification({
+                        user_id: student.user_id,
+                        entity_type: 'evaluations',
+                        entity_id: evaluationId,
+                        message: `Your evaluation for submission #${existing.submission_id} has been completed. Marks: ${data.marks_awarded}/${data.max_marks}`,
+                    });
+                }
+            } catch (notifyError) {
+                console.error('Failed to send completion notification:', notifyError);
+                // We don't throw here to avoid failing the main update if notification fails
+            }
+        }
 
         await auditLogsService.logAction({
             entity_type: 'evaluations',
