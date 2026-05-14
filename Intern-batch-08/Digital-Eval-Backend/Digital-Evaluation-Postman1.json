@@ -3251,7 +3251,54 @@
                             ]
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "name": "Success Response",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{baseUrl}}/submissions?page=1&limit=10&sort=desc",
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "path": [
+                                        "submissions"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "page",
+                                            "value": "1"
+                                        },
+                                        {
+                                            "key": "limit",
+                                            "value": "10"
+                                        },
+                                        {
+                                            "key": "sort",
+                                            "value": "desc"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "cookie": [],
+                            "body": "{\n    \"success\": true,\n    \"data\": {\n        \"rows\": [\n            {\n                \"submission_id\": 1,\n                \"submitted_at\": \"2024-05-14T10:00:00Z\",\n                \"exam_schedule_id\": 5,\n                \"task_name\": \"Telugu Assignment 1\",\n                \"submission_type\": \"Assignment\",\n                \"status\": \"Pending\",\n                \"student_identifier\": \"STU001\",\n                \"subject_name\": \"Telugu\",\n                \"grade\": 8,\n                \"section\": \"B\"\n            }\n        ],\n        \"total\": 1\n    }\n}"
+                        }
+                    ]
                 },
                 {
                     "name": "GET /:submission_id",

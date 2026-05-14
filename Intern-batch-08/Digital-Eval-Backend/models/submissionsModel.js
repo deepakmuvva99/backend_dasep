@@ -18,7 +18,8 @@ class SubmissionsModel {
 
     async getSubmissions(filters, pagination, sorting, userContext) {
         let query = `
-            SELECT s.submission_id, s.submitted_at, 
+            SELECT s.submission_id, s.submitted_at, s.exam_schedule_id,
+                   es.title as task_name,
                    st.name as submission_type, stat.name as status,
                    stu.institution_id as student_identifier, 
                    sub.name as subject_name, c.grade, c.section
