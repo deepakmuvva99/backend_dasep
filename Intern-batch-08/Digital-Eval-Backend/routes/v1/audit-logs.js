@@ -8,10 +8,13 @@ const { asyncHandler } = require('../../middlewares/errorMiddleware');
 router.use(verifyToken);
 router.use(restrictTo('Admin')); // Audit logs strictly accessible to Admins only
 
-router.route('/').get(asyncHandler(auditLogsController.getAuditLogs));
+router.get('/stats', asyncHandler(auditLogsController.getDashboardStats));
 
-router.get('/:audit_log_id', asyncHandler(auditLogsController.getAuditLogDetails));
+router
+    .route('/')
+    .get(asyncHandler(auditLogsController.getLogs))
+    .delete(asyncHandler(auditLogsController.cleanupLogs));
 
-router.get('/entity/:entity_type/:entity_id', asyncHandler(auditLogsController.getAuditLogByEntity));
+router.get('/:audit_log_id', asyncHandler(auditLogsController.getLogDetails));
 
 module.exports = router;

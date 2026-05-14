@@ -2,11 +2,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const crypto = require('node:crypto');
 const authModel = require('../models/authModel');
+const auditLogsService = require('./auditLogsService');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'development_super_secret_temporary_key';
 
 class AuthService {
-    async login(identifier, password, deviceInfo) {
+    async login(identifier, password, deviceInfo, ipAddress) {
         // 1. Resolve User
         const user = await authModel.findUserByEmailOrIdentifier(identifier);
         if (!user) {
@@ -42,6 +43,23 @@ class AuthService {
         await authModel.disableOtherSessions(user.user_id);
         const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
         await authModel.createSession(user.user_id, tokenHash, deviceInfo);
+
+        // 6. Audit Log Login
+        await auditLogsService.logAction(
+            {
+                entity_type: 'auth',
+                entity_id: user.user_id,
+                field_name: 'login',
+                old_value: null,
+                new_value: deviceInfo,
+            },
+            {
+                user_id: user.user_id,
+                role: primaryRole,
+                ip: ipAddress,
+                userAgent: JSON.parse(deviceInfo).userAgent,
+            },
+        );
 
         return {
             token: token,

@@ -369,6 +369,28 @@
             "name": "Audit Logs",
             "item": [
                 {
+                    "name": "DELETE ",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/audit-logs",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "audit-logs"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
                     "name": "GET ",
                     "request": {
                         "method": "GET",
@@ -434,7 +456,7 @@
                     "response": []
                 },
                 {
-                    "name": "GET /entity/:entity_type/:entity_id",
+                    "name": "GET /stats",
                     "request": {
                         "method": "GET",
                         "header": [
@@ -444,24 +466,26 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/audit-logs/entity/:entity_type/:entity_id",
+                            "raw": "{{baseUrl}}/audit-logs/stats?page=1&limit=10&sort=desc",
                             "host": [
                                 "{{baseUrl}}"
                             ],
                             "path": [
                                 "audit-logs",
-                                "entity",
-                                ":entity_type",
-                                ":entity_id"
+                                "stats"
                             ],
-                            "variable": [
+                            "query": [
                                 {
-                                    "key": "entity_type",
+                                    "key": "page",
                                     "value": "1"
                                 },
                                 {
-                                    "key": "entity_id",
-                                    "value": "1"
+                                    "key": "limit",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "desc"
                                 }
                             ]
                         }

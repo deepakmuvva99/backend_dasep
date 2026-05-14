@@ -1,9 +1,16 @@
 const auditLogsModel = require('../models/auditLogsModel');
 
 class AuditLogsService {
-    async logAction(data) {
-        // Core internal service utilized by other services/controllers to record changes.
-        return await auditLogsModel.logAction(data);
+    async logAction(data, context = {}) {
+        // Enriched data with context information (IP, Role, User Agent)
+        const enrichedData = {
+            ...data,
+            ip_address: context.ip || data.ip_address || null,
+            user_role: context.role || data.user_role || null,
+            user_agent: context.userAgent || data.user_agent || null,
+            changed_by_user_id: data.changed_by_user_id || context.user_id
+        };
+        return await auditLogsModel.logAction(enrichedData);
     }
 
     async getLogs(query, pagination) {
@@ -11,11 +18,16 @@ class AuditLogsService {
             entity_type: query.entity_type || null,
             entity_id: query.entity_id || null,
             user_id: query.user_id || null,
-            role: query.role || null,
+            user_role: query.user_role || null,
+            grade: query.grade || null,
             date_from: query.date_from || null,
             date_to: query.date_to || null,
         };
         return await auditLogsModel.getLogs(filters, pagination);
+    }
+
+    async getDashboardStats() {
+        return await auditLogsModel.getDashboardStats();
     }
 
     async getAuditLogDetails(auditLogId) {

@@ -39,18 +39,16 @@ class EvaluationsService {
             throw error;
         }
 
-        await auditLogsService.logAction({
-            entity_type: 'evaluations',
-            entity_id: result.evaluation_id,
-            field_name: 'all',
-            old_value: null,
-            new_value: JSON.stringify({
-                marks_awarded: data.marks_awarded,
-                max_marks: data.max_marks,
-                status_id: data.status_id,
-            }),
-            changed_by_user_id: userContext.user_id,
-        });
+        await auditLogsService.logAction(
+            {
+                entity_type: 'evaluations',
+                entity_id: result.evaluation_id,
+                field_name: 'all',
+                old_value: null,
+                new_value: JSON.stringify(data),
+            },
+            userContext,
+        );
 
         return { evaluation_id: result.evaluation_id, ...data };
     }

@@ -11,8 +11,9 @@ exports.login = async (req, res) => {
     }
 
     const deviceInfo = JSON.stringify({ userAgent: req.headers['user-agent'] || 'Unknown' });
+    const ipAddress = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
-    const loginData = await authService.login(identifier, password, deviceInfo);
+    const loginData = await authService.login(identifier, password, deviceInfo, ipAddress);
 
     return successResponse(res, loginData, 200);
 };

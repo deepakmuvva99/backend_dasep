@@ -36,18 +36,16 @@ class SubmissionsService {
 
         const submissionId = await submissionsModel.createSubmission(data);
 
-        await auditLogsService.logAction({
-            entity_type: 'submissions',
-            entity_id: submissionId,
-            field_name: 'all',
-            old_value: null,
-            new_value: JSON.stringify({
-                student_id: data.student_id,
-                exam_schedule_id: data.exam_schedule_id,
-                status_id: data.status_id,
-            }),
-            changed_by_user_id: userContext.user_id,
-        });
+        await auditLogsService.logAction(
+            {
+                entity_type: 'submissions',
+                entity_id: submissionId,
+                field_name: 'all',
+                old_value: null,
+                new_value: JSON.stringify(data),
+            },
+            userContext,
+        );
 
         return { submission_id: submissionId, status: 'Pending' };
     }
