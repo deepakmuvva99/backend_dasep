@@ -1,4 +1,5 @@
 const submissionsModel = require('../models/submissionsModel');
+const pagesModel = require('../models/pagesModel');
 const profileHelper = require('../utils/profileHelper');
 const auditLogsService = require('./auditLogsService');
 const { generateSASUrl, listBlobs } = require('../utils/azureStorage');
@@ -113,9 +114,17 @@ class SubmissionsService {
         sub.files = await Promise.all(
             files.map(async (file) => {
                 const secure_url = await generateSASUrl(file.container_name, file.blob_name, 'r', 60);
+                
+                // Fetch pages for this version if version_id is available
+                let pages = [];
+                if (file.version_id) {
+                    pages = await pagesModel.getPagesByVersionId(file.version_id);
+                }
+
                 return {
                     ...file,
                     secure_url,
+                    pages
                 };
             }),
         );

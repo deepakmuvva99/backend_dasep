@@ -107,7 +107,7 @@ query += ` JOIN faculty_class_subject_assignments fcsa ON es.subject_id = fcsa.s
     async getFilesBySubmissionId(submissionId) {
         const query = `
             SELECT f.file_id, f.original_file_name, f.mime_type, f.file_size_kb,
-                   v.blob_name, v.container_name, v.version_number
+                   v.version_id, v.blob_name, v.container_name, v.version_number
             FROM documents d
             JOIN files f ON d.document_id = f.document_id
             JOIN file_versions v ON f.current_version_id = v.version_id
