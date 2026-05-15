@@ -3,13 +3,15 @@ const db = require('../config/database');
 class SubmissionsModel {
     async createSubmission(data) {
         const [result] = await db.execute(
-            `INSERT INTO submissions (student_id, exam_schedule_id, submission_type_id, status_id, submitted_at)
-             VALUES (?, ?, ?, ?, NOW())`,
+            `INSERT INTO submissions (student_id, exam_schedule_id, submission_type_id, status_id, attempt_number, is_latest, submitted_at)
+             VALUES (?, ?, ?, ?, ?, ?, NOW())`,
             [
                 data.student_id,
                 data.exam_schedule_id,
                 data.submission_type_id,
-                data.status_id, // e.g. 1 for 'Pending'
+                data.status_id,
+                data.attempt_number || 1,
+                data.is_latest !== undefined ? data.is_latest : true,
             ],
         );
 
@@ -18,11 +20,11 @@ class SubmissionsModel {
 
     async getSubmissions(filters, pagination, sorting, userContext) {
         let query = `
-            SELECT s.submission_id, s.submitted_at, s.exam_schedule_id,
-                   es.title as task_name,
-                   st.name as submission_type, stat.name as status,
-                   stu.institution_id as student_identifier, 
-                   sub.name as subject_name, c.grade, c.section
+             SELECT s.submission_id, s.submitted_at, s.exam_schedule_id, s.attempt_number, s.is_latest,
+                    es.title as task_name,
+                    st.name as submission_type, stat.name as status,
+                    stu.institution_id as student_identifier, 
+                    sub.name as subject_name, c.grade, c.section
             FROM submissions s
             JOIN submission_types st ON s.submission_type_id = st.submission_type_id
             JOIN submission_status stat ON s.status_id = stat.submission_status_id
@@ -59,6 +61,11 @@ query += ` JOIN faculty_class_subject_assignments fcsa ON es.subject_id = fcsa.s
         if (filters.status_id) {
             conditions.push('s.status_id = ?');
             params.push(filters.status_id);
+        }
+
+        // Default to latest only, unless history is explicitly requested
+        if (filters.all_attempts !== 'true') {
+            conditions.push('s.is_latest = TRUE');
         }
 
         if (conditions.length > 0) {
@@ -108,6 +115,21 @@ query += ` JOIN faculty_class_subject_assignments fcsa ON es.subject_id = fcsa.s
         `;
         const [rows] = await db.execute(query, [submissionId]);
         return rows;
+    }
+
+    async getLatestAttempt(studentId, examScheduleId) {
+        const [rows] = await db.execute(
+            `SELECT MAX(attempt_number) as last_attempt FROM submissions WHERE student_id = ? AND exam_schedule_id = ?`,
+            [studentId, examScheduleId],
+        );
+        return rows[0].last_attempt || 0;
+    }
+
+    async supersedePreviousSubmissions(studentId, examScheduleId) {
+        await db.execute(
+            `UPDATE submissions SET is_latest = FALSE WHERE student_id = ? AND exam_schedule_id = ? AND is_latest = TRUE`,
+            [studentId, examScheduleId],
+        );
     }
 }
 

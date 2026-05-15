@@ -34,6 +34,14 @@ class SubmissionsService {
         // Default to Pending status (assuming ID 1 = Pending)
         data.status_id = data.status_id || 1;
 
+        // Versioning Logic
+        const lastAttempt = await submissionsModel.getLatestAttempt(data.student_id, data.exam_schedule_id);
+        data.attempt_number = lastAttempt + 1;
+        
+        // Mark previous submissions as not latest
+        await submissionsModel.supersedePreviousSubmissions(data.student_id, data.exam_schedule_id);
+        data.is_latest = true;
+
         const submissionId = await submissionsModel.createSubmission(data);
 
         await auditLogsService.logAction(
@@ -47,12 +55,17 @@ class SubmissionsService {
             userContext,
         );
 
-        return { submission_id: submissionId, status: 'Pending' };
+        return { 
+            submission_id: submissionId, 
+            status: 'Pending', 
+            attempt_number: data.attempt_number 
+        };
     }
 
     async getSubmissions(query, pagination, sorting, userContext) {
         const filters = {
             status_id: query.status_id || null,
+            all_attempts: query.all_attempts || 'false',
         };
 
         return await submissionsModel.getSubmissions(filters, pagination, sorting, userContext);
