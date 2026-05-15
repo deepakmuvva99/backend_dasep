@@ -52,6 +52,12 @@ class EvaluationsService {
             userContext,
         );
 
+        // Update Submission Status
+        // evaluation status 3 (Completed) -> submission status 4 (Evaluated)
+        // evaluation status 1/2 (Pending/In Progress) -> submission status 3 (Under Review)
+        const subStatusId = data.status_id === 3 ? 4 : 3;
+        await submissionsService.updateStatus(data.submission_id, subStatusId, userContext.user_id);
+
         return { evaluation_id: result.evaluation_id, ...data };
     }
 
@@ -136,6 +142,11 @@ class EvaluationsService {
             new_value: JSON.stringify({ marks_awarded: data.marks_awarded, status_id: data.status_id }),
             changed_by_user_id: actorId,
         });
+
+        // Update Submission Status if evaluation is completed
+        if (data.status_id === 3 && existing.status_id !== 3) {
+            await submissionsService.updateStatus(existing.submission_id, 4, actorId);
+        }
 
         return { evaluation_id: evaluationId, ...existing, ...data };
     }
