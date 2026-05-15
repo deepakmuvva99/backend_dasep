@@ -1,4 +1,5 @@
 const annotationsModel = require('../models/annotationsModel');
+const pagesService = require('./pagesService');
 const profileHelper = require('../utils/profileHelper');
 
 class AnnotationsService {
@@ -19,12 +20,27 @@ class AnnotationsService {
         }
         data.created_by_faculty_id = facultyId;
         
+        const evaluationsModel = require('../models/evaluationsModel');
+        const submissionsModel = require('../models/submissionsModel');
+
         // Auto-resolve submission_id if not provided
         if (!data.submission_id && data.evaluation_id) {
-            const evaluationsModel = require('../models/evaluationsModel');
             const evaluation = await evaluationsModel.findById(data.evaluation_id);
             if (evaluation) {
                 data.submission_id = evaluation.submission_id;
+            }
+        }
+
+        // AUTO-RESOLVE page_id: If page_id is missing but page_number is provided
+        if ((!data.page_id || data.page_id <= 0) && data.page_number && data.submission_id) {
+            const files = await submissionsModel.getFilesBySubmissionId(data.submission_id);
+            if (files && files.length > 0) {
+                // For simplicity, we use the first file's version_id
+                const versionId = files[0].version_id;
+                const page = await pagesService.getOrCreatePage(versionId, data.page_number);
+                if (page) {
+                    data.page_id = page.page_id;
+                }
             }
         }
 

@@ -119,6 +119,12 @@ class SubmissionsService {
                 let pages = [];
                 if (file.version_id) {
                     pages = await pagesModel.getPagesByVersionId(file.version_id);
+                    
+                    // AUTO-FIX: If no pages exist in DB, create page 1 automatically
+                    if (pages.length === 0) {
+                        await pagesModel.createPages(file.version_id, [{ page_number: 1 }]);
+                        pages = await pagesModel.getPagesByVersionId(file.version_id);
+                    }
                 }
 
                 return {

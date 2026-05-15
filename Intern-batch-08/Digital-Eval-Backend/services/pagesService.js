@@ -32,6 +32,19 @@ class PagesService {
         }
         return true;
     }
+
+    async getOrCreatePage(versionId, pageNumber) {
+        const pages = await pagesModel.getPagesByVersionId(versionId);
+        let page = pages.find(p => p.page_number === pageNumber);
+        
+        if (!page) {
+            // Create the page on the fly
+            await pagesModel.createPages(versionId, [{ page_number: pageNumber }]);
+            const updatedPages = await pagesModel.getPagesByVersionId(versionId);
+            page = updatedPages.find(p => p.page_number === pageNumber);
+        }
+        return page;
+    }
 }
 
 module.exports = new PagesService();
