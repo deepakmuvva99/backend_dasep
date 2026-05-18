@@ -6,17 +6,17 @@ class AnnotationsModel {
             `INSERT INTO annotations (evaluation_id, submission_id, page_id, annotation_type_id, pos_x, pos_y, pos_width, pos_height, position_data, content, created_by_faculty_id, created_at)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
             [
-                data.evaluation_id,
-                data.submission_id,
-                data.page_id,
-                data.annotation_type_id,
-                data.pos_x,
-                data.pos_y,
-                data.pos_width,
-                data.pos_height,
+                data.evaluation_id ?? null,
+                data.submission_id ?? null,
+                data.page_id ?? null,
+                data.annotation_type_id ?? null,
+                data.pos_x ?? null,
+                data.pos_y ?? null,
+                data.pos_width ?? null,
+                data.pos_height ?? null,
                 JSON.stringify(data.position_data || {}),
-                data.content,
-                data.created_by_faculty_id,
+                data.content ?? null,
+                data.created_by_faculty_id ?? null,
             ],
         );
         return result.insertId;
