@@ -73,6 +73,24 @@ exports.changePassword = async (req, res) => {
     return successResponse(res, { message: 'Password changed successfully' });
 };
 
+exports.adminResetPassword = async (req, res) => {
+    const userId = req.params.user_id;
+    const { newPassword } = req.body;
+
+    if (!newPassword) {
+        return res.status(400).json({
+            success: false,
+            error: { code: 'BAD_REQUEST', message: 'New password is required' },
+        });
+    }
+
+    const actorId = req.user.user_id;
+
+    await usersService.adminResetPassword(userId, newPassword, actorId);
+
+    return successResponse(res, { message: 'Password reset successfully by admin' });
+};
+
 exports.getUserRoles = async (req, res) => {
     const userId = req.params.user_id;
     const roles = await usersService.getUserRoles(userId);

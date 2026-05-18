@@ -134,6 +134,37 @@ class UsersService {
         return true;
     }
 
+    async adminResetPassword(userId, newPassword, actorId) {
+        const user = await usersModel.findWithPasswordById(userId);
+        if (!user) {
+            const error = new Error('User not found');
+            error.statusCode = 404;
+            error.code = 'NOT_FOUND';
+            throw error;
+        }
+
+        // Hash new password
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update database
+        await usersModel.updatePassword(userId, hashedNewPassword);
+
+        // Audit Log (Security)
+        await auditLogsService.logAction({
+            entity_type: 'users',
+            entity_id: userId,
+            field_name: 'password',
+            old_value: 'HIDDEN',
+            new_value: 'ADMIN_RESET',
+            changed_by_user_id: actorId,
+        });
+
+        // Send notification email
+        await emailService.sendPasswordChangeNotification(user);
+
+        return true;
+    }
+
     async deleteUser(userId, actorId) {
         const user = await usersModel.findById(userId);
         const affectedRows = await usersModel.softDeleteUser(userId);

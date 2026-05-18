@@ -25,6 +25,8 @@ router
 
 router.post('/:user_id/change-password', asyncHandler(usersController.changePassword));
 
+router.post('/:user_id/reset-password', restrictTo('Admin'), asyncHandler(usersController.adminResetPassword));
+
 router
     .route('/:user_id/roles')
     .get(restrictTo('Admin'), asyncHandler(usersController.getUserRoles))

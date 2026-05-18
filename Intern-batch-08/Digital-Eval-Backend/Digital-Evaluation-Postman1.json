@@ -3617,6 +3617,45 @@
                     "response": []
                 },
                 {
+                    "name": "POST /:user_id/reset-password",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/users/:user_id/reset-password",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "users",
+                                ":user_id",
+                                "reset-password"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "user_id",
+                                    "value": "{{currentUserId}}"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@test.com\",\n    \"password\": \"securepassword123\",\n    \"role_id\": 3\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": []
+                },
+                {
                     "name": "POST /:user_id/roles",
                     "request": {
                         "method": "POST",
