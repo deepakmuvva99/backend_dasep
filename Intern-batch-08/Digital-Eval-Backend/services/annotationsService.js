@@ -35,9 +35,16 @@ class AnnotationsService {
         if ((!data.page_id || data.page_id <= 0) && data.page_number && data.submission_id) {
             const files = await submissionsModel.getFilesBySubmissionId(data.submission_id);
             if (files && files.length > 0) {
-                // For simplicity, we use the first file's version_id
-                const versionId = files[0].version_id;
-                const page = await pagesService.getOrCreatePage(versionId, data.page_number);
+                let targetVersionId = files[0].version_id;
+                let targetPageNumber = parseInt(data.page_number, 10);
+
+                // If multiple files exist, it's likely an image gallery where each image is treated as a "page"
+                if (files.length > 1 && targetPageNumber > 0 && targetPageNumber <= files.length) {
+                    targetVersionId = files[targetPageNumber - 1].version_id;
+                    targetPageNumber = 1; // Each image file has its own page 1
+                }
+
+                const page = await pagesService.getOrCreatePage(targetVersionId, targetPageNumber);
                 if (page) {
                     data.page_id = page.page_id;
                 }

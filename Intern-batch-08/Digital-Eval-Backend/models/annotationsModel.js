@@ -24,10 +24,11 @@ class AnnotationsModel {
 
     async getAnnotationsByPageId(pageId) {
         const [rows] = await db.execute(
-            `SELECT a.*, u.name as faculty_name 
+            `SELECT a.*, u.name as faculty_name, p.page_number, p.version_id 
              FROM annotations a
              JOIN faculty f ON a.created_by_faculty_id = f.faculty_id
              JOIN users u ON f.user_id = u.user_id
+             LEFT JOIN pages p ON a.page_id = p.page_id
              WHERE a.page_id = ? AND a.deleted_at IS NULL`,
             [pageId],
         );
@@ -36,10 +37,11 @@ class AnnotationsModel {
 
     async getAnnotationsByEvaluationId(evaluationId) {
         const [rows] = await db.execute(
-            `SELECT a.*, u.name as faculty_name 
+            `SELECT a.*, u.name as faculty_name, p.page_number, p.version_id 
              FROM annotations a
              JOIN faculty f ON a.created_by_faculty_id = f.faculty_id
              JOIN users u ON f.user_id = u.user_id
+             LEFT JOIN pages p ON a.page_id = p.page_id
              WHERE a.evaluation_id = ? AND a.deleted_at IS NULL`,
             [evaluationId],
         );
@@ -48,10 +50,11 @@ class AnnotationsModel {
 
     async getAnnotationsBySubmissionId(submissionId) {
         const [rows] = await db.execute(
-            `SELECT a.*, u.name as faculty_name 
+            `SELECT a.*, u.name as faculty_name, p.page_number, p.version_id 
              FROM annotations a
              JOIN faculty f ON a.created_by_faculty_id = f.faculty_id
              JOIN users u ON f.user_id = u.user_id
+             LEFT JOIN pages p ON a.page_id = p.page_id
              WHERE a.submission_id = ? AND a.deleted_at IS NULL`,
             [submissionId],
         );

@@ -34,14 +34,15 @@ class PagesService {
     }
 
     async getOrCreatePage(versionId, pageNumber) {
+        const pNum = parseInt(pageNumber, 10);
         const pages = await pagesModel.getPagesByVersionId(versionId);
-        let page = pages.find(p => p.page_number === pageNumber);
+        let page = pages.find(p => p.page_number === pNum);
         
         if (!page) {
             // Create the page on the fly
-            await pagesModel.createPages(versionId, [{ page_number: pageNumber }]);
+            await pagesModel.createPages(versionId, [{ page_number: pNum }]);
             const updatedPages = await pagesModel.getPagesByVersionId(versionId);
-            page = updatedPages.find(p => p.page_number === pageNumber);
+            page = updatedPages.find(p => p.page_number === pNum);
         }
         return page;
     }
