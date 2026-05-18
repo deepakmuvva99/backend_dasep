@@ -3258,7 +3258,7 @@
                             }
                         ],
                         "url": {
-                            "raw": "{{baseUrl}}/submissions?page=1&limit=10&sort=desc&all_attempts=false",
+                            "raw": "{{baseUrl}}/submissions?page=1&limit=10&sort=desc",
                             "host": [
                                 "{{baseUrl}}"
                             ],
@@ -3277,11 +3277,6 @@
                                 {
                                     "key": "sort",
                                     "value": "desc"
-                                },
-                                {
-                                    "key": "all_attempts",
-                                    "value": "false",
-                                    "description": "Set to true to see submission history. Default is false (only latest)."
                                 }
                             ]
                         }

@@ -17,6 +17,13 @@ class AuthService {
             throw error;
         }
 
+        if (user.is_active === 0) {
+            const error = new Error('Your account has been deactivated. Please contact the administrator.');
+            error.statusCode = 403;
+            error.code = 'ACCOUNT_INACTIVE';
+            throw error;
+        }
+
         // 2. Verify Password
         const passwordMatch = await bcrypt.compare(password, user.password_hash);
         if (!passwordMatch) {

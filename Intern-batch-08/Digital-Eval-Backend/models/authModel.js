@@ -6,17 +6,34 @@ class AuthModel {
         // If institution_id or faculty_id is passed, we would need to join STUDENTS/FACULTY.
         // For simplicity based on standard schemas, we fall back to checking if it's an email format.
         const [rows] = await db.execute(
-            `SELECT user_id, name, email, password_hash 
-             FROM users 
-             WHERE email = ? AND deleted_at IS NULL`,
+            `SELECT u.user_id, u.name, u.email, u.password_hash,
+                    s.is_active AS student_active,
+                    f.is_active AS faculty_active
+             FROM users u
+             LEFT JOIN students s ON u.user_id = s.user_id AND s.deleted_at IS NULL
+             LEFT JOIN faculty f ON u.user_id = f.user_id AND f.deleted_at IS NULL
+             WHERE u.email = ? AND u.deleted_at IS NULL`,
             [identifier],
         );
 
-        if (rows.length > 0) return rows[0];
+        if (rows.length > 0) {
+            const user = rows[0];
+            let is_active = 1;
+            if (user.student_active === 0 || user.faculty_active === 0) {
+                is_active = 0;
+            }
+            return {
+                user_id: user.user_id,
+                name: user.name,
+                email: user.email,
+                password_hash: user.password_hash,
+                is_active: is_active
+            };
+        }
 
         // Also check if it's a student ID
         const [studentRows] = await db.execute(
-            `SELECT u.user_id, u.name, u.email, u.password_hash 
+            `SELECT u.user_id, u.name, u.email, u.password_hash, s.is_active 
              FROM students s
              JOIN users u ON s.user_id = u.user_id
              WHERE s.institution_id = ? AND u.deleted_at IS NULL AND s.deleted_at IS NULL`,
