@@ -31,6 +31,19 @@ class AnnotationsService {
             }
         }
 
+        // Auto-resolve evaluation_id if not provided
+        if (!data.evaluation_id && data.submission_id) {
+            const evaluation = await evaluationsModel.findBySubmissionId(data.submission_id);
+            if (evaluation) {
+                data.evaluation_id = evaluation.evaluation_id;
+            } else {
+                const error = new Error('An evaluation record must exist before adding annotations. Please save marks first.');
+                error.statusCode = 400;
+                error.code = 'BAD_REQUEST';
+                throw error;
+            }
+        }
+
         // AUTO-RESOLVE page_id: If page_id is missing but page_number is provided
         if ((!data.page_id || data.page_id <= 0) && data.page_number && data.submission_id) {
             const files = await submissionsModel.getFilesBySubmissionId(data.submission_id);
