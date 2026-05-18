@@ -2,19 +2,32 @@ const annotationsService = require('../services/annotationsService');
 const { successResponse } = require('../utils/responseHandler');
 
 exports.createAnnotation = async (req, res) => {
-    const { evaluation_id, page_id, page_number, annotation_type_id, pos_x, pos_y, pos_width, pos_height, position_data, content } =
+    const { evaluation_id, submission_id, page_id, page_number, annotation_type_id, pos_x, pos_y, pos_width, pos_height, position_data, content } =
         req.body;
     
-    // Validation: Require evaluation_id, annotation_type_id, AND either page_id or page_number
-    if (!evaluation_id || (!page_id && !page_number) || !annotation_type_id) {
+    // Validation: Require either evaluation_id or submission_id, annotation_type_id, AND either page_id or page_number
+    if ((!evaluation_id && !submission_id)) {
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing evaluation_id or submission_id' } });
+    }
+
+    if (!page_id && !page_number) {
         return res
             .status(400)
             .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing required fields (page_id or page_number is required)' } });
     }
 
+    if (!annotation_type_id) {
+        return res
+            .status(400)
+            .json({ success: false, error: { code: 'BAD_REQUEST', message: 'Missing annotation_type_id' } });
+    }
+
     const annotation = await annotationsService.createAnnotation(
         {
             evaluation_id,
+            submission_id,
             page_id,
             page_number,
             annotation_type_id,
